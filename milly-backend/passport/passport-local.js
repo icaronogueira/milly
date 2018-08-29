@@ -1,31 +1,29 @@
-//const User = require("../models/user");
+const Usuario = require("../models/usuario");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
-// passport.use('local-signup', new LocalStrategy({
-//     usernameField: 'email',
-//     passwordField: 'password',
-//     passReqToCallback: true
-// }, (req, email, password, done) => {
-//     User.findOne({'email': email}, (err,user) => {
-//         if (err) {
-//             return done(err);
-//         }
-//         if (user) {
-//             return done(null, false, 'User with email already exists.');
-//         }
-//         if (req.body.password.length < 5) {
-//             return done(null, false, 'Password must not be less than 5 characters');
-//         }
-//         const newUser = new User();
-//         newUser.fullname = req.body.fullname;
-//         newUser.email    = req.body.email;
-//         newUser.password = newUser.encryptPassword(req.body.password);
-//         newUser.save((err) => {
-//             return done(null, newUser);
-//         });
-//     }); 
-// }));
+passport.use('local-signup', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'senha',
+    passReqToCallback: true
+}, (req, email, senha, done) => {
+      Usuario.findOne({'email': email}, (err,user) => {
+            if (err) {
+                  return done(err);
+            }
+            if (user) {
+                  return done(null, false, 'Este email já está cadastrado.');
+            }
+            const novoUsuario = new Usuario();
+            novoUsuario.nome  = req.body.nome;
+            novoUsuario.email = req.body.email;
+            novoUsuario.igreja = req.body.igreja;
+            novoUsuario.senha = novoUsuario.encryptPassword(req.body.senha);
+            novoUsuario.save((err) => {
+                  return done(null, novoUsuario);
+            });
+    }); 
+}));
 
 // passport.use('local-login', new LocalStrategy({
 //     usernameField: 'email',

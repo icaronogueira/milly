@@ -43,7 +43,9 @@ app.use(session({
 }));
 
 const igrejas    = require("./routes/igrejasRoute");
+const usuarios   = require("./routes/usuariosRoute");
 app.use('', igrejas);
+app.use('', usuarios);
 
 
 

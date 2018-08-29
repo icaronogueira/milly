@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { IgrejaProvider } from '../providers/igreja/igreja';
 import { HttpClientModule } from '@angular/common/http';
+import { UsuarioProvider } from '../providers/usuario/usuario';
 
 
 
@@ -37,7 +38,8 @@ var config = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    IgrejaProvider
+    IgrejaProvider,
+    UsuarioProvider
   ]
 })
 export class AppModule {}

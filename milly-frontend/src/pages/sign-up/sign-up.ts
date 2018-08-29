@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { IgrejaProvider } from '../../providers/igreja/igreja';
 import * as EmailValidator from 'email-validator';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 @IonicPage()
 @Component({
@@ -25,8 +26,11 @@ export class SignUp {
 
       
 
-      constructor(public navCtrl: NavController, public navParams: NavParams, private igrejaProvider :IgrejaProvider,
-            private alertCtrl: AlertController) {
+      constructor(public navCtrl: NavController,
+                  public navParams: NavParams,
+                  private igrejaProvider :IgrejaProvider,
+                  private alertCtrl: AlertController,
+                  private usuarioProvider: UsuarioProvider) {
       }
 
       
@@ -48,7 +52,10 @@ export class SignUp {
 
       cadastrarMembro(){
             if (!this.temErro()) {
-                  console.log("Não há erros no formuláriao");
+                  this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha)
+                        .subscribe(res => {
+                              console.log(res);
+                        });
             }
       }
 

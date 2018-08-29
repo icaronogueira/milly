@@ -16,5 +16,6 @@ export class IgrejaProvider {
             return this.http.get(this.url+"/igrejas");
       }
 
+
       
 }
