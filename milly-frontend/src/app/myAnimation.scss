@@ -1,0 +1,189 @@
+@import "../assets/animate/animate.scss";
+.animateApp{
+// ********************** My Classes that extended *************
+
+    .bounceInLeft{
+        @include bounceInLeft(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        } 
+    .bounceInRight{
+        @include bounceInRight(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        } 
+
+    .bounceInDown{
+        @include bounceInDown(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            );
+        }
+    .pulse{
+        @include pulse(
+            $duration:1s,
+            $count: infinite,
+            $delay: .3s,
+            $function: ease, 
+            $fill: both
+            );
+        }
+    
+    .flipInX{
+        @include flipInX(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            );
+        }
+    .rotateInDownRight{
+        @include rotateInDownRight(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    
+    .rotateInDownLeft{
+        @include rotateInDownLeft(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    .fadeIn{
+        @include fadeIn(
+            $duration:1.5s,
+            $count: 1,
+            $delay: 1s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    .jello{
+        @include jello(
+            $duration:1.5s,
+            $count: 2,
+            $delay: .3s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    .zoomIn{
+        @include zoomIn(
+            $duration:1.5s,
+            $count: 1,
+            $delay: 0s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+        
+    .fadeInUp{
+        @include fadeInUp(
+            $duration:1.5s,
+            $count: 1,
+            $delay: 0s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+        
+// *************************************
+    .sign{
+        img{
+            @extend .zoomIn;    
+        }
+        h4{
+            @extend .fadeInUp;
+        }
+        
+    }
+    .appForm{
+        .item-ios{
+            &:nth-child(2n+1){
+                @extend  .bounceInLeft;
+            }
+            &:nth-child(2n){
+                @extend  .bounceInRight;
+            }
+        }
+    }
+    .twoBtns{
+        .col{
+            &:first-of-type{
+                @extend  .bounceInLeft;
+            }
+            &:last-of-type{
+                @extend  .bounceInRight;
+            }
+        }
+    }
+    page-sign-in{
+        .scroll-content{
+            .appForm{
+                >.button{
+                    @extend .fadeInUp;
+                }
+                p{
+                    @extend .fadeInUp;
+                }
+            }
+        }
+    }
+    page-home{
+        .grid{
+            .col{
+                &:nth-child(2n+1){
+                    @extend  .rotateInDownLeft;
+                }
+                &:nth-child(2n){
+                    @extend  .rotateInDownRight;
+                }
+            }
+        }
+    }
+    page-details{
+        .imgContainer{
+            img{
+                @extend .rotateInDownRight;
+            }
+            .grid{
+                .col{
+                    @extend .fadeInUp;
+
+                }
+            }
+            .shareBtns{
+                @extend .fadeInUp;
+            }
+        }
+    }
+    .likeBtn{
+        &.active{
+            @extend .pulse;
+        }
+    }
+    .commentList{
+        img{
+            @extend  .rotateInDownLeft;
+        }
+    }
+}

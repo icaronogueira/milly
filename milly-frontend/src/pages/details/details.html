@@ -1,0 +1,95 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle >
+      <ion-icon name="ios-menu"></ion-icon>
+    </button>
+    <ion-title>DETAILS</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goTo('Notification')">
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+        <ion-badge color="color1">5</ion-badge>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+<div class="imgContainer">
+  <img src="assets/img/003.png" />
+  <div class="shareBtns" *ngIf="clicked=='shared'">
+    <ion-icon name="logo-facebook"></ion-icon>
+    <ion-icon name="logo-twitter"></ion-icon>
+    <ion-icon name="logo-googleplus"></ion-icon>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <ion-icon class="likeBtn" name="ios-heart" [ngClass]="{'active':liked==true}" (click)="clickLike()" ></ion-icon>
+      </ion-col>
+      <ion-col col-3>
+        <!-- imageViewer="assets/img/003.png"  -->
+        <ion-icon name="ios-expand" imageViewer="assets/img/003.png" ></ion-icon>
+      </ion-col>
+      <ion-col col-3>
+        <ion-icon name="ios-refresh" [ngClass]="{'active':clicked=='refreshed'}" (click)="clickBtn('refreshed')" ></ion-icon>
+      </ion-col>
+      <ion-col col-3>
+        <ion-icon name="md-share" [ngClass]="{'active':clicked=='shared'}" (click)="clickBtn('shared')"></ion-icon>
+      </ion-col> 
+    </ion-row> 
+  </ion-grid>
+</div>
+<div class="details">
+  <h4>Roma and Liverpool agree Salah transfer </h4>
+  <span>Football</span>
+   <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit 
+    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+    occaecat cupidatat non proident, sunt in culpa qui officia 
+    deserunt mollit anim id est laborum.
+  </p> 
+
+  <ion-list class="commentList">
+    <ion-item *ngFor="let item of comments ,let i=index">
+      <ion-avatar item-left>
+        <img src="{{item.img}}"/>
+      </ion-avatar>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6 text-left>
+            <h4>{{item.name}}</h4>
+          </ion-col>
+          <ion-col col-6 text-right>
+            <p>9 - 8 - 2017</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p class="less" [ngClass]="{'more':item.text=='less'}">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna
+        aliqua. 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna
+        aliqua. 
+      
+      </p>
+      <span class="readMore" (click)="readMore(item)" float-right>Read {{item.text}}</span>
+    </ion-item>
+  </ion-list>
+  <div class="appForm" *ngIf="add==true">
+    <ion-list>
+      <ion-item>
+        <ion-textarea rows="5" placeholder="Enter Your Comment"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </div>
+  <button ion-button block color="color1" (click)="addComment()" >Add Comment</button> 
+
+</div>
+</ion-content>

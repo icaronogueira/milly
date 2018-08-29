@@ -1,0 +1,14 @@
+page-notification {
+    .commentList{
+        p{
+            @include whiteNormal(24px,2);
+            color:color($colors,light);
+        }
+        .item-ios{
+            background-color: color($colors,color1);
+            margin-bottom:1px;
+            padding:0px $mainMarg;
+        }
+    }
+      
+}

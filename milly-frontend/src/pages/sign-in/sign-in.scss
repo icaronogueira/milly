@@ -1,0 +1,52 @@
+page-sign-in {
+    
+    
+}
+.sign{
+        background-image:url(../assets/img/back.png);
+        @extend .imgBg;
+        text-align:center;
+        .scroll-content{
+            padding:$mainMarg!important;
+        }
+        img{
+            max-width:200px;
+            width:50%;
+            margin:40px 0px;
+            }
+        h4{
+            color: color($colors,light);
+            margin:0px 0px $mainMarg*2; 
+            span{
+                color:color($colors,color1);
+            }
+        }
+        p{
+            color:color($colors,light);
+            @include whiteNormal(20px,1);
+            font-weight:500;
+            margin:$mainMarg 0px;
+        }
+    }
+
+    .grid{
+        &.twoBtns{
+            padding:0px;
+            margin:$mainMarg*2  0px;
+            .col{
+                padding:0px;
+                &:first-of-type{
+                    .button-ios{
+                        border-top-right-radius:0px;
+                        border-bottom-right-radius:0px;
+                    }
+                }
+                &:last-of-type{
+                    .button-ios{
+                        border-top-left-radius:0px;
+                        border-bottom-left-radius:0px;
+                    }
+                }
+            }
+        }
+    }

@@ -1,0 +1,16 @@
+page-about-us {
+    .content-ios{
+        p{
+            margin:0px;
+            line-height:16px;
+        }
+    }
+    .footer{
+        .grid{
+            &.twoBtns{
+                padding:20px;
+                margin:0px;
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+
+<ion-header>
+   <ion-navbar>
+    <button ion-button menuToggle >
+      <ion-icon name="ios-menu"></ion-icon>
+    </button>
+    <ion-title>MY PROFILE</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goTo('Notification')">
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+        <ion-badge color="color1">5</ion-badge>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="profileInfo">
+    <div class="imgBg" style="background-image:url(assets/img/008.png)">
+      <ion-icon name="ios-camera"></ion-icon>
+    </div>
+    <div *ngIf="show==false">
+      <p class="name" >SEBASTIANE STAN</p>
+      <p >England</p>
+    </div>
+    <div class="appForm" *ngIf="show==true">
+      <ion-list>
+        <ion-item>
+          <ion-icon name="md-person" item-left></ion-icon>
+          <ion-input type="text" placeholder="Full Name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Country</ion-label>
+          <ion-icon name="ios-pin" item-left></ion-icon>
+          <ion-select [(ngModel)]="country" [ngClass]="{'disableChoose':country=='country'}"> 
+            <ion-option value="country" disabled="true">Country</ion-option>
+            <ion-option value="england">England</ion-option>
+            <ion-option value="france">France</ion-option>
+            <ion-option value="spain">Spain</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+    <button ion-button  color="color1" (click)="showInput()">{{text}}</button>
+  </div>
+  <div class="setting">
+    <p>
+      <ion-icon name="ios-settings"></ion-icon>
+      Settings
+    </p>
+    <ion-list>
+      <ion-item>
+        <ion-label>Vibrate</ion-label>
+        <ion-checkbox ></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Light</ion-label>
+        <ion-checkbox ></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Animation</ion-label>
+        <ion-checkbox (ionChange)="animateApp($event)"  checked="{{action}}" ></ion-checkbox>
+      </ion-item>      
+      
+    </ion-list>
+  </div>
+</ion-content>

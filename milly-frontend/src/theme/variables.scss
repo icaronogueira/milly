@@ -1,0 +1,143 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+
+
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #488aff,
+  secondary:  #32db64,
+  danger:     #ef1d38,
+  light:      #fff,
+  dark:       #222,
+  color1:     #eda51d,
+  color2:     #110f14, 
+  faceColor:  #4463b1,
+  twitterColor:#4e9edc,
+  color3:       #888,
+);
+
+// App  Variables
+$mainFont:1.3rem;
+ $appFonts:(h3:$mainFont + .3,h4:$mainFont + .1,h5:$mainFont,p:$mainFont - .1);
+ @each $head , $fontSize in $appFonts {
+      #{$head}{
+        font-size:$fontSize!important;
+      } 
+ }
+
+$mainHeight:44px;
+$mainRadius:0px;
+$mainMarg:10px;
+
+// header Variables
+$toolbar-ios-height:$mainHeight;
+$toolbar-ios-button-font-size:1rem;
+$toolbar-ios-title-font-size:$mainFont;
+$toolbar-ios-title-font-weight:600;
+$toolBarBackGround:color($colors,color2);
+$toolbar-ios-title-text-color:color($colors,light);
+$navBarPadding:$mainMarg/2;
+$headerIconSize:2.2rem;
+$headerIconColor:color($colors,light);
+// AppForm Variables
+$appFormItemHeight:$mainHeight;
+$inputFontSize:$mainFont - .1;
+$formRadius:$appFormItemHeight/2;
+$inputPlaceHolderColor:color($colors,color3) ;
+$selcetTextColor:color($colors,color2) ;
+
+$inputTextColor:#000;
+
+$iconFontSize:2rem;
+$iconInputColor:color($colors,color2) ;
+ 
+
+//main Button Variables
+$button-ios-height:$mainHeight;
+$button-ios-border-radius:$mainHeight/2;
+$button-ios-font-size:$mainFont;
+
+// Side Menu Variables
+$menu-width:240px;
+$menu-small-width:$menu-width;
+$menuHeaderHeight:100px;
+$menuImgProfileSize:$menu-width/3;
+$menuIconSize:2.2rem;
+$menuItemHeight:$mainHeight;
+$itemFontsize:$mainFont + .1;
+
+// checkbox in My Profile Page
+$checkbox-ios-background-color-off:color($colors,light);
+$checkbox-ios-background-color-on:$checkbox-ios-background-color-off;
+$checkbox-ios-icon-border-color-off:color($colors,color2);
+$checkbox-ios-icon-border-color-on:$checkbox-ios-icon-border-color-off;
+$checkbox-ios-icon-border-radius:$mainRadius; 
+$checkbox-ios-disabled-opacity:1;  
+$checkbox-ios-icon-size:14px; 
+// App Material Design Variables 
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+@import "../app/myAnimation.scss";
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";

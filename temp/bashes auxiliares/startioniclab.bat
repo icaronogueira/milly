@@ -1,2 +1,3 @@
-cd ..\frontend-ionic\rateme
+cd ..\..\milly-frontend
 ionic serve -l --browser chrome
+exit

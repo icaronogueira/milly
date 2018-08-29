@@ -1,0 +1,367 @@
+// mixin in all App
+@mixin placeholder {
+    ::-webkit-input-placeholder {@content}
+    ::-webkit-textarea-placeholder {@content}
+    :-moz-placeholder           {@content}
+    ::-moz-placeholder          {@content}
+    :-ms-input-placeholder      {@content}  
+    };
+@mixin whiteNormal($height,$lineNum){
+    white-space: normal; 
+    word-break: break-all;
+    max-height: $height;
+    line-height: $height / $lineNum;
+    display: block;
+    overflow: hidden;
+    }
+@mixin whiteNoWrap($height){
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    height: $height;
+    line-height: $height;
+    display: block;
+    }
+@mixin centerHeight($height){
+    display:inline-block;
+    height:$height;
+    width: $height;
+    line-height:$height;
+    min-height: $height;
+    text-align:center;
+    }
+@mixin borderRadius($height){
+    @include centerHeight($height);
+    border-radius:50%;
+    }
+@mixin position($top,$right,$bottom,$left){
+    position:absolute;
+    top:$top;
+    right:$right;
+    left:$left;
+    bottom:$bottom;
+    }
+@mixin box-shadow($top, $left, $blur,$spread, $color, $inset:false) {
+  @if $inset {
+        -webkit-box-shadow:inset $top $left $blur $spread $color;
+        -moz-box-shadow:inset $top $left $blur $spread $color;
+        box-shadow:inset $top $left $blur $spread $color;
+        }
+    @else {
+        -webkit-box-shadow: $top $left $blur $spread $color;
+        -moz-box-shadow: $top $left $blur $spread $color;
+        box-shadow: $top $left $blur $spread $color;
+        }
+    }
+
+
+// Padding
+[padding]{
+    padding:$mainMarg!important;
+    .scroll-content{
+        padding:$mainMarg!important; 
+        }
+    }
+
+//Style of img Background
+.imgBg{
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    background-position:center center;  
+    }
+
+// Main Button Style
+.button-ios{
+    margin:0px;
+    padding:0px $mainMarg/2;
+    .button-inner{
+        overflow:hidden;
+        color:color($colors,light);
+    }
+    &.button-clear-ios{
+        opacity:1;
+    }
+}
+.badge-ios{
+    padding: 3px 5px;
+    font-size:$mainFont - .2;
+    color:color($colors,light);
+}   
+//header style
+.header-ios{
+    .toolbar-ios{
+        padding:$navBarPadding;
+        .bar-buttons-ios{
+            margin:0px;
+            display:flex;
+        }
+        .bar-button-ios{
+            width:$toolbar-ios-height - $mainMarg;
+            height:$toolbar-ios-height - $mainMarg; 
+            min-height:30px;
+            min-width:30px;
+            padding:0px;
+            border-radius:$mainRadius;
+            order:1;
+            position:relative;
+            .badge-ios{
+                @include position(0px,0px ,auto ,auto );
+            }             
+            .icon{
+                font-size:$headerIconSize!important;
+                min-width:auto!important;
+                color:$headerIconColor;
+            }
+            &.activated{
+                opacity:1;
+            }
+            &.bar-button-menutoggle{
+                display:inline-block!important;
+            }
+        }
+        .toolbar-background-ios{
+            border:none!important;
+            background-color:$toolBarBackGround;
+        }
+        .title-ios{
+            padding:0px ($toolbar-ios-height - $mainMarg)*2+$mainMarg/2;
+        }
+    }
+}
+
+
+// Global Style 
+
+// Style for ion list global
+.list-ios{
+    margin:0px;
+    .item-ios{
+        padding:0px;
+        margin-bottom:$mainMarg;
+        &.item-block{
+            min-height:0px;
+            .item-inner{
+                padding:0px;
+                border-bottom:none;
+            }
+            &:first-child{
+                border-top:none;
+            }
+            &:last-child{
+                border-bottom:none;
+                margin-bottom:0px;
+            }
+            &.item-textarea{
+                .text-input-ios{
+                    margin:0px;
+                    width:100%;
+                    // border-bottom:1px solid color($colors,color1);
+                    min-height:$appFormItemHeight - 10px;
+                    line-height:15px !important;
+                    height:auto !important;
+                    font-size:$inputFontSize;  
+                    padding:$mainMarg 0px;
+                    
+                }
+            }
+        }
+    .label-ios{
+        margin:0px;
+        }
+    }
+}
+// appForm Style (some style from ion list global)
+.appForm{
+    @include placeholder {
+        color: $inputPlaceHolderColor ;
+        font-weight:500;
+    }
+    .list-ios{
+        display:inline-block;
+        width:100%;
+        .item-ios{
+            &.item-block{
+                background:none;
+                border:1px solid color($colors,color2) !important;
+                padding:0px 20px;
+                background-color:color($colors,light);
+                border-radius:$formRadius;
+                .input-wrapper{
+                    padding:0px $mainMarg/2;
+                } 
+
+                .icon{
+                    font-size:$iconFontSize;
+                    &[item-left]{
+                        margin:0px;
+                        height:$appFormItemHeight - 2px;
+                        line-height:$appFormItemHeight - 2px;
+                        color:$iconInputColor;
+                    }
+                }
+                &.item-input{
+                    .input-ios{
+                        .text-input-ios{
+                            margin:0px;
+                            font-size:$inputFontSize;
+                            height:$appFormItemHeight - 2px;
+                            line-height:$appFormItemHeight - 2px;
+                            width:100%;
+                            color: $inputTextColor;
+                        }
+                    }
+                }
+                &.item-select{
+                    .label-ios{
+                        display:none;
+                    }
+                    .select-ios{
+                        padding:0px;
+                        height:$appFormItemHeight - 2px;
+                        line-height:$appFormItemHeight - 2px;
+                        width:100%;
+                        max-width:100%;
+                        &.disableChoose{
+                            .select-text{
+                                color:$inputPlaceHolderColor!important;
+                                font-weight:500;
+                            }
+                        }
+                        .select-text{
+                            font-size:$inputFontSize;
+                            color:$inputTextColor;
+                        }
+                        .select-icon{
+                            height:$appFormItemHeight - 2px;
+                            width:10px;
+                            .select-icon-inner{
+                                margin-top:0px;
+                                left:auto;
+                                right:0px;
+                                color:color($colors,color1);
+                                font-weight:bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+ion-menu{
+    .menu-inner{
+        background:color($colors,color2)!important;
+        .header-ios{
+            .toolbar-background-ios{
+                background:none;
+            }
+            .toolbar-ios{
+                padding:20px 0px;
+                .item-ios{
+                    padding:$mainMarg/2;
+                    background:none;
+                    ion-avatar{
+                        &[item-left]{
+                            margin:$mainMarg/2;
+                            img{
+                                width:50px;
+                                height:50px;
+                                border:2px solid color($colors,color1);
+                            }
+                        }
+                    }
+                    .item-inner{
+                        border-bottom:none;
+                        padding: $mainMarg/2;
+                        h4{
+                            color: color($colors,light);
+                        }
+                    }
+                }
+            }
+        }
+        .content-ios{
+            background:none;
+            .list-ios{
+                .item-ios{
+                    background:none;
+                    margin-bottom:0px;
+                    padding:0px $mainMarg;
+                    ion-icon{
+                        width:24px;
+                        text-align:center;
+                        color:color($colors,color1);  
+                        font-size:2rem;  
+                        &[item-left]{
+                            margin:0px $mainMarg 0px 0px;
+                            height:$mainHeight - 10px;
+                            line-height:$mainHeight - 10px;
+                        }
+                    }
+                    .label-ios{
+                        color:color($colors,light);
+                        font-size:$mainFont;
+                        height:$mainHeight - 10px;
+                        line-height:$mainHeight - 10px;
+                    }
+                }
+            }
+        }
+        .footer{
+            .button-ios{
+                border-radius:0px;
+
+                .icon{
+                    margin-right:5px;
+                    transform:rotate(-90deg);
+                    font-size:1.6rem;
+                    font-weight:bold;
+
+                }
+            }
+        }
+    }
+}
+
+.alert-ios{  
+    &.select-alert{
+        .alert-head{
+            padding:0px;
+            background-color:color($colors,color2);
+            h2{
+                margin:0px;
+                @extend h4;
+                padding:0px $mainMarg;
+                @include whiteNormal($mainHeight,1 );
+                color:color($colors,light);
+            }
+        }
+        .alert-message{
+            padding:0px!important;
+        }
+        [aria-checked=true]{
+            .alert-radio-inner{
+                border-color:color($colors,color1);
+            }
+            .alert-radio-label{
+                color:color($colors,color1);
+            }
+        }
+        .alert-button-group{
+            background-color:color($colors,color1);
+            .alert-button{
+                border:none!important;
+                color: color($colors,light);
+                &:first-of-type{
+                    background-color:color($colors,color2);
+                }
+                &:last-of-type{
+                    background-color:color($colors,color1);
+                }
+            }
+
+        }
+    }      
+}
