@@ -17,6 +17,14 @@ export class SignUp {
       senha: string;
       confirmaSenha: string;
 
+      passwordType: string = "password";
+      passwordIcon: string = "eye";
+
+      confirmPasswordType: string = "password";
+      confirmPasswordIcon: string = "eye";
+
+      
+
       constructor(public navCtrl: NavController, public navParams: NavParams, private igrejaProvider :IgrejaProvider,
             private alertCtrl: AlertController) {
       }
@@ -78,6 +86,16 @@ export class SignUp {
                   }).present();
             }
             return erro;
+      }
+
+      showHidePassword() {
+            this.passwordType = this.passwordType === "password" ? "text":"password";
+            this.passwordIcon = this.passwordIcon === "eye" ? "eye-off" : "eye";
+
+      }
+      showHideConfirmPassword() {
+            this.confirmPasswordType = this.confirmPasswordType === "password" ? "text":"password";
+            this.confirmPasswordIcon = this.confirmPasswordIcon === "eye" ? "eye-off" : "eye";
       }
 
 }

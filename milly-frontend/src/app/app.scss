@@ -200,7 +200,7 @@
                     }
                 }
                 &.item-input{
-                    .input-ios{
+                    .input-ios, .ngInput{
                         .text-input-ios{
                             margin:0px;
                             font-size:$inputFontSize;
