@@ -5,6 +5,10 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { IgrejaProvider } from '../providers/igreja/igreja';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 var config = {
       backButtonText: '',
@@ -14,6 +18,7 @@ var config = {
       modalLeave: 'modal-slide-out',
       pageTransition: 'ios',
     };
+
 @NgModule({
   declarations: [
     MyApp,
@@ -21,8 +26,9 @@ var config = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,config),
-    IonicImageViewerModule
-  ],
+    IonicImageViewerModule,
+    HttpClientModule
+],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp, 
@@ -30,8 +36,8 @@ var config = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-   
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    IgrejaProvider
   ]
 })
 export class AppModule {}

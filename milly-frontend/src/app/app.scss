@@ -229,7 +229,9 @@
                         }
                         .select-text{
                             font-size:$inputFontSize;
-                            color:$inputTextColor;
+                            //color:$inputTextColor;
+                            color: $inputPlaceHolderColor ;
+                            font-weight:500;
                         }
                         .select-icon{
                             height:$appFormItemHeight - 2px;

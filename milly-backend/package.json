@@ -1,0 +1,34 @@
+{
+  "name": "milly-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "engine": {
+        "node": "6.14.3",
+        "npm": "6.2.0"
+  },
+  "scripts": {
+    "preinstall": "npm install pm2 -g && pm2 install pm2-logrotate",
+    "start": "pm2-runtime server.js -i 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "asyncawait": "^1.0.7",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "cloudinary": "^1.11.0",
+    "compression": "^1.7.3",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "email-validator": "^2.0.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "helmet": "^3.13.0",
+    "mongoose": "^5.2.7",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "valid-url": "^1.0.9"
+  }
+}

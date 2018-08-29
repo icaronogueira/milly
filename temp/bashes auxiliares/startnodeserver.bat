@@ -1,2 +1,3 @@
-cd ..\backend-node
+cd ..\..\milly-backend
 nodemon server.js
+exit

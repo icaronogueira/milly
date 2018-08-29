@@ -3,38 +3,35 @@
 <ion-content class="sign" >
   <img src="assets/img/logo.png"/>
   <h4>
-    <span>"</span>
-      Register
-    <span>"</span>
+      Cadastro
   </h4>
   <div class="appForm">
     <ion-list>
         <ion-item>
           <ion-icon name="md-person" item-left></ion-icon>
-          <ion-input type="text" placeholder="Full Name"></ion-input>
+          <ion-input type="text" [(ngModel)]="nome" placeholder="Nome"></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="ios-mail" item-left></ion-icon>
-          <ion-input type="email" placeholder="E-mail@mail.com"></ion-input>
+          <ion-input type="email" [(ngModel)]="email" placeholder="Email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-icon name="ios-call" item-left></ion-icon>
-          <ion-input type="tel" placeholder="Phone Number"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Country</ion-label>
+          <ion-label>Igreja</ion-label>
           <ion-icon name="ios-pin" item-left></ion-icon>
-          <ion-select [(ngModel)]="country" [ngClass]="{'disableChoose':country=='country'}"> 
-            <ion-option value="country" disabled="true">Country</ion-option>
-            <ion-option value="england">England</ion-option>
-            <ion-option value="france">France</ion-option>
-            <ion-option value="spain">Spain</ion-option>
+          <ion-select *ngIf="igrejas" placeholder="Selecione sua igreja" [(ngModel)]="igreja" >
+            <ion-option *ngFor="let igreja of igrejas" [value]="igreja.nome" >
+                  {{igreja.nome}}</ion-option>
           </ion-select>
+
         </ion-item>
         <ion-item>
           <ion-icon name="md-lock" item-left></ion-icon>
-          <ion-input type="password" placeholder="Password"></ion-input>
+          <ion-input type="password" [(ngModel)]="senha" placeholder="Senha"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-icon name="md-lock" item-left></ion-icon>
+            <ion-input type="password" [(ngModel)]="confirmaSenha" placeholder="Confirmar Senha"></ion-input>
+          </ion-item>      
     </ion-list>
       <ion-grid class="twoBtns">
         <ion-row>
@@ -42,7 +39,7 @@
             <button ion-button block color="color2"  (click)="goTo('SignIn')">Login</button>
           </ion-col>
           <ion-col col-6>
-            <button ion-button block color="color1" (click)="goTo('Home')">Register</button>
+            <button ion-button block color="color1" (click)="cadastrarMembro()">Cadastrar</button>
           </ion-col>
         </ion-row>
       </ion-grid>
