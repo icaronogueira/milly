@@ -25,25 +25,22 @@ passport.use('local-signup', new LocalStrategy({
     }); 
 }));
 
-// passport.use('local-login', new LocalStrategy({
-//     usernameField: 'email',
-//     passwordField: 'password',
-//     passReqToCallback: true
-// }, (req, email, password, done) => {
-//     User.findOne({'email': email}, (err,user) => {
-//         if (err) {
-//             return done(err);
-//         }
-//         if (!user) {
-//             return done(null, false, 'User with email not found.');
-//         }
-//         if (password.length < 5) {
-//             return done(null, false, 'Password must not be less than 5 characters.');
-//         }
-//         if (!user.checkPassword(req.body.password)) {
-//             return done(null, false, 'Password is incorrect.');
-//         }
+passport.use('local-login', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'senha',
+    passReqToCallback: true
+}, (req, email, password, done) => {
+      Usuario.findOne({'email': email}, (err,usuario) => {
+            if (err) {
+                  return done(err);
+            }
+            if (!usuario) {
+                  return done(null, false, 'Email não cadastrado.');
+            }
+            if (!usuario.checkPassword(req.body.senha)) {
+                  return done(null, false, 'Senha está incorreta.');
+            }
 
-//         return done(null, user);
-//     }); 
-// }));
+            return done(null, usuario);
+      }); 
+}));

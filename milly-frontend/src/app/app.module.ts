@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { IonicStorageModule } from '@ionic/storage'
 import { IgrejaProvider } from '../providers/igreja/igreja';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuarioProvider } from '../providers/usuario/usuario';
@@ -28,7 +29,8 @@ var config = {
     BrowserModule,
     IonicModule.forRoot(MyApp,config),
     IonicImageViewerModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
 ],
   bootstrap: [IonicApp],
   entryComponents: [

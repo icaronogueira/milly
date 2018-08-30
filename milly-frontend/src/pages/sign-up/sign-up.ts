@@ -53,9 +53,15 @@ export class SignUp {
                               this.alertCtrl.create({
                                     title: res.message,
                                     subTitle: 'Soliticação de acesso enviada para a administração de sua igreja.',
-                                    buttons: ["OK"]
+                                    buttons: [{
+                                          text: "OK",
+                                          handler: () => {
+                                                this.navCtrl.push("RegistrarfotoPage", {emailCadastrado: res.usuario.email});
+                                          }
+                                    }],
+                                    enableBackdropDismiss: false
                               }).present();
-                              this.navCtrl.setRoot("SignIn", {emailCadastrado: res.usuario.email});
+                              
                         });
             }
       }
@@ -119,8 +125,8 @@ export class SignUp {
       showHidePassword() {
             this.passwordType = this.passwordType === "password" ? "text":"password";
             this.passwordIcon = this.passwordIcon === "eye" ? "eye-off" : "eye";
-
       }
+      
       showHideConfirmPassword() {
             this.confirmPasswordType = this.confirmPasswordType === "password" ? "text":"password";
             this.confirmPasswordIcon = this.confirmPasswordIcon === "eye" ? "eye-off" : "eye";
