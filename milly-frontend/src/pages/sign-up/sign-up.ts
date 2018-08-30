@@ -48,12 +48,13 @@ export class SignUp {
                   this.mostraSpinner();
                   this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha)
                         .subscribe(res => {
+                              console.log(res);
                               this.escondeSpinner();
                               this.alertCtrl.create({
                                     title: res.message,
                                     buttons: ["OK"]
                               }).present();
-                              this.navCtrl.setRoot("SignIn");
+                              this.navCtrl.setRoot("SignIn", {emailCadastrado: res.usuario.email});
                         });
             }
       }

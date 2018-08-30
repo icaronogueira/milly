@@ -9,12 +9,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SignIn {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+      emailCadastrado: string;
 
-// go to another page
-goTo(page){
-  this.navCtrl.push(page);
-}
+      constructor(public navCtrl: NavController, public navParams: NavParams) {
+            this.emailCadastrado = this.navParams.get('emailCadastrado')==undefined ? ''
+                  : this.navParams.get('emailCadastrado');
+      }
+
+      ionViewDidLoad(){
+            
+      }
+
+      // go to another page
+      goTo(page){
+            this.navCtrl.push(page);
+      }
 } 
      
