@@ -50,17 +50,25 @@ export class SignUp {
                         .subscribe(res => {
                               console.log(res);
                               this.escondeSpinner();
-                              this.alertCtrl.create({
-                                    title: res.message,
-                                    subTitle: 'Soliticação de acesso enviada para a administração de sua igreja.',
-                                    buttons: [{
-                                          text: "OK",
-                                          handler: () => {
-                                                this.navCtrl.push("RegistrarfotoPage", {emailCadastrado: res.usuario.email});
-                                          }
-                                    }],
-                                    enableBackdropDismiss: false
-                              }).present();
+                              if (res.error) {
+                                    this.alertCtrl.create({
+                                          title: "Erro no cadastro",
+                                          subTitle: res.error,
+                                          buttons: ["OK"]
+                                    }).present();
+                              } else {
+                                    this.alertCtrl.create({
+                                          title: res.message,
+                                          subTitle: 'Soliticação de acesso enviada para a administração de sua igreja.',
+                                          buttons: [{
+                                                text: "OK",
+                                                handler: () => {
+                                                      this.navCtrl.push("RegistrarfotoPage", {emailCadastrado: res.usuario.email});
+                                                }
+                                          }],
+                                          enableBackdropDismiss: false
+                                    }).present();
+                              }
                               
                         });
             }
