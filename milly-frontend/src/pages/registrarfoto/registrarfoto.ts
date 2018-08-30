@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 /**
  * Generated class for the RegistrarfotoPage page.
@@ -15,11 +16,104 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RegistrarfotoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+      nome: string;
+      email: string;
+      senha: string;
+      igreja: string;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistrarfotoPage');
-  }
+      spinner: any;
+
+
+      constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
+                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider) {
+      }
+
+      ionViewDidLoad() {
+            this.nome = this.navParams.get('nome');
+            this.email = this.navParams.get('email');
+            this.senha = this.navParams.get('igreja');
+            this.igreja = this.navParams.get('senha');
+      }
+
+      tirarFoto() {
+
+      }
+
+      abrirFoto(){
+
+      }
+
+      cadastrarFoto(){
+
+      }
+
+      voltarParaCadastro(){
+            this.navCtrl.pop();
+      }
+
+      pularFoto(){
+
+            this.alertCtrl.create({
+                  title: 'Deseja finalizar o cadastro?',
+                  message: 'Certifique-se se as informações estão corretas.',
+                  buttons: [
+                    {
+                      text: 'Confirmar',
+                      handler: () => {
+                        this.cadastrarMembro();
+                      }
+                    },
+                    {
+                      text: 'Voltar',
+                      handler: () => {
+                      }
+                    }
+                  ]
+                }).present();
+
+
+            
+      }
+
+      cadastrarMembro(){
+            
+            this.mostraSpinner();
+            this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha)
+                  .subscribe(res => {
+                        console.log(res);
+                        this.escondeSpinner();
+                        if (res.error) {
+                              this.alertCtrl.create({
+                                    title: "Erro no cadastro",
+                                    subTitle: res.error,
+                                    buttons: ["OK"]
+                              }).present();
+                        } else {
+                              this.alertCtrl.create({
+                                    title: 'Cadastrado com sucesso',
+                                    subTitle: 'Soliticação de acesso enviada para a administração de sua igreja. Aguarde.',
+                                    buttons: [{
+                                          text: "OK",
+                                          handler: () => {
+                                                this.navCtrl.setRoot("SignIn", {emailCadastrado: this.email});
+                                          }
+                                    }],
+                                    enableBackdropDismiss: false
+                              }).present();
+                        }
+                              
+                  });
+      }
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            this.spinner.present();
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
+      }
 
 }

@@ -9,6 +9,7 @@ import { IonicStorageModule } from '@ionic/storage'
 import { IgrejaProvider } from '../providers/igreja/igreja';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuarioProvider } from '../providers/usuario/usuario';
+import { Camera } from '@ionic-native/camera';
 
 
 
@@ -41,7 +42,8 @@ var config = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     IgrejaProvider,
-    UsuarioProvider
+    UsuarioProvider,
+    Camera
   ]
 })
 export class AppModule {}

@@ -42,40 +42,17 @@ export class SignUp {
             this.getIgrejas();
       }
 
-      
-      cadastrarMembro(){
+      continuar() {
             if (!this.temErro()) {
-                  this.mostraSpinner();
-                  this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha)
-                        .subscribe(res => {
-                              console.log(res);
-                              this.escondeSpinner();
-                              if (res.error) {
-                                    this.alertCtrl.create({
-                                          title: "Erro no cadastro",
-                                          subTitle: res.error,
-                                          buttons: ["OK"]
-                                    }).present();
-                              } else {
-                                    this.alertCtrl.create({
-                                          title: res.message,
-                                          subTitle: 'Soliticação de acesso enviada para a administração de sua igreja.',
-                                          buttons: [{
-                                                text: "OK",
-                                                handler: () => {
-                                                      this.navCtrl.push("RegistrarfotoPage", {emailCadastrado: res.usuario.email});
-                                                }
-                                          }],
-                                          enableBackdropDismiss: false
-                                    }).present();
-                              }
-                              
-                        });
+                  this.navCtrl.push("RegistrarfotoPage", {
+                        nome: this.nome,
+                        email: this.email,
+                        igreja: this.igreja,
+                        senha: this.senha
+                  });
             }
       }
-
-
-
+      
       // go to another page
       goTo(page){
             this.navCtrl.push(page); 
@@ -118,6 +95,11 @@ export class SignUp {
             if (this.senha.length < 6){
                   erro=true;
                   subTitle="Senha muito curta.";
+            }
+
+            if (this.nome.length < 6){
+                  erro=true;
+                  subTitle="Nome muito curto.";
             }
 
             if (erro) {

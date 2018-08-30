@@ -7,10 +7,10 @@
       
             <div class="profileInfo">
                   <div class="imgBg" style="background-image:url(assets/img/008.png)">
-                        <button ion-button class="button-left">
+                        <button ion-button class="button-left" (click)=tirarFoto()>
                               <ion-icon name="ios-camera"></ion-icon>
                         </button>
-                        <button ion-button class="button-right">
+                        <button ion-button class="button-right" (click)="abrirFoto()">
                               <ion-icon name="ios-folder-open"></ion-icon>
                         </button>   
                   </div>
@@ -18,15 +18,15 @@
 
             <ion-grid>
                   <ion-row>
-                        <button ion-button  color="color1">Cadastrar Foto</button>
+                        <button ion-button  color="color1" (click)="cadastrarFoto()">Cadastrar Foto</button>
                   </ion-row>
              
                   <ion-row>
                         <ion-col>
-                              <p style="text-align: left;"> < Voltar  </p>
+                              <p style="text-align: left;" (click)="voltarParaCadastro()"> < Voltar  </p>
                         </ion-col>
                         <ion-col>
-                              <p style="text-align: right;"> Pular >  </p>
+                              <p style="text-align: right;" (click)="pularFoto()"> Pular >  </p>
                         </ion-col>
                   </ion-row>
              </ion-grid>
