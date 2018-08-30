@@ -6,16 +6,16 @@ page-registrarfoto {
 
 
       .titulo{
-            font-size: 150% !important;
-            margin: 75px !important;
-            margin-top: 20px !important;
+            font-size: 170% !important;
+            margin: 50px !important;
+            margin-top: 35px !important;
       }
 
       .content-ios{
             text-align:center;
             .imgBg{
-                width:250px;
-                height:250px;
+                width:275px;
+                height:275px;
                 border-radius:50%;
                 margin:auto;
                 margin-bottom: 25px;
@@ -25,9 +25,10 @@ page-registrarfoto {
                         position: absolute;
                         left: 0;
                         bottom: 0;
+                        margin-bottom: 0;
                         font-size:4rem;
-                        width: 30% !important;
-                        height: 30% !important;
+                        width: 25% !important;
+                        height: 25% !important;
                         color:color($colors,color2);
                         background:color($colors,color1);
                         @include borderRadius(30px);
@@ -37,9 +38,10 @@ page-registrarfoto {
                         position: absolute;
                         right:0;
                         bottom: 0;
-                        width: 30% !important;
-                        height: 30% !important;
-                        font-size:7rem;
+                        margin-bottom: 0;
+                        width: 25% !important;
+                        height: 25% !important;
+                        font-size:3rem;
                         color:color($colors,color2);
                         background:color($colors,color1);
                         @include borderRadius(30px);
@@ -54,102 +56,30 @@ page-registrarfoto {
                     font-weight:500;
                     margin-bottom:0px;
                 }
+                width:100%;
+                display:inline-block;
             }
-            .profileInfo{
-                .button-ios{
-                    height: 30px;
-                    width: 100px;
-                    margin: 0px;
-                }
-                .appForm{
-                    padding:$mainMarg/2 0px;
-                }
+
+            .button-ios{
+                  display: inline-block;
+                  height: 60px;
+                  width: 100%;
+                  font-size: 2rem;
+                  margin: 0 auto;
             }
-            .setting{
-                text-align:left;
-                p{
-                    @extend .name;
-                }
-    
+
+            ion-row {
+                  text-align: center;
+                  padding-top: 10px;
             }
+
+            
         }
     }
     
-    .item-checkbox{
-        direction: rtl;
-        margin:0px!important;
-        padding:$mainMarg/2 0px!important;
-        .checkbox-ios{
-            margin:0px!important;
-        }
-        .label-ios{
-            direction:ltr;
-            font-size:$mainFont - .1;
-            @include whiteNormal(32px,2);
-            padding:0px $mainMarg*2;
-        }
-        .checkbox-checked{
-            .checkbox-inner{
-                width:$checkbox-ios-icon-size - 6px;
-                height:$checkbox-ios-icon-size - 6px;
-                border:none!important;
-                background-color: color($colors,color1);
-                transform:none;
-                left:0px;
-                right:0px;
-                top:0px;
-                bottom:0px;
-                margin:auto;
-            }
-        }
-}
-
-
-.sign{
-      background-image:url(../assets/img/back.png);
-      @extend .imgBg;
-      text-align:center;
-      .scroll-content{
-          padding:$mainMarg!important;
-      }
-      img{
-          max-width:200px;
-          width:50%;
-          margin:40px 0px;
-          }
-      h4{
-          color: color($colors,light);
-          margin:0px 0px $mainMarg*2; 
-          span{
-              color:color($colors,color1);
-          }
-      }
-      p{
-          color:color($colors,light);
-          @include whiteNormal(20px,1);
-          font-weight:500;
-          margin:$mainMarg 0px;
-      }
-  }
+   
 
   .grid{
-      &.twoBtns{
-          padding:0px;
-          margin:$mainMarg*2  0px;
-          .col{
-              padding:0px;
-              &:first-of-type{
-                  .button-ios{
-                      border-top-right-radius:0px;
-                      border-bottom-right-radius:0px;
-                  }
-              }
-              &:last-of-type{
-                  .button-ios{
-                      border-top-left-radius:0px;
-                      border-bottom-left-radius:0px;
-                  }
-              }
-          }
-      }
+      width: 60%;
+      margin-top: 50px;
   }
