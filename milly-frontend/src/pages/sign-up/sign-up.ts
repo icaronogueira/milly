@@ -52,6 +52,7 @@ export class SignUp {
                               this.escondeSpinner();
                               this.alertCtrl.create({
                                     title: res.message,
+                                    subTitle: 'Soliticação de acesso enviada para a administração de sua igreja.',
                                     buttons: ["OK"]
                               }).present();
                               this.navCtrl.setRoot("SignIn", {emailCadastrado: res.usuario.email});

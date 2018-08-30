@@ -5,7 +5,8 @@ const usuarioSchema = mongoose.Schema({
     nome: {type: String},
     email: {type: String},
     igreja: {type: String},
-    senha: {type: String}
+    senha: {type: String},
+    permissao: {type: String, default: 'N'}
 });
 
 usuarioSchema.methods.encryptPassword = (senha) => {
