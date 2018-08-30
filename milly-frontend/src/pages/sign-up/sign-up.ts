@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { IgrejaProvider } from '../../providers/igreja/igreja';
 import * as EmailValidator from 'email-validator';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
@@ -24,19 +24,41 @@ export class SignUp {
       confirmPasswordType: string = "password";
       confirmPasswordIcon: string = "eye";
 
+      spinner: any;
       
 
       constructor(public navCtrl: NavController,
                   public navParams: NavParams,
                   private igrejaProvider :IgrejaProvider,
                   private alertCtrl: AlertController,
-                  private usuarioProvider: UsuarioProvider) {
+                  private usuarioProvider: UsuarioProvider,
+                  private loadingCtrl: LoadingController) {
       }
 
       
       ionViewDidLoad() {
+            
+            //Inicializa lista de igrejas
             this.getIgrejas();
       }
+
+      
+      cadastrarMembro(){
+            if (!this.temErro()) {
+                  this.mostraSpinner();
+                  this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha)
+                        .subscribe(res => {
+                              this.escondeSpinner();
+                              this.alertCtrl.create({
+                                    title: res.message,
+                                    buttons: ["OK"]
+                              }).present();
+                              this.navCtrl.setRoot("SignIn");
+                        });
+            }
+      }
+
+
 
       // go to another page
       goTo(page){
@@ -44,21 +66,13 @@ export class SignUp {
       }
 
       getIgrejas() {
+            this.mostraSpinner();
             this.igrejaProvider.getIgrejas().subscribe(res => {
                   this.igrejas = res.result;
                   console.log(this.igrejas);
+                  this.escondeSpinner();
             });
       }
-
-      cadastrarMembro(){
-            if (!this.temErro()) {
-                  this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha)
-                        .subscribe(res => {
-                              console.log(res);
-                        });
-            }
-      }
-
 
       temErro(): boolean {
             let erro: boolean=false;
@@ -85,6 +99,11 @@ export class SignUp {
                   subTitle="Preencha todos os campos.";
             }
 
+            if (this.senha.length < 6){
+                  erro=true;
+                  subTitle="Senha muito curta.";
+            }
+
             if (erro) {
                   this.alertCtrl.create({
                         title: "Erro no cadastro",
@@ -105,5 +124,16 @@ export class SignUp {
             this.confirmPasswordIcon = this.confirmPasswordIcon === "eye" ? "eye-off" : "eye";
       }
 
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            this.spinner.present();
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
+      }
 }
   
