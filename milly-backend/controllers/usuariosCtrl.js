@@ -56,6 +56,7 @@ exports.getUsuario = async( (req, res) => {
                   });
             },
             (token, done) => {
+                  console.log(req.body.email);
                   Usuario.findOne({'email': req.body.email}, (err,user) => {
                         if (!user) {
                               return res.status(500).json({error: 'Este email não está cadastrado.'}); 
@@ -70,20 +71,74 @@ exports.getUsuario = async( (req, res) => {
             },
             (token, user, done) => {
                   let smtpTransport = nodemailer.createTransport({
-                        transport: 'ses', // loads nodemailer-ses-transport
-                        accessKeyId: 'keyNodemailerNog',
-                        secretAccessKey: 'secretNodemailerNog'
+                        service: 'gmail',
+                        auth: {
+                              user: 'icarofne@gmail.com',
+                              pass: 'segredo123'
+                        }
                   });
                   let emailOptions = {
                         to: user.email,
-                        from: 'passwordreset@milly.com',
+                        from: 'icarofne@gmail.com',
                         subject: 'Sistema Milly - Recuperação de Senha',
-                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        text: 'Você está recebendo este email porque você solicitou a recuperação da senha para sua conta.\n\n' +
+                        'Por favor, clique no link para completar o processo. Você receberá outro email contendo uma senha temporária para acesso.\n\n' +
                         'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                        'Caso não tenha feito tal solicitação, ignore este email e sua senha permanecerá a mesma.\n'
                   }
+                  smtpTransport.sendMail(emailOptions, (err) => {
+                        return res.status(200).json({message: 'Verifique seu email ('+user.email+') para instruções quando à recuperação da senha.',
+                                                      error: err}); 
+                  });
             }
-      ]);
+      ], (err) => {
+            if (err) {return res.status(500).json({error: err});} 
+      });
+ }
+
+ exports.resetToken = (req,res) => {
+      let senhaTemporaria;
+      waterfall([
+            (done) => {
+                  Usuario.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
+                        if (!user) {
+                              return res.status(500).json({error: 'Token de recuperação de senha expirou. Faça um novo requerimento de recuperação de senha.'});
+                        }
+                        //gerar string aleatoria
+                        
+                        senhaTemporaria = Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
+                        user.senha = user.encryptPassword(senhaTemporaria);
+                        console.log("user.senha: " + user.senha + ". senhaTemporaria: "+senhaTemporaria);
+                        user.resetPasswordToken = undefined;
+                        user.resetPasswordExpires = undefined;
+                  
+                        user.save((err) => {
+                              done(err, user);
+                        });
+                  });
+            },
+            (user, done)=> {
+                  console.log("senhaTemporaria: " + senhaTemporaria)
+                  var smtpTransport = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                              user: 'icarofne@gmail.com',
+                              pass: 'segredo123'
+                        }
+                  });
+                  var mailOptions = {
+                        to: user.email,
+                        from: 'icarofne@gmail.com',
+                        subject: 'Recuperação de senha',
+                        text: 'Olá,\n\n' +
+                              'Uma senha temporária foi gerada para você: ' + senhaTemporaria + '. Acesse o Milly com esta senha e em seguida, altere sua senha imediatamente.\n'
+                        };
+                  smtpTransport.sendMail(mailOptions, (err)=> {
+                        return res.status(200).json({message: 'Verifique seu email'});
+                  });
+            }
+          ], (err)=> {
+                  if (err) {return res.status(500).json({error: err});}
+          });
  }
 

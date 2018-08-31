@@ -58,6 +58,13 @@ export class SignIn {
             }
       }
 
+      recuperaSenha(){
+            this.usuarioProvider.recuperaSenha(this.email)
+                  .subscribe(res => {
+                        console.log(res);
+                  });
+      }
+
       paraCadastro(){
             this.navCtrl.push("SignUp");
       }

@@ -36,8 +36,8 @@ export class RegistrarfotoPage {
             this.imagem = "assets/img/avatar-user.jpeg";
             this.nome = this.navParams.get('nome');
             this.email = this.navParams.get('email');
-            this.senha = this.navParams.get('igreja');
-            this.igreja = this.navParams.get('senha');
+            this.senha = this.navParams.get('senha');
+            this.igreja = this.navParams.get('igreja');
       }
 
       tiraCarregaFoto(tiraCarrega: string) {
