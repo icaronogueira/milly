@@ -6,5 +6,6 @@ router.get('/usuario/:email', UsuariosCtrl.getUsuario);
 
 router.post('/cadastro', UsuariosCtrl.criaUsuario);
 router.post('/login', UsuariosCtrl.loginUsuario);
+router.post('/esqueceusenha',UsuariosCtrl.esqueceuSenha);
 
 module.exports = router;

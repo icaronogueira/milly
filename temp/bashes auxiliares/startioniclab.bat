@@ -1,3 +1,3 @@
 cd ..\..\milly-frontend
-ionic serve -l --browser chrome
+ionic serve -l -c --browser chrome
 exit

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { IgrejaProvider } from '../../providers/igreja/igreja';
 import * as EmailValidator from 'email-validator';
-import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 @IonicPage()
 @Component({
@@ -31,7 +30,6 @@ export class SignUp {
                   public navParams: NavParams,
                   private igrejaProvider :IgrejaProvider,
                   private alertCtrl: AlertController,
-                  private usuarioProvider: UsuarioProvider,
                   private loadingCtrl: LoadingController) {
       }
 
@@ -70,16 +68,6 @@ export class SignUp {
       temErro(): boolean {
             let erro: boolean=false;
             let subTitle: string;
-            if (!EmailValidator.validate(this.email)){
-                  erro=true;
-                  subTitle="Email inválido";
-            }
-
-            if (this.senha!==this.confirmaSenha){
-                  erro=true;
-                  subTitle="Senhas não coincidem.";
-
-            }
 
             if (this.nome==="" || this.email==="" || this.igreja==="" || this.senha===""){
                   erro=true;
@@ -92,15 +80,35 @@ export class SignUp {
                   subTitle="Preencha todos os campos.";
             }
 
-            if (this.senha.length < 6){
+            if (erro) {
+                  this.alertCtrl.create({
+                        title: "Erro no cadastro",
+                        subTitle: subTitle,
+                        buttons: ["OK"]
+                  }).present();
+                  return erro;
+            }
+
+            if (!EmailValidator.validate(this.email)){
                   erro=true;
-                  subTitle="Senha muito curta.";
+                  subTitle="Email inválido";
+            }
+
+            if (this.senha!==this.confirmaSenha){
+                  erro=true;
+                  subTitle="Senhas não coincidem.";
+
             }
 
             if (this.nome.length < 6){
                   erro=true;
                   subTitle="Nome muito curto.";
             }
+
+            if (this.senha.length < 6){
+                  erro=true;
+                  subTitle="Senha muito curta.";
+            }    
 
             if (erro) {
                   this.alertCtrl.create({

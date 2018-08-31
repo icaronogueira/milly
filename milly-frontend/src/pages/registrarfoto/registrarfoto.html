@@ -6,11 +6,11 @@
       <div class="appForm">
       
             <div class="profileInfo">
-                  <div class="imgBg" style="background-image:url(assets/img/008.png)">
-                        <button ion-button class="button-left" (click)=tirarFoto()>
+                  <div class="imgBg" [ngStyle]="{ 'background-image': 'url(' + imagem + ')'}">
+                        <button ion-button class="button-left" (click)="tiraCarregaFoto('tira')">     
                               <ion-icon name="ios-camera"></ion-icon>
                         </button>
-                        <button ion-button class="button-right" (click)="abrirFoto()">
+                        <button ion-button class="button-right" (click)="tiraCarregaFoto('carrega')">
                               <ion-icon name="ios-folder-open"></ion-icon>
                         </button>   
                   </div>
@@ -18,15 +18,15 @@
 
             <ion-grid>
                   <ion-row>
-                        <button ion-button  color="color1" (click)="cadastrarFoto()">Cadastrar Foto</button>
+                        <button ion-button  color="color1" (click)="finalizarCadastro()">Finalizar Cadastro</button>
                   </ion-row>
              
                   <ion-row>
-                        <ion-col>
+                        <ion-col col-4>
                               <p style="text-align: left;" (click)="voltarParaCadastro()"> < Voltar  </p>
                         </ion-col>
-                        <ion-col>
-                              <p style="text-align: right;" (click)="pularFoto()"> Pular >  </p>
+                        <ion-col col-8>
+                              <p style="text-align: right;" (click)="finalizarCadastro()"> Cadastrar sem foto >  </p>
                         </ion-col>
                   </ion-row>
              </ion-grid>

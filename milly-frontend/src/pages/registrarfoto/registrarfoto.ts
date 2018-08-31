@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
  * Generated class for the RegistrarfotoPage page.
@@ -23,35 +24,56 @@ export class RegistrarfotoPage {
 
       spinner: any;
 
+      imagem: string;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
-                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider) {
+                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider,
+                  private camera: Camera) {
       }
 
       ionViewDidLoad() {
+
+            this.imagem = "assets/img/avatar-user.jpeg";
             this.nome = this.navParams.get('nome');
             this.email = this.navParams.get('email');
             this.senha = this.navParams.get('igreja');
             this.igreja = this.navParams.get('senha');
       }
 
-      tirarFoto() {
+      tiraCarregaFoto(tiraCarrega: string) {
+            
+            let source = tiraCarrega==='tira' ? this.camera.PictureSourceType.CAMERA :
+                  this.camera.PictureSourceType.PHOTOLIBRARY;
 
+            const options: CameraOptions = {
+                  quality: 80,
+                  destinationType: this.camera.DestinationType.DATA_URL,
+                  encodingType: this.camera.EncodingType.JPEG,
+                  mediaType: this.camera.MediaType.PICTURE,
+                  sourceType: source,
+                  targetWidth: 300,
+                  allowEdit: true,
+                  cameraDirection: this.camera.Direction.BACK,
+                  targetHeight: 300
+            }
+            
+            this.camera.getPicture(options).then((imageData) => {
+                  let base64Image = 'data:image/jpeg;base64,' + imageData;
+                  console.log(base64Image);
+                  this.imagem = base64Image;
+            }, (err) => {
+                  console.log(err);
+            });
       }
 
-      abrirFoto(){
 
-      }
-
-      cadastrarFoto(){
-
-      }
+    
 
       voltarParaCadastro(){
             this.navCtrl.pop();
       }
 
-      pularFoto(){
+      finalizarCadastro(){
 
             this.alertCtrl.create({
                   title: 'Deseja finalizar o cadastro?',
@@ -78,7 +100,7 @@ export class RegistrarfotoPage {
       cadastrarMembro(){
             
             this.mostraSpinner();
-            this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha)
+            this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha, this.imagem)
                   .subscribe(res => {
                         console.log(res);
                         this.escondeSpinner();

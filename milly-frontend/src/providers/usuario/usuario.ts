@@ -4,19 +4,20 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UsuarioProvider {
-      url:string = "http://localhost:3000";
+      url:string = "http://192.168.0.8:3000";
 
       constructor(public http: HttpClient) {
       
       }
 
-      cadastraUsuario(nome, email, igreja, senha): Observable<any>{
+      cadastraUsuario(nome, email, igreja, senha, imagem): Observable<any>{
          
             return this.http.post(this.url+'/cadastro', {
                   nome: nome,
                   email: email,
                   igreja: igreja,
-                  senha: senha
+                  senha: senha,
+                  imagem: imagem
             });
       }
 
