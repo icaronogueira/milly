@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UsuarioProvider {
-      url:string = "http://192.168.0.8:3000";
+      url:string = "http://localhost:3000";
 
       constructor(public http: HttpClient) {
       
@@ -25,6 +25,10 @@ export class UsuarioProvider {
                   imagem: imagem,
                   tipoLogin: tipoLogin
             });
+      }
+
+      deletaUsuario(email): Observable<any> {
+            return this.http.post(this.url+'/deleta', {email:email});
       }
 
       loginUsuario(email, senha): Observable<any>{

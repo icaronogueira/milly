@@ -142,3 +142,11 @@ exports.getUsuario = async( (req, res) => {
           });
  }
 
+exports.deletaUsuario = (req,res,next) => {
+      Usuario.findOneAndRemove({email: req.body.email}, (err) => {
+            if (err) {
+                  return res.status(500).json({error: err});  
+            }
+            res.status(200).json({message: 'Seu cadastro foi removido.'});
+      });
+}

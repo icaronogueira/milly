@@ -11,6 +11,12 @@ exports.getIgrejas = async ((req,res) => {
       });
 });
 
+exports.getIgreja = async ((req,res) => {
+      console.log(req.params);
+      const result = await(Igreja.findOne({'nome': req.params.igreja}));
+
+      return res.status(200).json({igreja: result});
+});
 
 // exports.search = async ((req,res) => {
 //       const searchName = req.body.company;

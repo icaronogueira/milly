@@ -33,12 +33,13 @@ export class SignIn {
       }
 
       ionViewDidLoad(){
+            this.getIgrejas();
             this.storage.get('usuario.email').then(data => {
                   if (data) {
                         this.navCtrl.setRoot("Home");
                   } else {
                         //preenche campo de email ao entrar na tela
-                        this.email = ((this.navParams.get('emailCadastrado')==undefined) || (!EmailValidator.validate(this.email))) ? ''
+                        this.email = ((this.navParams.get('emailCadastrado')==undefined) || (!EmailValidator.validate(this.navParams.get('emailCadastrado')))) ? ''
                               : this.navParams.get('emailCadastrado');
                   }
             });
@@ -47,6 +48,42 @@ export class SignIn {
       verificaLogin(){
             if (!this.temErro()){
                   this.mostraSpinner();
+
+                  //login administrador
+                  if (this.email === 'administrador') {
+                        let alertSelecionaIgreja = this.alertCtrl.create();
+                        alertSelecionaIgreja.setTitle('Selecione sua igreja: ');
+                        this.igrejas.forEach(igreja => {
+                              alertSelecionaIgreja.addInput({
+                                    type: 'radio',
+                                    label: igreja.nome,
+                                    value: igreja.nome,
+                                    checked: false
+                              });
+                        });
+                        alertSelecionaIgreja.addButton({
+                              text: 'OK',
+                              handler: data => {
+                                    this.igrejaProvider.getIgreja(data).subscribe(res => {
+                                          console.log(res);
+                                          this.escondeSpinner();
+                                          if (this.senha===res.igreja.senhaAdmin) {
+                                                this.storage.set('usuario.email', 'administrador');
+                                                this.storage.set('usuario.igreja', res.igreja.nome);
+                                                this.navCtrl.setRoot("Home")
+                                          } else {
+                                                this.alertCtrl.create({
+                                                      title: 'Senha inválida',
+                                                      buttons: ['OK']
+                                                }).present();
+                                          }
+                                    });
+                              }
+                        });
+                        alertSelecionaIgreja.present();
+                  } else {
+
+                  //login usuario normal
 
                   this.usuarioProvider.loginUsuario(this.email, this.senha).subscribe(res => {
                         this.escondeSpinner();
@@ -62,6 +99,8 @@ export class SignIn {
                               }).present();
                         }
                   });
+
+                  }
             
             }
       }
@@ -80,7 +119,7 @@ export class SignIn {
       temErro(){
             let erro: boolean=false;
             let subTitle: string;
-            if (!EmailValidator.validate(this.email)){
+            if (!EmailValidator.validate(this.email) && (this.email!=='administrador')){
                   erro=true;
                   subTitle="Email inválido";
             }
@@ -124,7 +163,6 @@ export class SignIn {
 
       loginFacebook() {
             this.mostraSpinner();
-            this.getIgrejas();
             this.facebook.login().then(result => {
                   console.log(result);
                   this.usuarioProvider.dadosFacebook(result.authResponse.accessToken)

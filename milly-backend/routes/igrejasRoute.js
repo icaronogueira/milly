@@ -4,5 +4,6 @@ const IgrejasCtrl = require('../controllers/igrejasCtrl');
 
 
 router.get('/igrejas', IgrejasCtrl.getIgrejas);
+router.get('/igrejas/:igreja',IgrejasCtrl.getIgreja);
 
 module.exports = router;

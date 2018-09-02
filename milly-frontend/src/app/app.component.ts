@@ -56,6 +56,7 @@ export class MyApp {
             this.storage.get('usuario.email').then(email => {
                   this.email = email;
                   this.storage.remove('usuario.email');
+                  this.storage.remove('usuario.igreja');
                   this.nav.setRoot('SignIn', {emailCadastrado: this.email});
             });
       }      

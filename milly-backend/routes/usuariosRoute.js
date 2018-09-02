@@ -9,6 +9,7 @@ router.post('/login', UsuariosCtrl.loginUsuario);
 router.post('/esqueceusenha',UsuariosCtrl.esqueceuSenha);
 router.post('/esqueceusenha',UsuariosCtrl.esqueceuSenha);
 router.get('/reset/:token',UsuariosCtrl.resetToken);
+router.post('/deleta', UsuariosCtrl.deletaUsuario);
 
 
 module.exports = router;

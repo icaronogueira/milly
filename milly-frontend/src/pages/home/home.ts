@@ -20,30 +20,68 @@ export class Home {
       }
 
       ionViewDidLoad(){
-            this.mostraSpinner();
             this.storage.get('usuario.email').then(data => {
-                  this.usuarioProvider.getDadosUsuario(data).subscribe(res => {
-                        this.escondeSpinner();
-                        this.usuario = res.usuario;
 
-                        console.log(this.usuario);
+                  if (data!=="administrador") {
+                        
+                        this.mostraSpinner();
+                        //verifica se o usuario já tem acesso ao sistema
+                        this.usuarioProvider.getDadosUsuario(data).subscribe(res => {
+                              this.escondeSpinner();
+                              this.usuario = res.usuario;
 
-                        if (this.usuario.permissao === "N") {
-                              this.storage.remove('usuario.email');
-                              this.alertCtrl.create({
-                                    title:'Acesso não autorizado',
-                                    subTitle: 'Sua autorização ainda está pendente. Entre em contato com a administração de sua igreja.',
-                                    buttons: [{
-                                          text: 'Voltar',
-                                          handler: () => {
-                                                this.navCtrl.setRoot('SignIn', {emailCadastrado: this.usuario.email});
-                                          }
-                                    }],
-                                    enableBackdropDismiss: false
-                              }).present();
-                       }
+                              console.log(this.usuario);
+                        
+                              if (this.usuario.permissao === "N") {
+                                    this.storage.remove('usuario.email');
+                                    this.alertCtrl.create({
+                                          title:'Acesso não autorizado',
+                                          subTitle: 'Sua autorização ainda está pendente. Entre em contato com a administração de sua igreja.',
+                                          buttons: [{
+                                                text: 'Cancelar Solicitação',
+                                                handler: () => {
+                                                      //outro alert
+                                                      this.alertCtrl.create({
+                                                            title: 'Deseja realmente cancelar a solicitação de acesso?',
+                                                            subTitle: 'Será necessário refazer seu cadastro posteriormente.',
+                                                            buttons: [{
+                                                                  text: "Não",
+                                                                  handler: () => {
+                                                                        this.navCtrl.setRoot('SignIn', {emailCadastrado: this.usuario.email});
+                                                                  }
+                                                            }, {
+                                                                  text: 'Sim',
+                                                                  handler: () => {
+                                                                        //deleta usuario
+                                                                        this.usuarioProvider.deletaUsuario(this.usuario.email)
+                                                                              .subscribe(res => {
+                                                                                    if (res.message) {
+                                                                                          this.alertCtrl.create({
+                                                                                                title: res.message,
+                                                                                                buttons: ['OK']
+                                                                                          }).present();
+                                                                                    }
+                                                                              });
+                                                                        //retorna para pagina de login
+                                                                        this.navCtrl.setRoot("SignIn");
+                                                                  }
+                                                            },]
+                                                      }).present();
+                                                }
+                                          }, {
+                                                text: 'Voltar',
+                                                handler: () => {
+                                                      this.navCtrl.setRoot('SignIn', {emailCadastrado: this.usuario.email});
+                                                }
+                                          }],
+                                          enableBackdropDismiss: false
+                                    }).present();
+                              }
 
-                  })
+                        });
+
+
+                  } // data!== administrador     
             });
             
 
