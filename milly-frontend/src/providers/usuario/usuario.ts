@@ -10,14 +10,20 @@ export class UsuarioProvider {
       
       }
 
-      cadastraUsuario(nome, email, igreja, senha, imagem): Observable<any>{
-         
+      cadastraUsuario(nome, email, igreja, senha, imagem, tipoLogin?): Observable<any>{
+            console.log(nome);
+            console.log(email);
+            console.log(igreja);
+            console.log(senha);
+            console.log(imagem);
+            console.log(tipoLogin);
             return this.http.post(this.url+'/cadastro', {
                   nome: nome,
                   email: email,
                   igreja: igreja,
                   senha: senha,
-                  imagem: imagem
+                  imagem: imagem,
+                  tipoLogin: tipoLogin
             });
       }
 
@@ -36,6 +42,10 @@ export class UsuarioProvider {
             return this.http.post(this.url+'/esqueceusenha', {
                   email: email
             });
+      }
+
+      dadosFacebook(accessToken):Observable<any> {
+            return this.http.get(`https://graph.facebook.com/me?access_token=${accessToken}&fields=id,name,email,about,picture`);
       }
 
 }
