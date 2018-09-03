@@ -208,15 +208,19 @@ export class SignIn {
                               alertSelecionaIgreja.addButton({
                                     text: 'OK',
                                     handler: data => {
-                                          this.usuarioProvider.cadastraUsuario(res.name, res.id, data, 
-                                                "senha", `https://graph.facebook.com/${res.id}/picture?type=large`,
-                                                "facebook")
-                                                .subscribe(res2 => {
-                                                      console.log(res2);
-                                                      this.escondeSpinner();
-                                                      this.storage.set("usuario.email", res.id);
-                                                       this.navCtrl.setRoot("Home");
+                                          this.igrejaProvider.getIgreja(data)
+                                                .subscribe(resi => {
+                                                      this.usuarioProvider.cadastraUsuario(res.name, res.id, resi.igreja._id, 
+                                                            "senha", `https://graph.facebook.com/${res.id}/picture?type=large`,
+                                                            "facebook")
+                                                            .subscribe(res2 => {
+                                                                  console.log(res2);
+                                                                  this.escondeSpinner();
+                                                                  this.storage.set("usuario.email", res.id);
+                                                                   this.navCtrl.setRoot("Home");
+                                                            });
                                                 });
+                                          
                                     }
                               });
                               alertSelecionaIgreja.present();

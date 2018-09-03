@@ -1,4 +1,5 @@
 const Igreja = require('../models/igreja');
+const Usuario = require('../models/usuario');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 
@@ -16,6 +17,20 @@ exports.getIgreja = async ((req,res) => {
       const result = await(Igreja.findOne({'nome': req.params.igreja}));
 
       return res.status(200).json({igreja: result});
+});
+
+exports.atualizaConfiguracoes = async ((req,res) => {
+      console.log(req);
+      await(
+            Igreja.findOneAndUpdate({'nome': req.body.igreja}, {
+                  nome: req.body.nome,
+                  senhaAdmin: req.body.senhaAdmin
+            }, (err) => {
+                  if (err) return res.status(500).json({error: err});
+            }));
+
+
+      return res.status(200).json({message: "As modificações foram salvas com sucesso."});
 });
 
 // exports.search = async ((req,res) => {

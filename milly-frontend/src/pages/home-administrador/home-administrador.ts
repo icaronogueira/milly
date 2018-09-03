@@ -15,7 +15,7 @@ import {Storage} from '@ionic/storage';
 })
 export class HomeAdministradorPage {
 
-
+      nomeIgreja: string;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
             private events: Events) {
@@ -23,11 +23,9 @@ export class HomeAdministradorPage {
 
       ionViewDidLoad() {
             this.storage.get('usuario.igreja').then(data => {
+                  this.nomeIgreja=data;
                   this.events.publish('atualizaMenu', 'administrador', data);
             });
-
-           
-            
       }
 
     

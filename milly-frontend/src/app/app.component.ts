@@ -29,12 +29,14 @@ export class MyApp {
                         this.nome=nome;
                         if (email==='administrador') {
                               this.eAdministrador=true;
-                              this.pages = [{title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
+                              this.pages = [
+                                    { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline' },
+                                    {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
                         }
                         else {
                               this.eAdministrador=false;
                               this.pages = [
-                                    { title: 'Home', component: 'Home',icon:'ios-home-outline' },
+                                    { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
                                     { title: 'My Profile', component: 'MyProfile',icon:'ios-person-outline' },
                                     { title: 'Notifications', component: 'Notification',icon:'ios-notifications-outline' },
                                     { title: 'About US', component: 'AboutUs',icon:'ios-document-outline' },

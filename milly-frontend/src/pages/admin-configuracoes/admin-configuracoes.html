@@ -4,7 +4,7 @@
        <button ion-button menuToggle >
          <ion-icon name="ios-menu"></ion-icon>
        </button>
-       <ion-title>CONFIGURAÇÕES - {{nomeIgreja}}</ion-title>
+       <ion-title>CONFIGURAÇÕES - {{nomeIgrejaOriginal}}</ion-title>
        <ion-buttons end>
          <button ion-button (click)="goTo('Notification')">
            <ion-icon name="ios-notifications-outline"></ion-icon>
@@ -23,14 +23,17 @@
        <ion-list>
             <ion-item>
                   <ion-label>Nome da Igreja</ion-label>
-                  <ion-input type="text" [(ngModel)]="nomeIgreja" class="unmodified"></ion-input>
+                  <ion-input type="text" [(ngModel)]="nomeIgreja" [ngClass]="modifiedClassIgreja" (keyup)="mudouInput('nomeIgreja')"></ion-input>
             </ion-item>
             <ion-item>
                   <ion-label>Senha de Administrador</ion-label>
-                  <ion-input type="text" [(ngModel)]="senhaAdministrador" class="unmodified"></ion-input>
+                  <ion-input [type]="passwordType" [(ngModel)]="senhaAdministrador" [ngClass]="modifiedClassSenhaAdministrador" (keyup)="mudouInput('senhaAdministrador')"></ion-input>
+                  <button item-end class="iconBtn" (click)='showHidePassword()'>
+                              <ion-icon [name]="passwordIcon"></ion-icon>
+                  </button>
             </ion-item>
             <ion-item>
-                  <button ion-button  color="color1" (click)="salvarConfiguracoes()" disabled="true">Salvar</button>
+                  <button ion-button  color="color1" (click)="salvarConfiguracoes()" [disabled]="disableButton">Salvar</button>
             </ion-item>
        </ion-list>
      </div>

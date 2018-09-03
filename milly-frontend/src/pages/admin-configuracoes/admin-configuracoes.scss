@@ -1,10 +1,18 @@
 page-admin-configuracoes {
+
+      .iconBtn {
+            background-color: transparent !important;
+            z-index:4;
+      }
       .content-ios{
             .label {
                   font-weight: bold;
             }
             .unmodified {
                   color: #928c8c;
+            }
+            .modified {
+                  color: black;
             }
             text-align:center;
             p{

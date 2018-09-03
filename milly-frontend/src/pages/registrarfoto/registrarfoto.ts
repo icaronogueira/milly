@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { IgrejaProvider } from '../../providers/igreja/igreja';
 
 /**
  * Generated class for the RegistrarfotoPage page.
@@ -20,7 +21,7 @@ export class RegistrarfotoPage {
       nome: string;
       email: string;
       senha: string;
-      igreja: string;
+      igreja: any;
 
       spinner: any;
 
@@ -28,7 +29,7 @@ export class RegistrarfotoPage {
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
                   private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider,
-                  private camera: Camera) {
+                  private camera: Camera, private igrejaProvider: IgrejaProvider) {
       }
 
       ionViewDidLoad() {
@@ -37,7 +38,14 @@ export class RegistrarfotoPage {
             this.nome = this.navParams.get('nome');
             this.email = this.navParams.get('email');
             this.senha = this.navParams.get('senha');
-            this.igreja = this.navParams.get('igreja');
+            this.igrejaProvider.getIgreja(this.navParams.get('igreja'))
+                  .subscribe(res => {
+                        if (res.error) {
+                              console.log(res.error);
+                        }
+                        this.igreja = res.igreja;
+                  });
+
       }
 
       tiraCarregaFoto(tiraCarrega: string) {
@@ -100,7 +108,7 @@ export class RegistrarfotoPage {
       cadastrarMembro(){
             
             this.mostraSpinner();
-            this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja, this.senha, this.imagem)
+            this.usuarioProvider.cadastraUsuario(this.nome, this.email, this.igreja._id, this.senha, this.imagem)
                   .subscribe(res => {
                         console.log(res);
                         this.escondeSpinner();

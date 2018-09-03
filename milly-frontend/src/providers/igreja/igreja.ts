@@ -20,6 +20,14 @@ export class IgrejaProvider {
             return this.http.get(this.url+`/igrejas/${igreja}`);
       }
 
+      atualizaConfiguracoes(igreja, nome, senhaAdmin): Observable<any> {
+            console.log(igreja + ', ' + nome + ' ,' + senhaAdmin);
+            return this.http.post(this.url+'/igrejas/configuracoes', {
+                  igreja: igreja,
+                  nome: nome,
+                  senhaAdmin: senhaAdmin
+            });
+      }
 
       
 }
