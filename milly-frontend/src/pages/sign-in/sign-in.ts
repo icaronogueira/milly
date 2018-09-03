@@ -110,10 +110,31 @@ export class SignIn {
       }
 
       recuperaSenha(){
-            this.usuarioProvider.recuperaSenha(this.email)
-                  .subscribe(res => {
-                        console.log(res);
-                  });
+            if (this.email==='' || this.email===undefined || (!EmailValidator.validate(this.email) && this.email !== 'administrador')) {
+                  this.alertCtrl.create({
+                        title: 'Preencha o campo de email corretamente.',
+                        buttons: ['OK']
+                  }).present();
+            } else {
+                  if (this.email==='administrador') {
+                        this.alertCtrl.create({
+                              title: 'Senha de administrador',
+                              subTitle: 'Entre em contato com o fornecedor do sistema.',
+                              buttons: ['OK']
+                        }).present();
+                  } else {
+                        this.mostraSpinner();
+                        this.usuarioProvider.recuperaSenha(this.email)
+                              .subscribe(res => {
+                                    this.escondeSpinner();
+                                    let text = (res.error) ? res.error : res.message;
+                                    this.alertCtrl.create({
+                                          title: text,
+                                          buttons: ['OK']
+                                    }).present();
+                              });
+                  }
+            }
       }
 
       paraCadastro(){

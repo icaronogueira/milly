@@ -1,0 +1,52 @@
+page-admin-configuracoes {
+      .content-ios{
+            .label {
+                  font-weight: bold;
+            }
+            .unmodified {
+                  color: #928c8c;
+            }
+            text-align:center;
+            p{
+                font-size:$mainFont!important;
+                margin: 0px;
+                @include whiteNormal(16px,1);
+                margin:5px 0px;
+                &.name{
+                    font-weight:500;
+                    margin-bottom:0px;
+                }
+            }
+            .profileInfo{
+                .button-ios{
+                    height: 30px;
+                    width: 100px;
+                    margin: 0px;
+                }
+                .appForm{
+                    padding:$mainMarg/2 0px;
+                }
+            }
+            .setting{
+                text-align:left;
+                p{
+                    @extend .name;
+                }
+    
+            }
+            .item {
+                  font-size: 10pt;
+                  padding: 2px;
+                  margin: 2pt;
+            }
+            .text-input {
+                  border: 2pt !important;
+            }
+            .button {
+                  width: 120px;
+                  height: 40px;
+                  font-size: 15pt !important;
+                  border-radius: 0 !important;
+            }
+      }
+}

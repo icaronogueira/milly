@@ -1,0 +1,37 @@
+
+<ion-header>
+      <ion-navbar>
+       <button ion-button menuToggle >
+         <ion-icon name="ios-menu"></ion-icon>
+       </button>
+       <ion-title>CONFIGURAÇÕES - {{nomeIgreja}}</ion-title>
+       <ion-buttons end>
+         <button ion-button (click)="goTo('Notification')">
+           <ion-icon name="ios-notifications-outline"></ion-icon>
+           <ion-badge color="color1">5</ion-badge>
+         </button>
+       </ion-buttons>
+     </ion-navbar>
+</ion-header>
+   
+<ion-content padding>
+     <div class="setting">
+       <p>
+         <ion-icon name="ios-settings"></ion-icon>
+         Editar
+       </p>
+       <ion-list>
+            <ion-item>
+                  <ion-label>Nome da Igreja</ion-label>
+                  <ion-input type="text" [(ngModel)]="nomeIgreja" class="unmodified"></ion-input>
+            </ion-item>
+            <ion-item>
+                  <ion-label>Senha de Administrador</ion-label>
+                  <ion-input type="text" [(ngModel)]="senhaAdministrador" class="unmodified"></ion-input>
+            </ion-item>
+            <ion-item>
+                  <button ion-button  color="color1" (click)="salvarConfiguracoes()" disabled="true">Salvar</button>
+            </ion-item>
+       </ion-list>
+     </div>
+   </ion-content>

@@ -29,7 +29,7 @@ export class MyApp {
                         this.nome=nome;
                         if (email==='administrador') {
                               this.eAdministrador=true;
-                              this.pages = [{title: 'Configurações', component: 'HomeAdministradorPage', icon: 'settings'}];
+                              this.pages = [{title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
                         }
                         else {
                               this.eAdministrador=false;
