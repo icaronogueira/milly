@@ -11,36 +11,53 @@ import { Storage } from '@ionic/storage'
 export class MyApp {
       @ViewChild(Nav) nav: Nav;
 
+      nome: string;
       email: string;
 
       rootPage: any = 'SignIn';
 
       pages: Array<{title: string, component: any,icon:any}>;
 
+      eAdministrador: boolean;
+
       constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
                   private storage: Storage, private alertCtrl: AlertController) {
             
             this.initializeApp();
-
-            // used for an example of ngFor and navigation
-            this.pages = [
-                  { title: 'Home', component: 'Home',icon:'ios-home-outline' },
-                  { title: 'My Profile', component: 'MyProfile',icon:'ios-person-outline' },
-                  { title: 'Notifications', component: 'Notification',icon:'ios-notifications-outline' },
-                  { title: 'About US', component: 'AboutUs',icon:'ios-document-outline' },
-                  { title: 'Contact US', component: 'ContactUs',icon:'ios-mail-outline'}
-            ];
+           
 
       }
 
       ionViewDidLoad() {
-            
+            console.log("ionViewDidLoad");
+           
       }
 
       initializeApp() {
             this.platform.ready().then(() => {
                   this.statusBar.styleDefault();
                   this.splashScreen.hide();
+            });
+            this.storage.get('usuario.email').then(data => {
+                  console.log(data);
+                  if (data==='administrador') {
+                        this.eAdministrador=true;
+                        this.storage.get('usuario.igreja').then(igreja => {
+                              this.nome=igreja;
+                        });
+                        this.pages = [{title: 'Configurações', component: 'Home', icon: 'settings'}];
+                  }
+                  else {
+                        this.nome="Usuário qualquer";
+                        this.eAdministrador=false;
+                        this.pages = [
+                              { title: 'Home', component: 'Home',icon:'ios-home-outline' },
+                              { title: 'My Profile', component: 'MyProfile',icon:'ios-person-outline' },
+                              { title: 'Notifications', component: 'Notification',icon:'ios-notifications-outline' },
+                              { title: 'About US', component: 'AboutUs',icon:'ios-document-outline' },
+                              { title: 'Contact US', component: 'ContactUs',icon:'ios-mail-outline'}
+                        ];
+                  }
             });
       }
 

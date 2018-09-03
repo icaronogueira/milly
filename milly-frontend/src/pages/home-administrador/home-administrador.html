@@ -1,0 +1,52 @@
+<!--
+  Generated template for the HomeAdministradorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+            <ion-navbar>
+              <button ion-button menuToggle >
+                <ion-icon name="ios-menu"></ion-icon>
+              </button>
+              <ion-title>Administrador</ion-title>
+              <ion-buttons end>
+                <button ion-button (click)="goTo('Notification')" >
+                  <ion-icon name="ios-notifications-outline"></ion-icon>
+                  <ion-badge color="color1">5</ion-badge>
+                </button>
+              </ion-buttons>
+            </ion-navbar>
+          
+          </ion-header>
+
+
+<ion-content padding>
+      <ion-grid>
+            <ion-row>
+                  <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of items" (click)="goTo('Details')">
+                        <div class="container">
+                              <img src="{{item.img}}"/>
+                              <div class="text">
+                                  <h4>{{item.title}}</h4>
+                                  <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing
+                                    elit incididunt ut labore et dolore magna aliqua.
+                                    Ut enim ad minim veniam,quis nostrud exercitation 
+                                    ullamco laboris nisi ut aliquip ex ea commodo cillum
+                                    dolore eu fugiat nulla pariatur.
+                                  </p>
+                              </div>
+                              <div class="date">
+                                <p>
+                                  09/08
+                                  <span>2017</span>
+                                </p>
+                              </div>
+                        </div>
+                  </ion-col>
+            </ion-row>
+      </ion-grid>
+                    
+</ion-content>

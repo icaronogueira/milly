@@ -36,7 +36,11 @@ export class SignIn {
             this.getIgrejas();
             this.storage.get('usuario.email').then(data => {
                   if (data) {
-                        this.navCtrl.setRoot("Home");
+                        if (data==='administrador') {
+                              this.navCtrl.setRoot("HomeAdministradorPage");
+                        } else {
+                              this.navCtrl.setRoot("Home");
+                        }
                   } else {
                         //preenche campo de email ao entrar na tela
                         this.email = ((this.navParams.get('emailCadastrado')==undefined) || (!EmailValidator.validate(this.navParams.get('emailCadastrado')))) ? ''
@@ -70,7 +74,7 @@ export class SignIn {
                                           if (this.senha===res.igreja.senhaAdmin) {
                                                 this.storage.set('usuario.email', 'administrador');
                                                 this.storage.set('usuario.igreja', res.igreja.nome);
-                                                this.navCtrl.setRoot("Home")
+                                                this.navCtrl.setRoot("HomeAdministradorPage")
                                           } else {
                                                 this.alertCtrl.create({
                                                       title: 'Senha inválida',
