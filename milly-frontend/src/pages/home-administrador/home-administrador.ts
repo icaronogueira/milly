@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import {Storage} from '@ionic/storage';
 /**
  * Generated class for the HomeAdministradorPage page.
  *
@@ -14,17 +14,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'home-administrador.html',
 })
 export class HomeAdministradorPage {
-      items=[
-            {img:'assets/img/004.png',title:'International sports tournament'},
-            {img:'assets/img/002.png',title:'International sports tournament'},
-            {img:'assets/img/003.png',title:'International sports tournament'}
-      ];
 
-      constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+
+      constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
+            private events: Events) {
       }
 
       ionViewDidLoad() {
-      console.log('ionViewDidLoad HomeAdministradorPage');
+            this.storage.get('usuario.igreja').then(data => {
+                  this.events.publish('atualizaMenu', 'administrador', data);
+            });
+
+           
+            
       }
+
+    
 
 }

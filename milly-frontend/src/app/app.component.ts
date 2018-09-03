@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController } from 'ionic-angular';
+import { Nav, Platform, AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage'
@@ -21,13 +21,30 @@ export class MyApp {
       eAdministrador: boolean;
 
       constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-                  private storage: Storage, private alertCtrl: AlertController) {
+                  private storage: Storage, private alertCtrl: AlertController, private events: Events) {
             
             this.initializeApp();
-           
 
-      }
-
+            this.events.subscribe('atualizaMenu', (email, nome) => {
+                        this.nome=nome;
+                        if (email==='administrador') {
+                              this.eAdministrador=true;
+                              this.pages = [{title: 'Configurações', component: 'HomeAdministradorPage', icon: 'settings'}];
+                        }
+                        else {
+                              this.eAdministrador=false;
+                              this.pages = [
+                                    { title: 'Home', component: 'Home',icon:'ios-home-outline' },
+                                    { title: 'My Profile', component: 'MyProfile',icon:'ios-person-outline' },
+                                    { title: 'Notifications', component: 'Notification',icon:'ios-notifications-outline' },
+                                    { title: 'About US', component: 'AboutUs',icon:'ios-document-outline' },
+                                    { title: 'Contact US', component: 'ContactUs',icon:'ios-mail-outline'}
+                              ];
+                        }
+                  });
+            }
+      
+      
       ionViewDidLoad() {
             console.log("ionViewDidLoad");
            
@@ -45,7 +62,7 @@ export class MyApp {
                         this.storage.get('usuario.igreja').then(igreja => {
                               this.nome=igreja;
                         });
-                        this.pages = [{title: 'Configurações', component: 'Home', icon: 'settings'}];
+                        this.pages = [{title: 'Configurações', component: 'HomeAdministradorPage', icon: 'settings'}];
                   }
                   else {
                         this.nome="Usuário qualquer";
@@ -59,7 +76,9 @@ export class MyApp {
                         ];
                   }
             });
+            
       }
+
 
       openPage(page) {
             // Reset the content nav to have just this page

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 
@@ -16,7 +16,9 @@ export class Home {
       spinner: any;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
-                  private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController) {
+                  private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController,
+                  private events: Events) {
+            
       }
 
       ionViewDidLoad(){
@@ -74,6 +76,8 @@ export class Home {
                                     }],
                                     enableBackdropDismiss: false
                               }).present();
+                        } else {
+                              this.events.publish('atualizaMenu', this.usuario.email, this.usuario.nome);
                         }
 
                   });
