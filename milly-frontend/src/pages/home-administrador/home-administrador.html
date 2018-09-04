@@ -19,10 +19,11 @@
 
 <ion-content padding>
       <ion-grid>
+      
             <ion-row>
                   <ion-col>
                         <div class="container">
-                              <button>
+                              <button (click)="abrePagina('AdminDepartamentosPage')">
                                     <div class="icon-container">      
                                           <ion-icon name="md-albums"></ion-icon>
                                     </div>
@@ -34,7 +35,7 @@
             <ion-row>
                   <ion-col>
                         <div class="container">
-                              <button>
+                              <button (click)="abrePagina('AdminMembrosPage')">
                                     <div class="icon-container">      
                                           <ion-icon name="ios-people"></ion-icon>
                                     </div>
@@ -45,7 +46,7 @@
             </ion-row>
             <ion-row>
                   <ion-col>
-                        <div class="container">
+                        <div class="container" (click)="abrePagina('AdminAvisoGeralPage')">
                               <button>
                                    <div class="icon-container">      
                                           <ion-icon name="ios-mail"></ion-icon>

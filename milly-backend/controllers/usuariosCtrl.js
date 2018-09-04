@@ -17,20 +17,22 @@ exports.criaUsuario = (req, res, next) => {
       passport.authenticate('local-signup', (err, user, info) => {
             if (err)  {return res.status(500).json({error: err});}
             if (info) {return res.status(200).json({error: info});}
+                 
+                  cloudinary.uploader.upload(req.body.imagem, (result) => {
+                              const savedData = async(()=>{
+                                    await (Usuario.update({
+                                          '_id': user._id
+                                    }, {
+                                          "idImagem": result.public_id ? result.public_id : 'avatar-user',
+                                          "versaoImagem": result.version ? result.version : '1536009363'
+                                    }));
+                              });
+
+                        savedData().then(result => {
+                              return res.status(201).json({message: 'Cadastrado com sucesso', usuario: user});
+                        });
+                  });
             
-            cloudinary.uploader.upload(req.body.imagem, (result) => {
-                  const savedData = async(()=>{
-                        await (Usuario.update({
-                              '_id': user._id
-                        }, {
-                              "idImagem": result.public_id,
-                              "versaoImagem": result.version
-                        }));
-                  });
-                  savedData().then(result => {
-                        return res.status(201).json({message: 'Cadastrado com sucesso', usuario: user});
-                  });
-            });
       })(req,res,next);
 }
 

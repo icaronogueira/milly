@@ -17,7 +17,7 @@ import { IgrejaProvider } from '../../providers/igreja/igreja';
   templateUrl: 'registrarfoto.html',
 })
 export class RegistrarfotoPage {
-
+      
       nome: string;
       email: string;
       senha: string;

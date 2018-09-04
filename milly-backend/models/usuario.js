@@ -8,8 +8,8 @@ const usuarioSchema = mongoose.Schema({
       igreja:       {type: mongoose.Schema.Types.ObjectId, ref: 'Igreja'},
       senha:        {type: String},
       permissao:    {type: String, required: true, default: 'N'},
-      idImagem:     {type: String},
-      versaoImagem: {type: String},
+      idImagem:     {type: String, required: true, default: 'avatar-user'},
+      versaoImagem: {type: String, required: true, default: '1536009363'},
 
       tipoLogin: {type: String, default: 'email'},
 
