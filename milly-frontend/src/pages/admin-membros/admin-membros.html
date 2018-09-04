@@ -7,12 +7,44 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>admin-membros</ion-title>
+    <ion-title>{{nomeIgreja}} - Membros</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+      <div>
+            <p> {{qtdPendentes}} solicitações de acesso pendentes.</p>
+      </div>
+
+      <div>
+            <ion-list>
+                  <ion-item *ngFor="let solicitacao of membrosPendentes">
+                        <ion-avatar>
+                              <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{solicitacao.versaoImagem}}/{{solicitacao.idImagem}}.jpg">
+                        </ion-avatar>
+                        {{solicitacao.nome}}
+                        <button ion-button>
+                              Aceitar
+                        </button>
+                        <button ion-button>
+                              Negar
+                        </button>      
+                  </ion-item>
+            </ion-list>
+      </div>
+
+      <div>
+            <h4>Membros</h4>
+            <ion-list>
+                  <ion-item *ngFor="let membro of membros">
+                        <ion-avatar>
+                              <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
+                        </ion-avatar>
+                        {{membro.nome}}
+                  </ion-item>
+            </ion-list>
+      </div>
 
 </ion-content>

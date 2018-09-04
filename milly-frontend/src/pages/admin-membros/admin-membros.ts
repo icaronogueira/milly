@@ -17,9 +17,12 @@ import { Storage } from '@ionic/storage';
 })
 export class AdminMembrosPage {
 
-      membros: any;
-      
+      membros: [];
+      membrosPendentes: any;
+      qtdPendentes:number;
       spinner:any;
+
+      nomeIgreja: string;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, 
                   private igrejaProvider: IgrejaProvider, private loadingCtrl: LoadingController,
@@ -28,12 +31,19 @@ export class AdminMembrosPage {
 
       ionViewDidLoad() {
             this.mostraSpinner();
+            this.storage.get('usuario.igreja').then(data => this.nomeIgreja=data);
             this.storage.get('usuario.igreja.id').then(data => {
                   this.igrejaProvider.getMembros(data).subscribe(res => {
                         this.escondeSpinner();
                         console.log(res);
+                        this.membros = res.membros.filter((event:any) => event.permissao!=="N");;
+                        this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
+                        this.qtdPendentes = this.membrosPendentes.length;
+                        console.log(this.membrosPendentes);
                   });
             });
+
+
             
 
       }
