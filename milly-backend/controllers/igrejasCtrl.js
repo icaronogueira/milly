@@ -19,6 +19,15 @@ exports.getIgreja = async ((req,res) => {
       return res.status(200).json({igreja: result});
 });
 
+exports.getMembros =  async ((req,res) => {
+      console.log(req.params);
+      const result = await(Usuario.find({'igreja': req.params.igreja}, (err) => {
+            if (err) return res.status(500).json({error: err});
+      }));
+
+      return res.status(200).json({membros: result});
+});
+
 exports.atualizaConfiguracoes = async ((req,res) => {
       console.log(req);
       await(
