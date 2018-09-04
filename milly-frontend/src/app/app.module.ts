@@ -10,6 +10,8 @@ import { IgrejaProvider } from '../providers/igreja/igreja';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { Camera } from '@ionic-native/camera';
+import { DetalhesUsuarioComponent } from '../components/detalhes-usuario/detalhes-usuario';
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -31,11 +33,12 @@ var config = {
     IonicModule.forRoot(MyApp,config),
     IonicImageViewerModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    ComponentsModule
 ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp, 
+    MyApp
   ],
   providers: [
     StatusBar,
