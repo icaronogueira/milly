@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IgrejaProvider } from '../../providers/igreja/igreja';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the AdminMembrosPage page.
@@ -15,11 +17,37 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminMembrosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+      membros: any;
+      
+      spinner:any;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminMembrosPage');
-  }
+      constructor(public navCtrl: NavController, public navParams: NavParams, 
+                  private igrejaProvider: IgrejaProvider, private loadingCtrl: LoadingController,
+                  private storage: Storage) {
+      }
+
+      ionViewDidLoad() {
+            this.mostraSpinner();
+            this.storage.get('usuario.igreja.id').then(data => {
+                  this.igrejaProvider.getMembros(data).subscribe(res => {
+                        this.escondeSpinner();
+                        console.log(res);
+                  });
+            });
+            
+
+      }
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            this.spinner.present();
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
+      }
+
 
 }

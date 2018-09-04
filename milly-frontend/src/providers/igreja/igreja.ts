@@ -28,6 +28,9 @@ export class IgrejaProvider {
                   senhaAdmin: senhaAdmin
             });
       }
-
+      
+      getMembros(idIgreja: string) : Observable<any> {
+            return this.http.get(this.url+`/igrejas/membros/${idIgreja}`);
+      }
       
 }

@@ -87,6 +87,7 @@ export class AdminConfiguracoesPage {
                                                 buttons: ['OK']
                                           }).present();
                                           this.nomeIgrejaOriginal=this.nomeIgreja;
+                                          this.storage.set('usuario.igreja', this.nomeIgreja);
                                     });
                         }
                   }]
