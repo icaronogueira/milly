@@ -145,7 +145,11 @@ exports.getUsuario = async( (req, res) => {
  }
 
 exports.deletaUsuario = (req,res,next) => {
-      Usuario.findOneAndRemove({email: req.body.email}, (err) => {
+      console.log(req.body.usuario);
+      cloudinary.uploader.destroy(req.body.usuario.idImagem, (result) => {
+            console.log(result);
+      });
+      Usuario.findOneAndRemove({email: req.body.usuario.email}, (err) => {
             if (err) {
                   return res.status(500).json({error: err});  
             }
@@ -154,7 +158,7 @@ exports.deletaUsuario = (req,res,next) => {
 }
 
 exports.acesso = (req,res,next) => {
-      let tmp = req.body.acao==='aceitar' ? 'S' : 'negada';
+      let tmp = req.body.acao==='aceitar' ? 'S' : (req.body.acao==='removido' ? 'removido' : 'negada');
       let tmp2 = req.body.acao==='aceitar' ? 'habilitado' : 'negado';
       Usuario.findOneAndUpdate({_id: req.body.membro._id}, {
             permissao: tmp
@@ -163,5 +167,23 @@ exports.acesso = (req,res,next) => {
                   return res.status(500).json({error: err});  
             }
             res.status(200).json({message: `O pedido de acesso de ${req.body.membro.nome} foi ${tmp2}.`});
+      });
+}
+
+exports.setAtivo = (req,res,next) => {
+      Usuario.findOneAndUpdate({_id: req.body.membro._id}, {
+            ativo: req.body.ativo
+      }, (err) => {
+            if (err) {
+                  return res.status(500).json({error: err});  
+            }
+            if (req.body.ativo==='S') {
+                  res.status(200).json({message: `${req.body.membro.nome} foi reativado no sistema.`});
+            }
+            if (req.body.ativo==='N') {
+                  res.status(200).json({message: `${req.body.membro.nome} está desativado no sistema.`});
+            }
+            
+            
       });
 }

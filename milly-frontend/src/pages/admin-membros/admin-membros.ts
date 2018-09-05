@@ -40,7 +40,7 @@ export class AdminMembrosPage {
                   this.igrejaProvider.getMembros(data).subscribe(res => {
                         this.escondeSpinner();
                         console.log(res);
-                        this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome);
+                        this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome.bind(this));
                         this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N").sort(this.porData);
                         this.items=this.membros;
                         this.qtdPendentes = this.membrosPendentes.length;
@@ -58,7 +58,7 @@ export class AdminMembrosPage {
             modalUsuario.onDidDismiss(data => {
                   //dá um refresh nas listas
                   this.igrejaProvider.getMembros(this.idIgreja).subscribe(res => {
-                        this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome);
+                        this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome.bind(this));
                         this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N").sort(this.porData);
                         this.items=this.membros;
                         this.qtdPendentes = this.membrosPendentes.length;
@@ -93,7 +93,7 @@ export class AdminMembrosPage {
                                                 
                                                 //dá um refresh nas listas
                                                 this.igrejaProvider.getMembros(this.idIgreja).subscribe(res => {
-                                                      this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome);
+                                                      this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome.bind(this));
                                                       this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N").sort(this.porData);
                                                       this.items=this.membros;
                                                       this.qtdPendentes = this.membrosPendentes.length;
@@ -130,6 +130,8 @@ export class AdminMembrosPage {
             }
       }
 
+      
+
       removeAcento (text) {       
             text = text.toLowerCase();                                                         
             text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
@@ -139,6 +141,17 @@ export class AdminMembrosPage {
             text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
             text = text.replace(new RegExp('[Ç]','gi'), 'c');
             return text;                 
+      }
+
+      porNome(a,b) {
+            let ra = this.removeAcento(a.nome);
+            let rb = this.removeAcento(b.nome);
+            
+            if (ra < rb)
+              return -1;
+            if (ra > rb)
+              return 1;
+            return 0;
       }
 
       getTimeAgo(data) {
@@ -153,11 +166,5 @@ export class AdminMembrosPage {
             return 0;
       }
 
-      porNome(a,b) {
-            if (a.nome < b.nome)
-              return -1;
-            if (a.nome > b.nome)
-              return 1;
-            return 0;
-      }
+      
 }

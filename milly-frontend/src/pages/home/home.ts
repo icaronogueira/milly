@@ -32,6 +32,7 @@ export class Home {
 
                         console.log(this.usuario);
                         
+                        //CASO = A PERMISSAO AINDA ESTÁ PENDENTE
                         if (this.usuario.permissao === "N") {
                               this.storage.remove('usuario.email');
                               this.alertCtrl.create({
@@ -53,7 +54,7 @@ export class Home {
                                                             text: 'Sim',
                                                             handler: () => {
                                                                   //deleta usuario
-                                                                  this.usuarioProvider.deletaUsuario(this.usuario.email)
+                                                                  this.usuarioProvider.deletaUsuario(this.usuario)
                                                                         .subscribe(res => {
                                                                               if (res.message) {
                                                                                     this.alertCtrl.create({
@@ -78,16 +79,19 @@ export class Home {
                                     enableBackdropDismiss: false
                               }).present();
                         } else {
-                              if (this.usuario.permissao==='negada') {
+                              // A PERMISSÃO FOI NEGADA OU O USUÁRIO REMOVIDO
+                              if (this.usuario.permissao==='negada' || this.usuario.permissao==='removido') {
+                                    let text= this.usuario.permissao==='negada' ? 'Sua solicitação de acesso foi negada.'
+                                          : 'Você foi removido do sistema.';
                                     this.alertCtrl.create({
-                                          title: 'Sua solicitação de acesso foi negada.',
+                                          title: text,
                                           subTitle: 'Seu cadastro foi removido. Entre em contato com o administrador de sua igreja.',
                                           buttons: [{
                                                 text: 'OK',
                                                 handler: () => {
                                                       //deleta usuario
                                                       this.storage.clear();
-                                                      this.usuarioProvider.deletaUsuario(this.usuario.email)
+                                                      this.usuarioProvider.deletaUsuario(this.usuario)
                                                             .subscribe(res => {
                                                                   console.log(res);
                                                             });
@@ -96,6 +100,22 @@ export class Home {
                                                 }
                                           },]
                                     }).present();
+                              } else {
+                                    //O USUÁRIO ESTÁ TEMPORARIAMENTE DESATIVADO
+                                    if (this.usuario.ativo==='N') {
+                                          this.alertCtrl.create({
+                                                title: 'Seu acesso está desativado temporariamente',
+                                                subTitle: 'Entre em contato com o administrador de sua igreja.',
+                                                buttons: [{
+                                                      text: 'OK',
+                                                      handler: () => {
+                                                            //deleta usuario
+                                                            this.storage.clear();
+                                                            this.navCtrl.setRoot("SignIn");
+                                                      }
+                                                },]
+                                          }).present();
+                                    }
                               }
                               this.events.publish('atualizaMenu', this.usuario.email, this.usuario.nome);
                         }

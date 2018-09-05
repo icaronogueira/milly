@@ -11,6 +11,8 @@ router.post('/esqueceusenha',UsuariosCtrl.esqueceuSenha);
 router.get('/reset/:token',UsuariosCtrl.resetToken);
 router.post('/deleta', UsuariosCtrl.deletaUsuario);
 router.post('/acesso', UsuariosCtrl.acesso);
+router.post('/ativo', UsuariosCtrl.setAtivo);
+
 
 
 module.exports = router;

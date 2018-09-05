@@ -27,8 +27,8 @@ export class UsuarioProvider {
             });
       }
 
-      deletaUsuario(email): Observable<any> {
-            return this.http.post(this.url+'/deleta', {email:email});
+      deletaUsuario(usuario): Observable<any> {
+            return this.http.post(this.url+'/deleta', {usuario:usuario});
       }
 
       loginUsuario(email, senha): Observable<any>{
@@ -57,6 +57,13 @@ export class UsuarioProvider {
             return this.http.post(this.url+'/acesso', {
                   membro: membro,
                   acao: acao
+            });
+      }
+
+      setAtivo(membro, ativo):Observable<any> {
+            return this.http.post(this.url+'/ativo', {
+                  membro: membro,
+                  ativo: ativo
             });
       }
 
