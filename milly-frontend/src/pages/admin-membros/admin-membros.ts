@@ -51,16 +51,21 @@ export class AdminMembrosPage {
                   enableBackdropDismiss: true
             });
             modalUsuario.onDidDismiss(data => {
-                  console.log(data);
+                  //dá um refresh nas listas
+                  this.igrejaProvider.getMembros(this.idIgreja).subscribe(res => {
+                        this.membros = res.membros.filter((event:any) => event.permissao==="S");;
+                        this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
+                        this.items=this.membros;
+                        this.qtdPendentes = this.membrosPendentes.length;
+                  });
             })
             modalUsuario.present();
       }
 
       aceitarNegarAcesso(membro: any, acao: string) {
             
-            let tmp = acao;
             this.alertCtrl.create({
-                  title: `Deseja realmente ${tmp} o acesso de ${membro.nome}?`,
+                  title: `Deseja realmente ${acao} o acesso de ${membro.nome}?`,
                   buttons: [
                         {
                               text: 'Voltar'      
@@ -113,9 +118,20 @@ export class AdminMembrosPage {
             const val = ev.target.value;
             if (val && val.trim() != '') {
                   this.items = this.membros.filter((item) => {
-                        return (item.nome.toLowerCase().indexOf(val.toLowerCase()) > -1);
+                        return (this.removeAcento(item.nome).indexOf(val.toLowerCase()) > -1);
                   });
             }
+      }
+
+      removeAcento (text) {       
+            text = text.toLowerCase();                                                         
+            text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+            text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+            text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+            text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+            text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+            text = text.replace(new RegExp('[Ç]','gi'), 'c');
+            return text;                 
       }
 
 

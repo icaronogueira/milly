@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 /**
  * Generated class for the DetalhesUsuarioComponent component.
@@ -16,24 +17,59 @@ export class DetalhesUsuarioComponent {
       
       membro: any;
 
-      constructor(params: NavParams, public viewCtrl: ViewController) {
+      spinner: any;
+
+      constructor(params: NavParams, public viewCtrl: ViewController, private alertCtrl: AlertController,
+                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider) {
             this.membro=params.get('membro');
             console.log(this.membro);
       }
 
-      aceitar() {
-            let data = {'foo':'bar'};
-            this.viewCtrl.dismiss(data);
-      }
+      aceitarNegarAcesso(acao: string) {
+            
+            this.alertCtrl.create({
+                  title: `Deseja realmente ${acao} o acesso de ${this.membro.nome}?`,
+                  buttons: [
+                        {
+                              text: 'Voltar'      
+                        },
+                        {
+                              text: 'Confirmar',
+                              handler: () => {
+                                    this.mostraSpinner();
+                                    //confirma/nega acesso no banco
+                                    this.usuarioProvider.confirmaNegaAcesso(this.membro, acao)
+                                          .subscribe(res => {
+                                                this.escondeSpinner();
+                                                //alerta de confirmação
+                                                let text = res.error ? res.error : res.message;
+                                                this.alertCtrl.create({
+                                                      title: text,
+                                                      buttons: ['OK']
+                                                }).present();
+                                                this.viewCtrl.dismiss();
+                                                //dá um refresh nas listas
 
-      negar() {
-            let data = {'foo':'bar'};
-            this.viewCtrl.dismiss(data);
+                                          });
+                              }
+                        }
+                  ]
+            }).present();
       }
 
       voltar() {
-            let data = {'foo':'bar'};
-            this.viewCtrl.dismiss(data);
+            this.viewCtrl.dismiss();
+      }
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            this.spinner.present();
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
       }
 
 }
