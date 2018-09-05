@@ -71,12 +71,32 @@ export class Home {
                                     }, {
                                           text: 'Voltar',
                                           handler: () => {
+                                                this.storage.clear();
                                                 this.navCtrl.setRoot('SignIn', {emailCadastrado: this.usuario.email});
                                           }
                                     }],
                                     enableBackdropDismiss: false
                               }).present();
                         } else {
+                              if (this.usuario.permissao==='negada') {
+                                    this.alertCtrl.create({
+                                          title: 'Sua solicitação de acesso foi negada.',
+                                          subTitle: 'Seu cadastro foi removido. Entre em contato com o administrador de sua igreja.',
+                                          buttons: [{
+                                                text: 'OK',
+                                                handler: () => {
+                                                      //deleta usuario
+                                                      this.storage.clear();
+                                                      this.usuarioProvider.deletaUsuario(this.usuario.email)
+                                                            .subscribe(res => {
+                                                                  console.log(res);
+                                                            });
+                                                      //retorna para pagina de login
+                                                      this.navCtrl.setRoot("SignIn");
+                                                }
+                                          },]
+                                    }).present();
+                              }
                               this.events.publish('atualizaMenu', this.usuario.email, this.usuario.nome);
                         }
 

@@ -4,6 +4,7 @@ import { IgrejaProvider } from '../../providers/igreja/igreja';
 import { Storage } from '@ionic/storage';
 import { DetalhesUsuarioComponent } from '../../components/detalhes-usuario/detalhes-usuario';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 
 @IonicPage()
 @Component({
@@ -78,6 +79,7 @@ export class AdminMembrosPage {
                                                       title: text,
                                                       buttons: ['OK']
                                                 }).present();
+                                                
                                                 //dá um refresh nas listas
                                                 this.igrejaProvider.getMembros(this.idIgreja).subscribe(res => {
                                                       this.membros = res.membros.filter((event:any) => event.permissao==="S");;
@@ -85,6 +87,8 @@ export class AdminMembrosPage {
                                                       this.items=this.membros;
                                                       this.qtdPendentes = this.membrosPendentes.length;
                                                 });
+
+
                                           });
                               }
                         }

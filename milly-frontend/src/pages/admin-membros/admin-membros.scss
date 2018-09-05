@@ -1,3 +1,17 @@
 page-admin-membros {
-    
+    .item {
+          white-space: nowrap;
+          overflow-x: auto;
+    }
+    .innerDiv, button {
+          display: inline-block;
+    }
+    .innerDiv {
+      white-space: nowrap;
+      overflow-x: auto;   
+    }
+    ion-avatar {
+          display: inline-block;
+    }
+
 }
