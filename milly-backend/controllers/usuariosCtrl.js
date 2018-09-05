@@ -154,7 +154,7 @@ exports.deletaUsuario = (req,res,next) => {
 }
 
 exports.acesso = (req,res,next) => {
-      let tmp = req.body.acao==='aceitar' ? 'S' : 'N';
+      let tmp = req.body.acao==='aceitar' ? 'S' : 'negada';
       let tmp2 = req.body.acao==='aceitar' ? 'habilitado' : 'negado';
       Usuario.findOneAndUpdate({_id: req.body.membro._id}, {
             permissao: tmp

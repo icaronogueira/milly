@@ -19,6 +19,7 @@ export class AdminMembrosPage {
       spinner:any;
 
       nomeIgreja: string;
+      idIgreja: string;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, 
                   private igrejaProvider: IgrejaProvider, private loadingCtrl: LoadingController,
@@ -30,10 +31,11 @@ export class AdminMembrosPage {
             this.mostraSpinner();
             this.storage.get('usuario.igreja').then(data => this.nomeIgreja=data);
             this.storage.get('usuario.igreja.id').then(data => {
+                  this.idIgreja=data;
                   this.igrejaProvider.getMembros(data).subscribe(res => {
                         this.escondeSpinner();
                         console.log(res);
-                        this.membros = res.membros.filter((event:any) => event.permissao!=="N");;
+                        this.membros = res.membros.filter((event:any) => event.permissao==="S");;
                         this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
                         this.items=this.membros;
                         this.qtdPendentes = this.membrosPendentes.length;
@@ -66,14 +68,23 @@ export class AdminMembrosPage {
                               text: 'Confirmar',
                               handler: () => {
                                     this.mostraSpinner();
+                                    //confirma/nega acesso no banco
                                     this.usuarioProvider.confirmaNegaAcesso(membro, acao)
                                           .subscribe(res => {
                                                 this.escondeSpinner();
+                                                //alerta de confirmação
                                                 let text = res.error ? res.error : res.message;
                                                 this.alertCtrl.create({
                                                       title: text,
                                                       buttons: ['OK']
                                                 }).present();
+                                                //dá um refresh nas listas
+                                                this.igrejaProvider.getMembros(this.idIgreja).subscribe(res => {
+                                                      this.membros = res.membros.filter((event:any) => event.permissao==="S");;
+                                                      this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
+                                                      this.items=this.membros;
+                                                      this.qtdPendentes = this.membrosPendentes.length;
+                                                });
                                           });
                               }
                         }
