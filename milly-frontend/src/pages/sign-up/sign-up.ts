@@ -42,12 +42,21 @@ export class SignUp {
 
       continuar() {
             if (!this.temErro()) {
-                  this.navCtrl.push("RegistrarfotoPage", {
-                        nome: this.nome,
-                        email: this.email,
-                        igreja: this.igreja,
-                        senha: this.senha
-                  });
+                  this.alertCtrl.create({
+                        title: `O email ${this.email} está correto?`,
+                        buttons: [{text:'Não'}, {
+                              text: 'Sim',
+                              handler: () => {
+                                    this.navCtrl.push("RegistrarfotoPage", {
+                                          nome: this.nome,
+                                          email: this.email,
+                                          igreja: this.igreja,
+                                          senha: this.senha
+                                    });
+                              }
+                        }] 
+                  }).present();
+                  
             }
       }
       

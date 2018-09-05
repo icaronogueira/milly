@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { Storage } from '@ionic/storage';
 import { IgrejaProvider } from '../../providers/igreja/igreja';
@@ -35,7 +35,8 @@ export class AdminConfiguracoesPage {
 
       constructor(public _myApp:MyApp,public navCtrl: NavController, public navParams: NavParams,
                   private storage: Storage, private igrejaProvider: IgrejaProvider,
-                  private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+                  private loadingCtrl: LoadingController, private alertCtrl: AlertController,
+                  private events: Events) {
             
       }
 
@@ -87,8 +88,10 @@ export class AdminConfiguracoesPage {
                                                 buttons: ['OK']
                                           }).present();
                                           this.nomeIgrejaOriginal=this.nomeIgreja;
+                                          this.events.publish('atualizaMenu', 'administrador', this.nomeIgrejaOriginal);
                                           this.storage.set('usuario.igreja', this.nomeIgreja);
                                     });
+                                    
                         }
                   }]
             }).present();
