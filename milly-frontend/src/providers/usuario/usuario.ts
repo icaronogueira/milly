@@ -52,4 +52,12 @@ export class UsuarioProvider {
             return this.http.get(`https://graph.facebook.com/me?access_token=${accessToken}&fields=id,name,email,about,picture`);
       }
 
+
+      confirmaNegaAcesso (membro, acao):Observable<any> {
+            return this.http.post(this.url+'/acesso', {
+                  membro: membro,
+                  acao: acao
+            });
+      }
+
 }

@@ -20,15 +20,17 @@
 
       <div>
             <ion-list>
-                  <ion-item *ngFor="let solicitacao of membrosPendentes" (click)="mostraDetalhes(solicitacao)">
-                        <ion-avatar>
-                              <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{solicitacao.versaoImagem}}/{{solicitacao.idImagem}}.jpg">
-                        </ion-avatar>
-                        {{solicitacao.nome}}
-                        <button ion-button>
+                  <ion-item *ngFor="let solicitacao of membrosPendentes" >
+                        <div (click)="mostraDetalhes(solicitacao)">
+                              <ion-avatar>
+                                    <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{solicitacao.versaoImagem}}/{{solicitacao.idImagem}}.jpg">
+                              </ion-avatar>
+                              {{solicitacao.nome}}
+                        </div>
+                        <button ion-button (click)="aceitarNegarAcesso(solicitacao, 'aceitar')">
                               Aceitar
                         </button>
-                        <button ion-button>
+                        <button ion-button (click)="aceitarNegarAcesso(solicitacao, 'negar')">
                               Negar
                         </button>      
                   </ion-item>
@@ -37,8 +39,9 @@
 
       <div>
             <h4>Membros</h4>
+            <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
             <ion-list>
-                  <ion-item *ngFor="let membro of membros" (click)="mostraDetalhes(membro)">
+                  <ion-item *ngFor="let membro of items" (click)="mostraDetalhes(membro)">
                         <ion-avatar>
                               <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
                         </ion-avatar>

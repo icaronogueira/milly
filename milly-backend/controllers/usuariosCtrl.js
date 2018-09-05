@@ -152,3 +152,16 @@ exports.deletaUsuario = (req,res,next) => {
             res.status(200).json({message: 'Seu cadastro foi removido.'});
       });
 }
+
+exports.acesso = (req,res,next) => {
+      let tmp = req.body.acao==='aceitar' ? 'S' : 'N';
+      let tmp2 = req.body.acao==='aceitar' ? 'habilitado' : 'negado';
+      Usuario.findOneAndUpdate({_id: req.body.membro._id}, {
+            permissao: tmp
+      }, (err) => {
+            if (err) {
+                  return res.status(500).json({error: err});  
+            }
+            res.status(200).json({message: `O pedido de acesso de ${req.body.membro.nome} foi ${tmp2}.`});
+      });
+}
