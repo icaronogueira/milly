@@ -7,6 +7,7 @@ const usuarioSchema = mongoose.Schema({
       email:        {type: String, unique: true},
       igreja:       {type: mongoose.Schema.Types.ObjectId, ref: 'Igreja'},
       senha:        {type: String},
+      ativo:        {type: String, default: 'S'},
       permissao:    {type: String, required: true, default: 'N'},
       idImagem:     {type: String, required: true, default: 'avatar-user'},
       versaoImagem: {type: String, required: true, default: '1536009363'},

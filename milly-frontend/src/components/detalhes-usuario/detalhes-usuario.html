@@ -1,15 +1,28 @@
 <!-- Generated template for the DetalhesUsuarioComponent component -->
-<div>
+<div class="card">
       <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
       <p>Nome: {{membro.nome}}</p>
+      <p *ngIf="ativo==='N'">Membro desativado</p>
       <table>
-            <tr>
+            <tr *ngIf="permissao==='N'">
                   <td>
-                        <button  (click)="aceitarNegarAcesso('aceitar')">Aceitar Solicitação</button>                        
+                        <button ion-button (click)="aceitarNegarAcesso('aceitar')">Aceitar Solicitação</button>  
                   </td>
                   <td>
-                        <button  (click)="aceitarNegarAcesso('negar')">Negar Solicitação</button>
+                        <button ion-button (click)="aceitarNegarAcesso('negar')">Negar Solicitação</button>
                   </td>
+            </tr>
+
+            <tr *ngIf="permissao==='S'">
+                  <td *ngIf="ativo==='S'">
+                        <button ion-button>Desativa Membro</button>  
+                  </td>
+                  <td *ngIf="ativo==='N'">
+                        <button ion-button>Reativa Membro</button>
+                  </td>
+                  <td>
+                        <button ion-button>Remove Membro</button>
+                  </td>      
             </tr>
             <tr>
                   <td>

@@ -17,6 +17,7 @@ export class AdminMembrosPage {
       items=[];
       membrosPendentes: any;
       qtdPendentes:number;
+      qtdMembros: number;
       spinner:any;
 
       nomeIgreja: string;
@@ -40,6 +41,7 @@ export class AdminMembrosPage {
                         this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
                         this.items=this.membros;
                         this.qtdPendentes = this.membrosPendentes.length;
+                        this.qtdMembros = this.membros.length;
                         console.log(this.membrosPendentes);
                   });
             });
@@ -57,6 +59,7 @@ export class AdminMembrosPage {
                         this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
                         this.items=this.membros;
                         this.qtdPendentes = this.membrosPendentes.length;
+                        this.qtdMembros = this.membros.length;
                   });
             })
             modalUsuario.present();
@@ -91,6 +94,7 @@ export class AdminMembrosPage {
                                                       this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
                                                       this.items=this.membros;
                                                       this.qtdPendentes = this.membrosPendentes.length;
+                                                      this.qtdMembros = this.membros.length;
                                                 });
 
 

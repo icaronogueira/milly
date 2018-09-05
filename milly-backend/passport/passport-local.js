@@ -19,6 +19,7 @@ passport.use('local-signup', new LocalStrategy({
             novoUsuario.nome  = req.body.nome;
             novoUsuario.email = req.body.email;
             novoUsuario.igreja = req.body.igreja;
+            novoUsuario.ativo = 'S';
             novoUsuario.senha = novoUsuario.encryptPassword(req.body.senha);
             novoUsuario.tipoLogin = req.body.tipoLogin ? req.body.tipoLogin : 'email' ;
             novoUsuario.save((err) => {
