@@ -130,8 +130,6 @@ export class AdminMembrosPage {
             }
       }
 
-      
-
       removeAcento (text) {       
             text = text.toLowerCase();                                                         
             text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');

@@ -13,43 +13,58 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
       <div>
-            <p> {{qtdPendentes}} solicitações de acesso pendentes.</p>
+            <p class="pendentes"> {{qtdPendentes}} solicitações de acesso pendentes.</p>
       </div>
 
       <div>
-            <ion-list>
-                  <ion-item *ngFor="let solicitacao of membrosPendentes" >
-                        <div class="innerDiv" (click)="mostraDetalhes(solicitacao)">
-                              <ion-avatar>
-                                    <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{solicitacao.versaoImagem}}/{{solicitacao.idImagem}}.jpg">
-                              </ion-avatar>
-                              {{solicitacao.nome}}
-                              {{getTimeAgo(solicitacao.criadoEm)}}
-                        </div>
-                        <button ion-button (click)="aceitarNegarAcesso(solicitacao, 'aceitar')">
-                              Aceitar
-                        </button>
-                        <button ion-button (click)="aceitarNegarAcesso(solicitacao, 'negar')">
-                              Negar
-                        </button>      
+            <ion-list class="commentList">
+                  <ion-item class="item-solicitacao" *ngFor="let solicitacao of membrosPendentes" >
+
+                        <ion-grid>
+                              <ion-row>
+                                    <ion-col col-3 (click)="mostraDetalhes(solicitacao)">
+                                          <ion-avatar item-left>
+                                                <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{solicitacao.versaoImagem}}/{{solicitacao.idImagem}}.jpg">
+                                          </ion-avatar>
+                                    </ion-col>
+                                    <ion-col (click)="mostraDetalhes(solicitacao)">
+                                          <ion-row class="row-2"><h4>{{solicitacao.nome}}</h4></ion-row>
+                                          <ion-row class="row-2"><p>{{getTimeAgo(solicitacao.criadoEm)}}</p></ion-row>
+                                    </ion-col>
+                                    <ion-col col-2 class="col-button">
+                                          <button ion-button class="botao-aceitar" (click)="aceitarNegarAcesso(solicitacao, 'aceitar')">
+                                                Aceitar
+                                          </button>
+                                    </ion-col>
+                                    <ion-col col-2  class="col-button" >
+                                          <button ion-button class="botao-negar" (click)="aceitarNegarAcesso(solicitacao, 'negar')">
+                                                Negar
+                                          </button> 
+                                    </ion-col>
+                              </ion-row>
+                        </ion-grid>
                   </ion-item>
             </ion-list>
       </div>
 
       <div>
-            <h4>Membros ({{qtdMembros}})</h4>
+            <ion-item-divider color="color3">Membros ({{qtdMembros}})</ion-item-divider>
             <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-            <ion-list>
-                  <ion-item *ngFor="let membro of items" (click)="mostraDetalhes(membro)">
-                        <div class="innerDiv">
-                              <ion-avatar>
-                                    <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
-                              </ion-avatar>
-                              {{membro.nome}}
-                              <h6 *ngIf="membro.ativo==='N'">Desativado</h6>
-                        </div>
+            <ion-list class="commentList">
+                  <ion-item  *ngFor="let membro of items" [class.membro-desativado]="membro.ativo==='N'" (click)="mostraDetalhes(membro)">
+                        <ion-row>
+                              <ion-col col-2>
+                                    <ion-avatar  item-left>
+                                          <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
+                                    </ion-avatar>
+                              </ion-col>
+                              <ion-col>
+                                    <h4>{{membro.nome}}</h4>
+                              </ion-col>
+                              <ion-col><p class="p-desativado" *ngIf="membro.ativo==='N'">DESATIVADO</p></ion-col>
+                        </ion-row>
                   </ion-item>
             </ion-list>
             
