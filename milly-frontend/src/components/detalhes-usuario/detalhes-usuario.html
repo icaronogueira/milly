@@ -2,6 +2,7 @@
 <div class="card">
       <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
       <p>Nome: {{membro.nome}}</p>
+      <p *ngIf="permissao==='N'"> Solicitação enviada {{getTimeAgo(membro.criadoEm)}}. </p>
       <p *ngIf="ativo==='N'">Membro desativado</p>
       <table>
             <tr *ngIf="permissao==='N'">

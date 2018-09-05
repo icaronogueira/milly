@@ -4,6 +4,7 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import moment from 'moment';
 
 /**
  * Generated class for the DetalhesUsuarioComponent component.
@@ -75,6 +76,10 @@ export class DetalhesUsuarioComponent {
 
       escondeSpinner(){
             this.spinner.dismiss();
+      }
+
+      getTimeAgo(data) {
+            return moment(data).fromNow();
       }
 
 }

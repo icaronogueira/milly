@@ -26,6 +26,7 @@
                                     <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{solicitacao.versaoImagem}}/{{solicitacao.idImagem}}.jpg">
                               </ion-avatar>
                               {{solicitacao.nome}}
+                              {{getTimeAgo(solicitacao.criadoEm)}}
                         </div>
                         <button ion-button (click)="aceitarNegarAcesso(solicitacao, 'aceitar')">
                               Aceitar

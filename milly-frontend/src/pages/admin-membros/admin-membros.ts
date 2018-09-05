@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { DetalhesUsuarioComponent } from '../../components/detalhes-usuario/detalhes-usuario';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
+import moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -15,6 +16,7 @@ export class AdminMembrosPage {
 
       membros= [];
       items=[];
+
       membrosPendentes: any;
       qtdPendentes:number;
       qtdMembros: number;
@@ -27,6 +29,7 @@ export class AdminMembrosPage {
                   private igrejaProvider: IgrejaProvider, private loadingCtrl: LoadingController,
                   private storage: Storage, private modalCtrl: ModalController, private alertCtrl: AlertController,
                   private usuarioProvider: UsuarioProvider) {
+                  moment.locale('pt-BR');
       }
 
       ionViewDidLoad() {
@@ -37,8 +40,8 @@ export class AdminMembrosPage {
                   this.igrejaProvider.getMembros(data).subscribe(res => {
                         this.escondeSpinner();
                         console.log(res);
-                        this.membros = res.membros.filter((event:any) => event.permissao==="S");;
-                        this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
+                        this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome);
+                        this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N").sort(this.porData);
                         this.items=this.membros;
                         this.qtdPendentes = this.membrosPendentes.length;
                         this.qtdMembros = this.membros.length;
@@ -55,8 +58,8 @@ export class AdminMembrosPage {
             modalUsuario.onDidDismiss(data => {
                   //dá um refresh nas listas
                   this.igrejaProvider.getMembros(this.idIgreja).subscribe(res => {
-                        this.membros = res.membros.filter((event:any) => event.permissao==="S");;
-                        this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
+                        this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome);
+                        this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N").sort(this.porData);
                         this.items=this.membros;
                         this.qtdPendentes = this.membrosPendentes.length;
                         this.qtdMembros = this.membros.length;
@@ -90,8 +93,8 @@ export class AdminMembrosPage {
                                                 
                                                 //dá um refresh nas listas
                                                 this.igrejaProvider.getMembros(this.idIgreja).subscribe(res => {
-                                                      this.membros = res.membros.filter((event:any) => event.permissao==="S");;
-                                                      this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N");
+                                                      this.membros = res.membros.filter((event:any) => event.permissao==="S").sort(this.porNome);
+                                                      this.membrosPendentes = res.membros.filter((event:any) => event.permissao==="N").sort(this.porData);
                                                       this.items=this.membros;
                                                       this.qtdPendentes = this.membrosPendentes.length;
                                                       this.qtdMembros = this.membros.length;
@@ -138,5 +141,23 @@ export class AdminMembrosPage {
             return text;                 
       }
 
+      getTimeAgo(data) {
+            return moment(data).fromNow();
+      }
 
+      porData(a,b) {
+            if (a.criadoEm < b.criadoEm)
+              return -1;
+            if (a.criadoEm > b.criadoEm)
+              return 1;
+            return 0;
+      }
+
+      porNome(a,b) {
+            if (a.nome < b.nome)
+              return -1;
+            if (a.nome > b.nome)
+              return 1;
+            return 0;
+      }
 }

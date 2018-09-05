@@ -11,6 +11,7 @@ const usuarioSchema = mongoose.Schema({
       permissao:    {type: String, required: true, default: 'N'},
       idImagem:     {type: String, required: true, default: 'avatar-user'},
       versaoImagem: {type: String, required: true, default: '1536009363'},
+      criadoEm: {type: Date, default: Date.now()},
 
       tipoLogin: {type: String, default: 'email'},
 
