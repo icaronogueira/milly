@@ -5,7 +5,8 @@ import { Storage } from '@ionic/storage';
 import { DetalhesUsuarioComponent } from '../../components/detalhes-usuario/detalhes-usuario';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
-import moment from 'moment';
+// import moment from 'moment';
+import moment from 'moment-timezone';
 
 @IonicPage()
 @Component({
@@ -30,6 +31,7 @@ export class AdminMembrosPage {
                   private storage: Storage, private modalCtrl: ModalController, private alertCtrl: AlertController,
                   private usuarioProvider: UsuarioProvider) {
                   moment.locale('pt-BR');
+                  moment.tz.setDefault('America/Manaus');
       }
 
       ionViewDidLoad() {

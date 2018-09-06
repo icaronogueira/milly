@@ -3,7 +3,7 @@ page-admin-membros {
       .content {
 
             .membro-desativado {
-                  background-color: #eda41d52 !important;
+                  background-color: #eda51d !important;
             }
             .item-inner {
                   padding: 0 !important;
@@ -21,20 +21,10 @@ page-admin-membros {
             .p-desativado {
                   vertical-align: middle !important;
                   font-weight: bold;
-                  font-size: 10pt;
+                  font-size: 12pt !important;
                   color: #6e0917 !important;
-            }
-            .pendentes {
-                  font-style: italic;
-                  color: white;
-                  font-size: 10pt !important;
-                  text-decoration: underline;
-                  padding: 5px;
-                  width: 100%;
-                  padding: 3px;
-                  background-color: #6e0917;
-                  margin: 0;
-
+                  margin-top: 7pt !important;
+                  margin-left: 15pt !important;
             }
             .item {
                   white-space: nowrap;
@@ -42,20 +32,21 @@ page-admin-membros {
                   height: 50px;
             }
             .item-solicitacao {
-                  height: 75px !important;
+                  height: 50px !important;
                   background-color: #eda51d !important;
             }
             h4 {
                   font-size: 13pt !important;
                   font-weight: bold;
                   margin: 3pt;
-                  margin-top: 7pt;
+                  margin-top: 2pt !important;
+                  top:0 !important;
             }
             p {
-                  font-size: 12pt !important;
+                  font-size: 8pt !important;
                   color: #f3e9e9 !important;
                   margin: 3pt;
-                  margin-top: 1pt;
+                  margin-top: 3pt;
             }
 
       }
@@ -81,29 +72,29 @@ page-admin-membros {
             background-color: #d4cdcd;
       }
       .commentList{
-            margin-bottom: 3pt;
+            margin-bottom: 1pt;
             p{
                 @include whiteNormal(24px,2);
                 color:color($colors,light);
             }
             .item-ios{
-                background-color: #ebbd67;
+                background-color: #eda51d;
                 margin-bottom:1pt;
                 padding:0px $mainMarg;
             }
       }
       ion-avatar {
-            width: 95% !important;
-            height: 100% !important;
+            width: 40px !important;
+            height: 40px !important;
             margin: 0 !important;
       }
       img {
             width: 100% !important;
             height: 100% !important;
             margin: 0 !important;
-            border-style: solid !important;
-            border-width: 2pt !important;
-            border-color: #d4cdcd;
+            // border-style: solid !important;
+            // border-width: 2pt !important;
+            // border-color: #d4cdcd;
             // border-color: aqua !important;
       }
       .row-2 {
@@ -111,7 +102,7 @@ page-admin-membros {
       }
       
       .button {
-            border-radius: 2px;
+            border-radius: 5px;
             width: 100% !important;
             height: 100% !important;
 
@@ -119,19 +110,10 @@ page-admin-membros {
 
       .col-button {
             padding-right: 0 !important;
-            padding-left: 5px !important;
-            padding-top: 12px !important;
-            padding-bottom: 12px !important;
+            padding-left: 3px !important;
+            padding-top: 7px !important;
+            padding-bottom: 7px !important;
             text-align: center;
       }
 
-      .botao-aceitar {
-            background-color: #0a4e1e;
-            padding: 0 !important;
-      }
-
-      .botao-negar {
-            background-color: #6e0917;
-            padding: 0 !important;
-      }
 }

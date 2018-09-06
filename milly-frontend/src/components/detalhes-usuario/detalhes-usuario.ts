@@ -15,7 +15,7 @@ import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
  */
 @Component({
   selector: 'detalhes-usuario',
-  templateUrl: 'detalhes-usuario.html'
+  templateUrl: 'detalhes-usuario.html',
 })
 export class DetalhesUsuarioComponent {
       

@@ -1,37 +1,22 @@
 <!-- Generated template for the DetalhesUsuarioComponent component -->
 <div class="card">
-      <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
-      <p>Nome: {{membro.nome}}</p>
-      <p *ngIf="permissao==='N'"> Solicitação enviada {{getTimeAgo(membro.criadoEm)}}. </p>
-      <p *ngIf="ativo==='N'">Membro desativado</p>
-      <table>
-            <tr *ngIf="permissao==='N'">
-                  <td>
-                        <button ion-button (click)="aceitarNegarAcesso('aceitar')">Aceitar Solicitação</button>  
-                  </td>
-                  <td>
-                        <button ion-button (click)="aceitarNegarAcesso('negar')">Negar Solicitação</button>
-                  </td>
-            </tr>
-
-            <tr *ngIf="permissao==='S'">
-                  <td *ngIf="ativo==='S'">
-                        <button ion-button (click)="setAtivo('N')">Desativa Membro</button>  
-                  </td>
-                  <td *ngIf="ativo==='N'">
-                        <button ion-button (click)="setAtivo('S')">Reativa Membro</button>
-                  </td>
-                  <td>
-                        <button ion-button (click)="removeMembro()">Remove Membro</button>
-                  </td>      
-            </tr>
-            <tr>
-                  <td>
-                        <button  (click)="voltar()">Voltar</button>
-                 </td>
-            </tr> 
-      </table>
+            <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
       
+      <div class="informacoes">
+            <h4>{{membro.nome}}</h4>
+            <p *ngIf="permissao==='N'"> Solicitação enviada {{getTimeAgo(membro.criadoEm)}}. </p>
+            <p *ngIf="ativo==='N'" class="membro-desativado">MEMBRO DESATIVADO</p>
+      </div>
+      <div class="div-buttons">
+            <button *ngIf="permissao==='N'" class="button-ios" ion-button (click)="aceitarNegarAcesso('aceitar')">Aceitar Solic.</button>  
+            <button *ngIf="permissao==='N'" class="button-ios" ion-button (click)="aceitarNegarAcesso('negar')">Negar Solic.</button>
+
+                  <button ion-button *ngIf="ativo==='S' && permissao==='S'" class="button-ios" (click)="setAtivo('N')">Desativar</button>  
+                  <button ion-button *ngIf="ativo==='N' && permissao==='S'" class="button-ios"  (click)="setAtivo('S')">Reativar</button>
+                  <button ion-button *ngIf="permissao==='S'" class="button-ios"  (click)="removeMembro()">Remover</button>
+                  <button ion-button class="button-ios"  (click)="voltar()">Voltar</button>
+            </div>
+     
       
       
 </div>

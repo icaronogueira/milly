@@ -14,17 +14,15 @@
 
 
 <ion-content>
-      <div>
-            <p class="pendentes"> {{qtdPendentes}} solicitações de acesso pendentes.</p>
-      </div>
 
       <div>
+            <ion-item-divider color="color3">Solicitações Pendentes ({{qtdPendentes}})</ion-item-divider>
             <ion-list class="commentList">
                   <ion-item class="item-solicitacao" *ngFor="let solicitacao of membrosPendentes" >
 
                         <ion-grid>
                               <ion-row>
-                                    <ion-col col-3 (click)="mostraDetalhes(solicitacao)">
+                                    <ion-col col-2 (click)="mostraDetalhes(solicitacao)">
                                           <ion-avatar item-left>
                                                 <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{solicitacao.versaoImagem}}/{{solicitacao.idImagem}}.jpg">
                                           </ion-avatar>
