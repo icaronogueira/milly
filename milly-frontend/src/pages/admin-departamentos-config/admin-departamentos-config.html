@@ -1,18 +1,38 @@
-<!--
-  Generated template for the AdminDepartamentosConfigPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>admin-departamentos-config</ion-title>
-  </ion-navbar>
-
+      <ion-navbar>
+            <button ion-button menuToggle >
+                  <ion-icon name="ios-menu"></ion-icon>
+                  </button>
+            <ion-title>{{headerText}}</ion-title>
+      </ion-navbar>
 </ion-header>
-
-
+         
 <ion-content padding>
-
+      <div class="profileInfo">
+                  <!--" -->
+            <div class="imgBg"  style="background-image:url(assets/img/008.png)">
+                  <ion-icon name="ios-folder-open" ></ion-icon>
+            </div>
+            <div class="appForm" >
+                  <ion-list>
+                        <ion-item>
+                              <ion-label>Nome</ion-label>
+                              <ion-input type="text"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                              <ion-label>Country</ion-label>
+                              <ion-icon name="ios-pin" item-left></ion-icon>
+                              <ion-select [(ngModel)]="country" [ngClass]="{'disableChoose':country=='country'}"> 
+                                    <ion-option value="country" disabled="true">Country</ion-option>
+                                    <ion-option value="england">England</ion-option>
+                                    <ion-option value="france">France</ion-option>
+                                    <ion-option value="spain">Spain</ion-option>
+                              </ion-select>
+                        </ion-item>
+                  </ion-list>
+            </div>
+            <button ion-button  color="color1" (click)="showInput()">CRIAR DEPARTAMENTO</button>
+      </div>
 </ion-content>
+         

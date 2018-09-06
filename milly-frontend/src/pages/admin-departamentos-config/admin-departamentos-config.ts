@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
 /**
  * Generated class for the AdminDepartamentosConfigPage page.
  *
@@ -15,11 +14,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminDepartamentosConfigPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+      headerText: string;      
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminDepartamentosConfigPage');
-  }
+      constructor(public navCtrl: NavController, public navParams: NavParams) {
+            
+      }
+
+      ionViewDidLoad() {
+            if (this.navParams.get('acao')==='adicionar'){
+                  this.headerText = 'Adicionar Departamento';
+            }
+      }
 
 }

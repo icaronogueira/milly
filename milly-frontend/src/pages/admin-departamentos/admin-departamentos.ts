@@ -29,4 +29,10 @@ export class AdminDepartamentosPage {
             this.storage.get('usuario.igreja').then(data => this.nomeIgreja=data);
       }
 
+      paraConfiguracaoDepartamento() {
+            this.navCtrl.push("AdminDepartamentosConfigPage", {
+                  acao: 'adicionar'
+            });
+      }
+
 }

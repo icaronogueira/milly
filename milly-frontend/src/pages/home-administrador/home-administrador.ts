@@ -38,7 +38,7 @@ export class HomeAdministradorPage {
       }
 
       ionViewCanEnter() {
-           
+           this.events.publish('atualizaMenu', 'administrador', '');
       }
 
       abrePagina(componente) {

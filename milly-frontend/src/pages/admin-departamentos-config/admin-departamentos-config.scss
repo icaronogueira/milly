@@ -1,3 +1,83 @@
 page-admin-departamentos-config {
-
+      .content-ios{
+            text-align:center;
+            .label-ios {
+                  margin-right: 5px !important;
+                  font-size: 10pt !important;
+            }
+            .text-input {
+                  font-size: 15pt !important;
+            }
+            .imgBg{
+                width:100px;
+                height:100px;
+                border-radius:50%;
+                margin:auto;
+                position:relative;
+                .icon{
+                    @include position(auto,0px,0px,auto);
+                    font-size:2rem;
+                    color:color($colors,color2);
+                    background:color($colors,color1);
+                    @include borderRadius(30px);
+                }
+            }
+            p{
+                font-size:$mainFont!important;
+                margin: 0px;
+                @include whiteNormal(16px,1);
+                margin:5px 0px;
+                &.name{
+                    font-weight:500;
+                    margin-bottom:0px;
+                }
+            }
+            .profileInfo{
+                .button-ios{
+                    height: 30px;
+                    width: 200px;
+                    margin: 0px;
+                }
+                .appForm{
+                    padding:$mainMarg/2 0px;
+                }
+            }
+            .setting{
+                text-align:left;
+                p{
+                    @extend .name;
+                }
+    
+            }
+        }
+    }
+    
+    .item-checkbox{
+        direction: rtl;
+        margin:0px!important;
+        padding:$mainMarg/2 0px!important;
+        .checkbox-ios{
+            margin:0px!important;
+        }
+        .label-ios{
+            direction:ltr;
+            font-size:$mainFont - .1;
+            @include whiteNormal(32px,2);
+            padding:0px $mainMarg*2;
+            margin-right: 5px !important;
+        }
+        .checkbox-checked{
+            .checkbox-inner{
+                width:$checkbox-ios-icon-size - 6px;
+                height:$checkbox-ios-icon-size - 6px;
+                border:none!important;
+                background-color: color($colors,color1);
+                transform:none;
+                left:0px;
+                right:0px;
+                top:0px;
+                bottom:0px;
+                margin:auto;
+            }
+        }
 }
