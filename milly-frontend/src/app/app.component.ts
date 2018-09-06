@@ -23,27 +23,7 @@ export class MyApp {
       constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
                   private storage: Storage, private alertCtrl: AlertController, private events: Events) {
             
-            this.initializeApp();
-
-            this.events.subscribe('atualizaMenu', (email, nome) => {
-                        this.nome=nome;
-                        if (email==='administrador') {
-                              this.eAdministrador=true;
-                              this.pages = [
-                                    { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline' },
-                                    {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
-                        }
-                        else {
-                              this.eAdministrador=false;
-                              this.pages = [
-                                    { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
-                                    { title: 'My Profile', component: 'MyProfile',icon:'ios-person-outline' },
-                                    { title: 'Notifications', component: 'Notification',icon:'ios-notifications-outline' },
-                                    { title: 'About US', component: 'AboutUs',icon:'ios-document-outline' },
-                                    { title: 'Contact US', component: 'ContactUs',icon:'ios-mail-outline'}
-                              ];
-                        }
-                  });
+                   this.initializeApp();
             }
       
       
@@ -64,7 +44,12 @@ export class MyApp {
                         this.storage.get('usuario.igreja').then(igreja => {
                               this.nome=igreja;
                         });
-                        this.pages = [{title: 'Configurações', component: 'HomeAdministradorPage', icon: 'settings'}];
+                        this.pages = [
+                              { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline' },
+                              { title: 'Departamentos', component: 'AdminDepartamentosPage',icon:'ios-home-outline' },
+                              { title: 'Membros', component: 'AdminMembrosPage',icon:'ios-home-outline' },
+                              { title: 'Aviso Geral', component: 'AdminAvisoGeralPage',icon:'ios-home-outline' },
+                              {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
                   }
                   else {
                         this.nome="Usuário qualquer";

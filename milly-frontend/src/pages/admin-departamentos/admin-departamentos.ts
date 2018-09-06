@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the AdminDepartamentosPage page.
@@ -15,11 +16,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminDepartamentosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+      nomeIgreja: string;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminDepartamentosPage');
-  }
+      constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+      }
+
+      ionViewCanEnter() {
+            
+      }
+
+      ionViewDidLoad() {
+            this.storage.get('usuario.igreja').then(data => this.nomeIgreja=data);
+      }
 
 }

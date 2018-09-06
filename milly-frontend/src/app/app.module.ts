@@ -12,6 +12,7 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
 import { Camera } from '@ionic-native/camera';
 import { ComponentsModule } from '../components/components.module';
 import { NotificacaoProvider } from '../providers/notificacao/notificacao';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -34,7 +35,8 @@ var config = {
     IonicImageViewerModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    ComponentsModule
+    ComponentsModule,
+    FormsModule
 ],
   bootstrap: [IonicApp],
   entryComponents: [

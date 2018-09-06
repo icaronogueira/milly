@@ -117,7 +117,6 @@ export class Home {
                                           }).present();
                                     }
                               }
-                              this.events.publish('atualizaMenu', this.usuario.email, this.usuario.nome);
                         }
 
                   });

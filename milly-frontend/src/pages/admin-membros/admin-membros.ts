@@ -34,7 +34,7 @@ export class AdminMembrosPage {
                   moment.tz.setDefault('America/Manaus');
       }
 
-      ionViewDidLoad() {
+      ionViewCanEnter() {
             this.mostraSpinner();
             this.storage.get('usuario.igreja').then(data => this.nomeIgreja=data);
             this.storage.get('usuario.igreja.id').then(data => {
@@ -51,6 +51,7 @@ export class AdminMembrosPage {
                   });
             });
       }
+
 
       mostraDetalhes (membro) {
             let modalUsuario = this.modalCtrl.create(DetalhesUsuarioComponent, {membro: membro}, {

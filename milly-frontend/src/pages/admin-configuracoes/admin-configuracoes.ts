@@ -41,8 +41,9 @@ export class AdminConfiguracoesPage {
       }
 
 
-      ionViewDidLoad(){
+      ionViewCanEnter(){
             //Pega dados da igreja do banco
+            console.log('Atualiza o menu por favor?');
             this.storage.get('usuario.igreja').then(data => {
                   this.igrejaProvider.getIgreja(data)
                         .subscribe(res => {
@@ -88,7 +89,6 @@ export class AdminConfiguracoesPage {
                                                 buttons: ['OK']
                                           }).present();
                                           this.nomeIgrejaOriginal=this.nomeIgreja;
-                                          this.events.publish('atualizaMenu', 'administrador', this.nomeIgrejaOriginal);
                                           this.storage.set('usuario.igreja', this.nomeIgreja);
                                     });
                                     

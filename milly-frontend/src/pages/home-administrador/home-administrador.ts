@@ -23,21 +23,22 @@ export class HomeAdministradorPage {
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
             private events: Events, private igrejaProvider: IgrejaProvider, private loadingCtrl: LoadingController) {
+                  console.log('Atualiza o menu por favor?');
+                  this.mostraSpinner();
+                  this.storage.get('usuario.igreja').then(data => {
+                        this.nomeIgreja=data;
+                  
+                        this.igrejaProvider.getIgreja(data).subscribe(res => {
+                              this.escondeSpinner();
+                              console.log(res);
+                              this.storage.set('usuario.igreja.id', res.igreja._id);
+                        });
+                  });
+                  
       }
 
-      ionViewDidLoad() {
-            this.mostraSpinner();
-            this.storage.get('usuario.igreja').then(data => {
-                  this.nomeIgreja=data;
-                  this.events.publish('atualizaMenu', 'administrador', data);
-            
-                  this.igrejaProvider.getIgreja(data).subscribe(res => {
-                        this.escondeSpinner();
-                        console.log(res);
-                        this.storage.set('usuario.igreja.id', res.igreja._id);
-                  });
-            });
-            
+      ionViewCanEnter() {
+           
       }
 
       abrePagina(componente) {

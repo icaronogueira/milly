@@ -14,7 +14,7 @@
                   <button ion-button *ngIf="ativo==='S' && permissao==='S'" class="button-ios" (click)="setAtivo('N')">Desativar</button>  
                   <button ion-button *ngIf="ativo==='N' && permissao==='S'" class="button-ios"  (click)="setAtivo('S')">Reativar</button>
                   <button ion-button *ngIf="permissao==='S'" class="button-ios"  (click)="removeMembro()">Remover</button>
-                  <button ion-button class="button-ios"  (click)="voltar()">Voltar</button>
+                  <button ion-button icon-start class="button-ios"  (click)="voltar()">Voltar</button>
             </div>
      
       
