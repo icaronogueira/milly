@@ -50,8 +50,12 @@ app.use(session({
 
 const igrejas    = require("./routes/igrejasRoute");
 const usuarios   = require("./routes/usuariosRoute");
+const departamentos   = require("./routes/departamentosRoute");
+
 app.use('', igrejas);
 app.use('', usuarios);
+app.use('', departamentos);
+
 
 
 app.listen(process.env.PORT || 3000, () => {

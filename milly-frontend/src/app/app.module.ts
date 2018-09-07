@@ -13,6 +13,7 @@ import { Camera } from '@ionic-native/camera';
 import { ComponentsModule } from '../components/components.module';
 import { NotificacaoProvider } from '../providers/notificacao/notificacao';
 import { FormsModule } from '@angular/forms';
+import { DepartamentoProvider } from '../providers/departamento/departamento';
 
 
 
@@ -49,7 +50,8 @@ var config = {
     IgrejaProvider,
     UsuarioProvider,
     Camera,
-    NotificacaoProvider
+    NotificacaoProvider,
+    DepartamentoProvider
   ]
 })
 export class AppModule {}

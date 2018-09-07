@@ -25,6 +25,7 @@ export class SearchableListPage {
                         else {
                               this.membros=res.membros.filter((event:any) => (event.permissao==="S" && event.ativo==='S')).sort(this.porNome.bind(this));
                               this.items=this.membros;
+                              console.log(this.items);
                         }
                   });
             });

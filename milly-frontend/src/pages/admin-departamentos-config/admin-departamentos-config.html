@@ -8,14 +8,14 @@
 <ion-content padding>
       <div class="profileInfo">
                   <!--" -->
-            <div class="imgBg"  style="background-image:url(assets/img/008.png)">
-                  <ion-icon name="ios-folder-open" ></ion-icon>
+            <div class="imgBg"  [ngStyle]="{ 'background-image': 'url(' + logo + ')'}">
+                  <ion-icon name="ios-folder-open" (click)="abrirLogo()"></ion-icon>
             </div>
             <div class="appForm" >
                   <ion-list>
                         <ion-item>
                               <ion-label>Nome</ion-label>
-                              <ion-input type="text"></ion-input>
+                              <ion-input [(ngModel)]="nome" type="text"></ion-input>
                         </ion-item>
                         <ion-item>
                               <ion-label>Selecionar Diretor</ion-label>
@@ -23,7 +23,7 @@
                         </ion-item>
                   </ion-list>
             </div>
-            <button ion-button  color="color1" (click)="showInput()">CRIAR DEPARTAMENTO</button>
+            <button ion-button  color="color1" (click)="salvarDepartamento()">CRIAR DEPARTAMENTO</button>
       </div>
 </ion-content>
          
