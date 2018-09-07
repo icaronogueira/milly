@@ -4,7 +4,6 @@ import { IgrejaProvider } from '../../providers/igreja/igreja';
 import { Storage } from '@ionic/storage';
 import { DetalhesUsuarioComponent } from '../../components/detalhes-usuario/detalhes-usuario';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
-import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 // import moment from 'moment';
 import moment from 'moment-timezone';
 

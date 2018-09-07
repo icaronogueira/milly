@@ -16,8 +16,7 @@ export class Home {
       spinner: any;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
-                  private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController,
-                  private events: Events) {
+                  private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController) {
             
       }
 

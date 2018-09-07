@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import moment from 'moment';
-import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 
 /**
  * Generated class for the DetalhesUsuarioComponent component.
@@ -25,8 +22,7 @@ export class DetalhesUsuarioComponent {
       spinner: any;
 
       constructor(params: NavParams, public viewCtrl: ViewController, private alertCtrl: AlertController,
-                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider,
-                  private notificacaoProvider: NotificacaoProvider) {
+                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider) {
             this.membro=params.get('membro');
             this.permissao=this.membro.permissao;
             this.ativo=this.membro.ativo;

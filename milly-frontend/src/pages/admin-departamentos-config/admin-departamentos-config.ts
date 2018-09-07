@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-/**
- * Generated class for the AdminDepartamentosConfigPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -15,9 +9,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class AdminDepartamentosConfigPage {
 
       headerText: string;      
-
-      constructor(public navCtrl: NavController, public navParams: NavParams) {
-            
+      diretor: any;
+      diretorNome: string = '';
+      constructor(public navCtrl: NavController, public navParams: NavParams, private events: Events) {
+            this.events.subscribe('designaDiretor', (data, user) => {
+                  this.diretor=data;
+                  this.diretorNome=this.diretor.nome;
+                  console.log(this.diretor);
+            });
       }
 
       ionViewDidLoad() {
@@ -26,4 +25,8 @@ export class AdminDepartamentosConfigPage {
             }
       }
 
+
+      abrirModalDiretor() {
+            this.navCtrl.push("SearchableListPage");
+      }
 }

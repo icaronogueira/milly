@@ -35,8 +35,7 @@ export class AdminConfiguracoesPage {
 
       constructor(public _myApp:MyApp,public navCtrl: NavController, public navParams: NavParams,
                   private storage: Storage, private igrejaProvider: IgrejaProvider,
-                  private loadingCtrl: LoadingController, private alertCtrl: AlertController,
-                  private events: Events) {
+                  private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
             
       }
 
