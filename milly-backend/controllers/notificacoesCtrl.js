@@ -8,12 +8,13 @@ const cloudinary    = require("cloudinary");
 const nodemailer   = require("nodemailer");
 const crypto       = require("crypto");
 
-exports.criaUsuario = (req, res, next) => {   
+exports.criaNotificacao = (req, res, next) => {   
+      console.log(req.body);
       const notificacao = new Notificacao();
       notificacao.mensagem  = req.body.mensagem;
-      notificacao.usuarioId = req.body.usuario._id;
-      notificacao.lida = false;
-      notificacao.component = req.body.component;
+      notificacao.usuario = req.body.usuario;
+      notificacao.lida = 'N';
+      notificacao.componente = req.body.componente;
       notificacao.save((err) => {
             if (err) return res.status(500).json({error: err});
       });

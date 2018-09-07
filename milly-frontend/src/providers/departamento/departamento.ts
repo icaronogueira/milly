@@ -21,5 +21,9 @@ export class DepartamentoProvider {
             });
       }
 
+      getDepartamentos(idIgreja: string) : Observable<any> {
+            return this.http.get(`${this.url}/departamentos/${idIgreja}`);
+      }
+
 
 }

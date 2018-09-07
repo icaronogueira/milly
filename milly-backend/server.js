@@ -51,10 +51,12 @@ app.use(session({
 const igrejas    = require("./routes/igrejasRoute");
 const usuarios   = require("./routes/usuariosRoute");
 const departamentos   = require("./routes/departamentosRoute");
+const notificacoes = require("./routes/notificacoesRoute");
 
 app.use('', igrejas);
 app.use('', usuarios);
 app.use('', departamentos);
+app.use('', notificacoes);
 
 
 

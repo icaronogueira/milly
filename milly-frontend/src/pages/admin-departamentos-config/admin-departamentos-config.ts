@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
+import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 
 @IonicPage()
 @Component({
@@ -19,9 +20,11 @@ export class AdminDepartamentosConfigPage {
       nome: string;
       igreja: string;
 
+
       constructor(public navCtrl: NavController, public navParams: NavParams, private events: Events,
                   private departamentoProvider: DepartamentoProvider, private camera: Camera,
-                  private storage: Storage) {
+                  private storage: Storage, private notificacaoProvider: NotificacaoProvider,
+                  private alertCtrl: AlertController) {
             this.events.subscribe('designaDiretor', (data, user) => {
                   this.diretor=data;
                   this.diretorNome=this.diretor.nome;
@@ -39,6 +42,8 @@ export class AdminDepartamentosConfigPage {
                   this.headerText = 'Adicionar Departamento';
             }
 
+           
+
       }
 
 
@@ -47,10 +52,19 @@ export class AdminDepartamentosConfigPage {
       }
 
       salvarDepartamento(){
-            this.departamentoProvider.criaDepartamento(this.nome, this.igreja, this.diretor._id, this.logo)
-                  .subscribe(res => {
-                        console.log(res);
-                  });
+            if (!this.temErros()){
+
+                  //fazer validacoes aqui
+                  this.departamentoProvider.criaDepartamento(this.nome, this.igreja, this.diretor._id, this.logo)
+                        .subscribe(res => {
+                              console.log(res);
+                              if (!res.error) {
+                                    this.notificacaoProvider.criaNotificacao(this.diretor._id,
+                                          `Você foi designado como diretor(a) do Departamento: ${this.nome}`,
+                                          "PaginaDepartamento").subscribe(res => console.log(res));
+                              }
+                        });
+            }
       }
 
       abrirLogo(){
@@ -74,4 +88,17 @@ export class AdminDepartamentosConfigPage {
                   console.log(err);
             });
       }
+
+
+      temErros() {
+            if (this.nome==undefined || this.nome==='' || this.diretorNome==='' || this.diretorNome==undefined) {
+                  this.alertCtrl.create({
+                        title: 'Preencha os campos corretamente',
+                        buttons: ['OK']
+                  }).present();
+                  return true;
+            }
+            return false;
+      }
+
 }

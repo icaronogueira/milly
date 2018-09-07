@@ -18,6 +18,7 @@ export class NotificacaoProvider {
 
 
       criaNotificacao(usuario, mensagem, componente):Observable<any> {
+            console.log(`Provider cria notificacao: ${usuario} - ${mensagem} - ${componente}`);
             return this.http.post(this.url+'/notificacoes/novo', {
                mensagem: mensagem,
                usuario:usuario,

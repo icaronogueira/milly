@@ -35,5 +35,13 @@ exports.criaDepartamento = (req, res, next) => {
       });
 
       return res.status(200).json({message: 'Departamento criada.', departamento: departamento});
-            
 }
+
+exports.getDepartamentos =  async ((req,res) => {
+      console.log("getDepartamentos - " + req.params);
+      const result = await(Departamento.find({'igreja': req.params.igreja}, (err) => {
+            if (err) return res.status(500).json({error: err});
+      }).populate("diretor"));
+      console.log("result - " + result);
+      return res.status(200).json({departamentos: result});
+});

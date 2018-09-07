@@ -21,4 +21,21 @@
             </button>
       </ion-fab>
 
+      <ion-list *ngIf="departamentos">
+            <ion-item *ngFor="let departamento of departamentos">
+                  <ion-thumbnail item-start>
+                        <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{departamento.versaoLogo}}/{{departamento.idLogo}}">
+                  </ion-thumbnail>
+                  <h2>{{departamento.nome}}</h2>
+                  <p>{{departamento.diretor.nome}}</p>
+                  <button ion-button icon-only item-end>
+                        <ion-icon name="ios-settings"></ion-icon>
+                  </button>
+                  <button ion-button icon-only item-end>
+                        <ion-icon name="ios-trash"></ion-icon>
+                  </button>
+                        
+            </ion-item>
+      </ion-list>
+
 </ion-content>
