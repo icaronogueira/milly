@@ -22,8 +22,8 @@ exports.criaDepartamento = (req, res, next) => {
                         await (Departamento.update({
                               '_id': result._id
                         }, {
-                              "idLogo": result2.public_id,
-                              "versaoLogo": result2.version
+                              "idLogo": result2.public_id ? result2.public_id : "008",
+                              "versaoLogo": result2.version ? result2.version : "1536345090" 
                         }));
                   });
                   savedData().then(result3 => {

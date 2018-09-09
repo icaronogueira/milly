@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
 
@@ -24,7 +24,20 @@ export class AdminDepartamentosPage {
       spinner:any;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-                  private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController) {
+                  private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
+                  private events: Events) {
+                  
+                  this.events.subscribe('atualiza-departamentos', (param1, parm2) => {
+                        this.mostraSpinner();
+                        this.departamentoProvider.getDepartamentos(this.idIgreja).subscribe(res => {
+                              this.escondeSpinner();
+                              console.log(res.departamentos);
+                              if (!res.error) {
+                                    this.departamentos = res.departamentos;
+                              }
+                        });
+                  });
+               
       }
 
       ionViewCanEnter() {

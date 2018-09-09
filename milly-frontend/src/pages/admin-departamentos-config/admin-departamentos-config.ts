@@ -62,9 +62,19 @@ export class AdminDepartamentosConfigPage {
                               this.escondeSpinner();
                               console.log(res);
                               if (!res.error) {
+
+                                    this.alertCtrl.create({
+                                          title: 'Departamento criado com sucesso.',
+                                          buttons: ['OK']
+                                    }).present();
+
                                     this.notificacaoProvider.criaNotificacao(this.diretor._id,
                                           `Você foi designado como diretor(a) do Departamento: ${this.nome}`,
                                           "PaginaDepartamento").subscribe(res => console.log(res));
+
+
+                                    this.events.publish('atualiza-departamentos','','');
+                                    this.navCtrl.pop();
                               }
                         });
             }
