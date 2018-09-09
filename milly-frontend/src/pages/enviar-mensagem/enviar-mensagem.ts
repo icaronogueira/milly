@@ -4,10 +4,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-contact-us',
-  templateUrl: 'contact-us.html',
+  selector: 'page-enviar-mensagem',
+  templateUrl: 'enviar-mensagem.html',
 })
-export class ContactUs {
+export class EnviarMensagemPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

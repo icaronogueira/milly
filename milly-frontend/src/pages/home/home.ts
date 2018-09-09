@@ -16,11 +16,13 @@ export class Home {
       spinner: any;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
-                  private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController) {
+                  private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController,
+                  private events: Events) {
             
       }
 
       ionViewDidLoad(){
+            this.events.publish('atualizaMenu', '','');
             this.storage.get('usuario.email').then(data => {
                         
                   this.mostraSpinner();
