@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController, LoadingController } from 'ionic-angular';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
@@ -20,11 +20,13 @@ export class AdminDepartamentosConfigPage {
       nome: string;
       igreja: string;
 
+      spinner: any;
+
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private events: Events,
                   private departamentoProvider: DepartamentoProvider, private camera: Camera,
                   private storage: Storage, private notificacaoProvider: NotificacaoProvider,
-                  private alertCtrl: AlertController) {
+                  private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
             this.events.subscribe('designaDiretor', (data, user) => {
                   this.diretor=data;
                   this.diretorNome=this.diretor.nome;
@@ -53,10 +55,11 @@ export class AdminDepartamentosConfigPage {
 
       salvarDepartamento(){
             if (!this.temErros()){
-
+                  this.mostraSpinner();
                   //fazer validacoes aqui
                   this.departamentoProvider.criaDepartamento(this.nome, this.igreja, this.diretor._id, this.logo)
                         .subscribe(res => {
+                              this.escondeSpinner();
                               console.log(res);
                               if (!res.error) {
                                     this.notificacaoProvider.criaNotificacao(this.diretor._id,
@@ -99,6 +102,17 @@ export class AdminDepartamentosConfigPage {
                   return true;
             }
             return false;
+      }
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            this.spinner.present();
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
       }
 
 }

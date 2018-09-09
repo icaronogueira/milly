@@ -10,8 +10,6 @@ const nodemailer   = require("nodemailer");
 const crypto       = require("crypto");
 
 exports.criaDepartamento = (req, res, next) => { 
-      let id; 
-      console.log(req.body);
       const departamento = new Departamento();
       departamento.nome  = req.body.nome;
       departamento.diretor = req.body.diretor;
@@ -19,22 +17,24 @@ exports.criaDepartamento = (req, res, next) => {
       
       departamento.save((err, result) => {
             if (err) return res.status(500).json({error: err});
-            id=result._id;
-            console.log(result);
-      });
-
-      cloudinary.uploader.upload(req.body.logo, (result) => {
-            const savedData = async(()=>{
-                  await (Departamento.update({
-                        '_id': id
-                  }, {
-                        "idLogo": result.public_id ? result.public_id : 'avatar-user',
-                        "versaoLogo": result.version ? result.version : '1536009363'
-                  }));
+            cloudinary.uploader.upload(req.body.logo, (result2) => {
+                  const savedData = async(()=>{
+                        await (Departamento.update({
+                              '_id': result._id
+                        }, {
+                              "idLogo": result2.public_id,
+                              "versaoLogo": result2.version
+                        }));
+                  });
+                  savedData().then(result3 => {
+                        return res.status(200).json({message: 'Departamento criado.', departamento: departamento});
+                  });
             });
       });
 
-      return res.status(200).json({message: 'Departamento criada.', departamento: departamento});
+      
+
+      
 }
 
 exports.getDepartamentos =  async ((req,res) => {

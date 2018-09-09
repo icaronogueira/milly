@@ -19,7 +19,7 @@
                         </ion-item>
                         <ion-item>
                               <ion-label>Diretor</ion-label>
-                              <ion-input [(ngModel)]="diretorNome" type="text" (click)="abrirModalDiretor()">{{diretorNome}}</ion-input>
+                              <ion-input [(ngModel)]="diretorNome" [readonly]="true" type="text" (focus)="abrirModalDiretor()">{{diretorNome}}</ion-input>
                         </ion-item>
                   </ion-list>
             </div>
