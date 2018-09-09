@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController, LoadingController } from 'ionic-angular';
 import { IgrejaProvider } from '../../providers/igreja/igreja';
 import { Storage } from '@ionic/storage';
 
@@ -13,14 +13,19 @@ export class SearchableListPage {
 
       membros: any;
       items: any;
+
+      spinner: any;
       constructor(public navCtrl: NavController, public navParams: NavParams, private igrejaProvider: IgrejaProvider,
-                  private storage: Storage, private events: Events, private alertCtrl: AlertController) {
+                  private storage: Storage, private events: Events, private alertCtrl: AlertController,
+                  private loadingCtrl: LoadingController) {
       }
 
       ionViewDidLoad() {
             //pegar membros ativos
+            this.mostraSpinner();
             this.storage.get('usuario.igreja.id').then(data => {
                   this.igrejaProvider.getMembros(data).subscribe(res => {
+                        this.escondeSpinner();
                         if (res.error) {console.log(res.error);}
                         else {
                               this.membros=res.membros.filter((event:any) => (event.permissao==="S" && event.ativo==='S')).sort(this.porNome.bind(this));
@@ -76,6 +81,17 @@ export class SearchableListPage {
             if (ra > rb)
               return 1;
             return 0;
+      }
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            this.spinner.present();
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
       }
 }
 

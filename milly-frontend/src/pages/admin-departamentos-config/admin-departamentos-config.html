@@ -15,7 +15,7 @@
                   <ion-list>
                         <ion-item>
                               <ion-label>Nome</ion-label>
-                              <ion-input [(ngModel)]="nome" type="text"></ion-input>
+                              <ion-input [(ngModel)]="nome" type="text" (keyup)="mudou()"></ion-input>
                         </ion-item>
                         <ion-item>
                               <ion-label>Diretor</ion-label>
@@ -23,7 +23,7 @@
                         </ion-item>
                   </ion-list>
             </div>
-            <button ion-button  color="color1" (click)="salvarDepartamento()">CRIAR DEPARTAMENTO</button>
+            <button ion-button  color="color1" (click)="salvarDepartamento()" [disabled]="btnDisabled">{{buttonText}}</button>
       </div>
 </ion-content>
          

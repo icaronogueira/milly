@@ -16,7 +16,7 @@
 <ion-content padding>
 
       <ion-fab top right edge>
-            <button ion-fab mini (click)="paraConfiguracaoDepartamento()">
+            <button ion-fab mini (click)="paraConfiguracaoDepartamento('adicionar')">
                   <ion-icon name="add"></ion-icon>
             </button>
       </ion-fab>
@@ -28,10 +28,10 @@
                   </ion-thumbnail>
                   <h2>{{departamento.nome}}</h2>
                   <p>{{departamento.diretor.nome}}</p>
-                  <button ion-button icon-only item-end>
+                  <button ion-button icon-only item-end (click)="paraConfiguracaoDepartamento('configurar', departamento)">
                         <ion-icon name="ios-settings"></ion-icon>
                   </button>
-                  <button ion-button icon-only item-end>
+                  <button ion-button icon-only item-end (click)="removeDepartamento(departamento)">
                         <ion-icon name="ios-trash"></ion-icon>
                   </button>
                         
