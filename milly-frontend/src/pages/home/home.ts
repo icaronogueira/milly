@@ -13,7 +13,7 @@ export class Home {
 
 
       usuario: any;
-
+      nomeIgreja: string;
       spinner: any;
 
       notificacoes: any;
@@ -24,6 +24,7 @@ export class Home {
                   private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController,
                   private events: Events, private notificacaoProvider: NotificacaoProvider) {
             
+                        
       }
 
       ionViewDidLoad(){
@@ -35,8 +36,9 @@ export class Home {
                   this.usuarioProvider.getDadosUsuario(data).subscribe(res => {
                         this.escondeSpinner();
                         this.usuario = res.usuario;
+                        this.nomeIgreja = this.usuario.igreja.nome;
 
-                        console.log(this.usuario);
+                        console.log("Dados usuario -> " + JSON.stringify(this.usuario));
                         
                         //CASO = A PERMISSAO AINDA ESTÁ PENDENTE
                         if (this.usuario.permissao === "N") {
@@ -125,15 +127,27 @@ export class Home {
                               }
                         }
 
-                        //ACESSO PERMITIDO *************************
+                        //ACESSO PERMITIDO ******** Fazer inicializações aqui ************
+                       
+                        //Atualiza imagem de perfil no menu lateral
+                        this.events.publish('atualiza-perfil', this.usuario);
+
+                        //Pega Notificações
+                        this.mostraSpinner();
                         console.log('Enviando this.usuario._id ao provider ' + this.usuario._id);
                         this.notificacaoProvider.getNotificacoes(this.usuario._id).subscribe(res => {
+                              this.escondeSpinner();
                               console.log(res);
                               if (!res.error) {
                                     this.notificacoes=res.notificacoes;
                                     this.notificacoesNaoLidas=this.notificacoes.filter(event => event.lida==="N").length;
+                                    this.events.publish('atualiza-numero-subscricoes', this.notificacoesNaoLidas, '');
                               }
                         });
+
+
+
+                        //******************************/
 
                   });
     

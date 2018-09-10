@@ -11,8 +11,14 @@ import { Storage } from '@ionic/storage'
 export class MyApp {
       @ViewChild(Nav) nav: Nav;
 
+      usuario: any;
+
       nome: string;
       email: string;
+      versaoImagem: string;
+      idImagem: string;
+
+      numeroNotificacoes: number;
 
       rootPage: any = 'SignIn';
 
@@ -35,16 +41,23 @@ export class MyApp {
                                     {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
                         }
                         else {
-                              this.nome="Usuário qualquer";
                               this.eAdministrador=false;
                               this.pages = [
-                                    { title: 'Home', component: 'Home',icon:'ios-home-outline' },
-                                    { title: 'My Profile', component: 'MyProfile',icon:'ios-person-outline' },
-                                    { title: 'Notifications', component: 'Notification',icon:'ios-notifications-outline' },
-                                    { title: 'About US', component: 'AboutUs',icon:'ios-document-outline' },
-                                    { title: 'Enviar Mensagem', component: 'EnviarMensagemPage',icon:'ios-mail-outline'}
+                                    { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
+                                    { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' }
                               ];
                         }
+                   });
+
+                   this.events.subscribe('atualiza-numero-subscricoes', (data, email) => {
+                        this.numeroNotificacoes = data;
+                   });
+
+                   this.events.subscribe('atualiza-perfil', (usuario) => {
+                        this.usuario=usuario;
+                        this.versaoImagem=usuario.versaoImagem;
+                        this.nome=this.usuario.nome;
+                        this.idImagem=usuario.idImagem;
                    });
             }
       
@@ -74,11 +87,8 @@ export class MyApp {
                         this.nome="Usuário qualquer";
                         this.eAdministrador=false;
                         this.pages = [
-                              { title: 'Home', component: 'Home',icon:'ios-home-outline' },
-                              { title: 'My Profile', component: 'MyProfile',icon:'ios-person-outline' },
-                              { title: 'Notifications', component: 'Notification',icon:'ios-notifications-outline' },
-                              { title: 'About US', component: 'AboutUs',icon:'ios-document-outline' },
-                              { title: 'Enviar Mensagem', component: 'EnviarMensagemPage',icon:'ios-mail-outline'}
+                              { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
+                              { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' }
                         ];
                   }
             });

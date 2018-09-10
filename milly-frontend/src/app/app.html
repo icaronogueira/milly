@@ -4,7 +4,7 @@
                   <ion-toolbar>
                         <ion-item>
                               <ion-avatar item-left *ngIf="!eAdministrador">
-                                    <img src="assets/img/008.png"/>
+                                          <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{versaoImagem}}/{{idImagem}}">
                               </ion-avatar>
                               <h4 *ngIf="eAdministrador">ADMINISTRADOR</h4>
                               <h4>{{nome}}</h4>
@@ -16,7 +16,7 @@
                   <ion-item menuClose  *ngFor="let p of pages" (click)="openPage(p.component)">
                   <ion-icon name="{{p.icon}}" item-left></ion-icon>
                   {{p.title}}
-                  <ion-badge color="color1" item-right *ngIf="p.component=='Notification'">5</ion-badge>
+                  <ion-badge color="color1" item-right *ngIf="p.component=='Notification'">{{numeroNotificacoes}}</ion-badge>
                   </ion-item>
             </ion-list>
             </ion-content>
