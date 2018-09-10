@@ -21,3 +21,13 @@ exports.criaNotificacao = (req, res, next) => {
       return res.status(200).json({message: 'Notificação criada.', notificacao: notificacao})
             
 }
+
+exports.getNotificacoes = (req, res, next) => {
+      console.log("getNotificacoes. Id do usuario: " + req.body.usuario);
+      Notificacao.find({usuario: req.body.usuario}, (err,result) => {
+            if (err) {
+                  return res.status(500).json({error: err});
+            }
+            return res.status(200).json({notificacoes: result});
+      });
+}

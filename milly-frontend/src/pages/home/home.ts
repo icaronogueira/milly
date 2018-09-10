@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 
 @IonicPage()
 @Component({
@@ -15,9 +16,13 @@ export class Home {
 
       spinner: any;
 
+      notificacoes: any;
+      notificacoesNaoLidas: number;
+      
+
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
                   private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController,
-                  private events: Events) {
+                  private events: Events, private notificacaoProvider: NotificacaoProvider) {
             
       }
 
@@ -119,6 +124,16 @@ export class Home {
                                     }
                               }
                         }
+
+                        //ACESSO PERMITIDO *************************
+                        console.log('Enviando this.usuario._id ao provider ' + this.usuario._id);
+                        this.notificacaoProvider.getNotificacoes(this.usuario._id).subscribe(res => {
+                              console.log(res);
+                              if (!res.error) {
+                                    this.notificacoes=res.notificacoes;
+                                    this.notificacoesNaoLidas=this.notificacoes.filter(event => event.lida==="N").length;
+                              }
+                        });
 
                   });
     

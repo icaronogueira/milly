@@ -26,5 +26,10 @@ export class NotificacaoProvider {
             });
       }
 
+      getNotificacoes(usuario): Observable<any> {
+            return this.http.post(this.url+'/notificacoes', {
+                  usuario: usuario
+            });
+      }
 
 }

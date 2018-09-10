@@ -9,7 +9,7 @@
     <ion-buttons end>
       <button ion-button (click)="goTo('Notification')" >
         <ion-icon name="ios-notifications-outline"></ion-icon>
-        <ion-badge color="color1">5</ion-badge>
+        <ion-badge *ngIf="notificacoesNaoLidas > 0" color="color1">{{notificacoesNaoLidas}}</ion-badge>
       </button>
     </ion-buttons>
   </ion-navbar>
