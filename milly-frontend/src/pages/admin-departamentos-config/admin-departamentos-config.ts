@@ -37,6 +37,7 @@ export class AdminDepartamentosConfigPage {
             this.events.subscribe('designaDiretor', (data, user) => {
                   this.diretor=data;
                   this.diretorNome=this.diretor.nome;
+                  this.storage.get('diretor.original').then(data => this.diretorOriginal=data);
                   console.log(this.diretor);
             });
       }
@@ -71,6 +72,7 @@ export class AdminDepartamentosConfigPage {
 
       abrirModalDiretor() {
             this.btnDisabled=false;
+            this.storage.set('diretor.original',this.diretor);
             this.navCtrl.push("SearchableListPage");
       }
 
@@ -92,6 +94,8 @@ export class AdminDepartamentosConfigPage {
 
 
                                     //NOTIFICACOES UTÉIS
+                                    console.log(this.diretor);
+                                    console.log(this.diretorOriginal);
                                     if (this.acao==='adicionar' || this.diretor._id!==this.diretorOriginal._id) {
                                           this.notificacaoProvider.criaNotificacao(this.diretor._id,
                                                 `Você foi designado como diretor(a) do Departamento: ${this.nome}`,
@@ -101,10 +105,12 @@ export class AdminDepartamentosConfigPage {
                                                 `A administração da igreja fez algumas modificações na estrutura do departamento: ${this.nome}`,
                                                 "PaginaDepartamento").subscribe(res => console.log(res));
                                     }
-                                    if (this.diretor._id!==this.diretorOriginal._id) {
-                                          this.notificacaoProvider.criaNotificacao(this.diretorOriginal._id,
-                                                `Você não é mais diretor(a) do Departamento: ${this.nome}`,
-                                                "PaginaDepartamento").subscribe(res => console.log(res));
+                                    if (this.acao!=='adicionar') {
+                                          if (this.diretor._id!==this.diretorOriginal._id) {
+                                                this.notificacaoProvider.criaNotificacao(this.diretorOriginal._id,
+                                                      `Você não é mais diretor(a) do Departamento: ${this.nome}`,
+                                                      "PaginaDepartamento").subscribe(res => console.log(res));
+                                          }
                                     }
                                     //enviar notificacoes para membros que seguem o departamento tambem
 

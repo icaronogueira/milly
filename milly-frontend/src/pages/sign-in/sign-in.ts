@@ -230,7 +230,9 @@ export class SignIn {
       }
 
       getIgrejas() {
+            this.mostraSpinner();
             this.igrejaProvider.getIgrejas().subscribe(res => {
+                  this.escondeSpinner();
                   this.igrejas = res.result;
                   console.log(this.igrejas);
             });

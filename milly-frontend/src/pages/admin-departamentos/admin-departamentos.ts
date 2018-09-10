@@ -81,6 +81,7 @@ export class AdminDepartamentosPage {
       }
 
       paraConfiguracaoDepartamento(acao, departamento?) {
+            console.log(acao);
             this.navCtrl.push("AdminDepartamentosConfigPage", {
                   acao: acao,
                   departamento: departamento ? departamento : undefined

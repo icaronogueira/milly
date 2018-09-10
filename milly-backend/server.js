@@ -52,11 +52,14 @@ const igrejas    = require("./routes/igrejasRoute");
 const usuarios   = require("./routes/usuariosRoute");
 const departamentos   = require("./routes/departamentosRoute");
 const notificacoes = require("./routes/notificacoesRoute");
+const mensagens = require("./routes/mensagensRoute");
+
 
 app.use('', igrejas);
 app.use('', usuarios);
 app.use('', departamentos);
 app.use('', notificacoes);
+app.use('', mensagens);
 
 
 

@@ -4,31 +4,35 @@
       <ion-icon name="ios-menu"></ion-icon>
     </button>
     <ion-title>ENVIAR MENSAGEM</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="goTo('Notification')">
-        <ion-icon name="ios-notifications-outline"></ion-icon>
-        <ion-badge color="color1">5</ion-badge>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <div class="appForm">
-    <ion-list>
-        <ion-item>
-          <ion-input type="text" placeholder="Full Name"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="email" placeholder="Your Email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-textarea rows="10" placeholder="Your Message"></ion-textarea>
-        </ion-item>
-    </ion-list>
-  </div>
+      <div class="appForm">
+      <ion-list>
+            <ion-item>
+                  <ion-label>Para: </ion-label>
+                  <ion-select #C [(ngModel)]="destinatarios" placeholder="Para: " (ionChange)="selecionaDestinatario(C.value)">
+                        <ion-option value="todos">Todos</ion-option>
+                        <ion-option value="diretores">Diretores</ion-option>
+                        <ion-option value="seguidores">Seguidores de...</ion-option>
+                  </ion-select>
+                  <ion-select [(ngModel)]="paraDepartamento" placeholder="Departamento: " [disabled]="disableSelectDepartamentos">
+                        <ion-option *ngFor="let departamento of departamentos" value="departamento._id">
+                              {{departamento.nome}}</ion-option>
+                  </ion-select>
+            </ion-item>
+            <ion-item>
+                  <ion-input type="text" [(ngModel)]="assunto" placeholder="Assunto"
+                        style="font-weight: bold !important;"></ion-input>
+            </ion-item>
+            <ion-item>
+                  <ion-textarea rows="10" [(ngModel)]="texto"></ion-textarea>
+            </ion-item>
+      </ion-list>
+      </div>
 </ion-content>
 <ion-footer padding>
-  <button ion-button block color="color1" (click)="goTo('Home')">Submit</button>
+  <button ion-button block color="color1" (click)="enviarMensagem()">ENVIAR MENSAGEM</button>
 </ion-footer>

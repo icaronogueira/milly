@@ -14,6 +14,7 @@ import { ComponentsModule } from '../components/components.module';
 import { NotificacaoProvider } from '../providers/notificacao/notificacao';
 import { FormsModule } from '@angular/forms';
 import { DepartamentoProvider } from '../providers/departamento/departamento';
+import { MensagemProvider } from '../providers/mensagem/mensagem';
 
 
 
@@ -51,7 +52,8 @@ var config = {
     UsuarioProvider,
     Camera,
     NotificacaoProvider,
-    DepartamentoProvider
+    DepartamentoProvider,
+    MensagemProvider
   ]
 })
 export class AppModule {}

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class DepartamentoProvider {
 
-      url: string = "http://192.168.0.8:3000";
+      url: string = "http://localhost:3000";
 
       constructor(public http: HttpClient) {
              console.log('Hello DepartamentoProvider Provider');

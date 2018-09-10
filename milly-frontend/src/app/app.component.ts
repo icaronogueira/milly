@@ -68,9 +68,6 @@ export class MyApp {
                         });
                         this.pages = [
                               { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline' },
-                              { title: 'Departamentos', component: 'AdminDepartamentosPage',icon:'ios-home-outline' },
-                              { title: 'Membros', component: 'AdminMembrosPage',icon:'ios-home-outline' },
-                              { title: 'Aviso Geral', component: 'AdminAvisoGeralPage',icon:'ios-home-outline' },
                               {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
                   }
                   else {

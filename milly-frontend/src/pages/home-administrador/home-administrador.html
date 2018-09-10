@@ -6,12 +6,6 @@
                 <ion-icon name="ios-menu"></ion-icon>
               </button>
               <ion-title>Administrador - {{nomeIgreja}}</ion-title>
-              <ion-buttons end>
-                <button ion-button (click)="goTo('Notification')" >
-                  <ion-icon name="ios-notifications-outline"></ion-icon>
-                  <ion-badge color="color1">5</ion-badge>
-                </button>
-              </ion-buttons>
             </ion-navbar>
           
           </ion-header>
@@ -46,7 +40,7 @@
             </ion-row>
             <ion-row>
                   <ion-col>
-                        <div class="container" (click)="abrePagina('AdminAvisoGeralPage')">
+                        <div class="container" (click)="abrePagina('EnviarMensagemPage')">
                               <button>
                                    <div class="icon-container">      
                                           <ion-icon name="ios-mail"></ion-icon>
