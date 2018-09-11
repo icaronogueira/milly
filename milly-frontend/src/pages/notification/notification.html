@@ -16,15 +16,20 @@
 </ion-header>
 
 <ion-content >
-  <ion-list class="commentList">
-    <ion-item *ngFor="let notificacao of notificacoes" (click)="irPara(notificacao.componente)" [ngClass]="classLido(notificacao.lida)">
-      <ion-avatar item-left *ngIf="notificacao.idImagem">
-                  <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{notificacao.versaoImagem}}/{{notificacao.idImagem}}">
-      </ion-avatar>
-      <h4>{{notificacao.autor}}</h4>
-      <p>
-        {{notificacao.mensagem}}
-      </p>
-    </ion-item>
-  </ion-list>
+      <ion-list class="commentList">
+            <ion-item *ngFor="let notificacao of notificacoes" (click)="clicaNotificacao(notificacao)" [ngClass]="classLido(notificacao.lida)">
+                  <ion-avatar item-left *ngIf="notificacao.idImagem">
+                              <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{notificacao.versaoImagem}}/{{notificacao.idImagem}}">
+                  </ion-avatar>
+                  <h4>{{notificacao.autor}}</h4>
+                  <p>{{notificacao.mensagem}}</p>
+            </ion-item>
+      </ion-list>
+
+      <ion-fab right bottom>
+            <button ion-fab>
+                  <ion-icon name="md-checkmark-circle"></ion-icon>
+            </button>
+      </ion-fab>
+      
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,10 @@ export class Notification {
       notificacoes: any;
       numeroNotificacoes: number;
 
-      constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+      spinner: any;
+
+      constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
+                  private notificacaoProvider: NotificacaoProvider, private loadingCtrl: LoadingController) {
       }
 
       // go to another page
@@ -25,15 +29,38 @@ export class Notification {
             
       }
 
-      goTo(page){
-            this.navCtrl.push(page);
-      } 
+      clicaNotificacao(notificacao) {
+
+            //marcar notificacao como lida
+            //atualizar badges
+            //ir para a página componente
+            this.mostraSpinner();
+            this.notificacaoProvider.leNotificacao(notificacao._id).subscribe(res => {
+                  this.escondeSpinner();
+                  console.log(res);
+                  this.navCtrl.push(notificacao.componente);
+            });
+
+      }
+
+
 
       classLido(lida) {
             if (lida==='S') {
                   return 'item-lido';
             }
             return '';
+      }
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            this.spinner.present();
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
       }
 
 }

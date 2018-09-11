@@ -35,4 +35,10 @@ export class NotificacaoProvider {
             });
       }
 
+      leNotificacao(notificacao):Observable<any> {
+            return this.http.post(this.url+'/notificacoes/lida', {
+                  notificacao: notificacao
+            });
+      }
+
 }

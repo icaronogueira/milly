@@ -40,3 +40,14 @@ exports.getNotificacoes = (req, res, next) => {
             return res.status(200).json({notificacoes: result});
       }).sort({createdAt: 'desc'});
 }
+
+exports.lerNotificacao = (req, res, next) => {
+      Notificacao.findOneAndUpdate({_id: req.body.notificacao}, {
+            lida: 'S'
+      }, (err,result) => {
+            if (err) {
+                  return res.status(500).json({error: err});
+            }
+            return res.status(200).json({notificacao: result});
+      });
+}
