@@ -142,6 +142,9 @@ export class Home {
 
                         //ACESSO PERMITIDO ******** Fazer inicializações aqui ************
                        this.storage.set('usuario.id', this.usuario._id);
+                       this.storage.set('igreja.nome', this.nomeIgreja);
+                       this.storage.set('usuario', this.usuario);
+                       
                         //Atualiza imagem de perfil no menu lateral
                         this.events.publish('atualiza-perfil', this.usuario);
 

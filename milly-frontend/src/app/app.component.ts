@@ -44,7 +44,8 @@ export class MyApp {
                               this.eAdministrador=false;
                               this.pages = [
                                     { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
-                                    { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' }
+                                    { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' },
+                                    { title: 'Direção', component: 'DirecaoPage',icon:'ios-people-outline' }
                               ];
                         }
                    });
@@ -88,7 +89,8 @@ export class MyApp {
                         this.eAdministrador=false;
                         this.pages = [
                               { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
-                              { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' }
+                              { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' },
+                              { title: 'Direção', component: 'DirecaoPage',icon:'ios-people-outline' }
                         ];
                   }
             });
@@ -99,7 +101,12 @@ export class MyApp {
       openPage(page) {
             // Reset the content nav to have just this page
             // we wouldn't want the back button to show in this scenario
-            this.nav.setRoot(page);
+            if (page==='Home' || page==='HomeAdministradorPage') {
+                  this.nav.setRoot(page);
+            } else {
+                  this.nav.push(page);
+            }
+            
       }
       // animate my app Function
       public animateVarible:boolean=false;
