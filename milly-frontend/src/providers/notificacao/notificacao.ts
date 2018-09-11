@@ -41,4 +41,10 @@ export class NotificacaoProvider {
             });
       }
 
+      leTodas(usuario): Observable<any> {
+            return this.http.post(this.url+'/notificacoes/lertodas',{
+                  usuario: usuario
+            });
+      }
+
 }

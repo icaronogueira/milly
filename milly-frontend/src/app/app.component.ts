@@ -49,7 +49,7 @@ export class MyApp {
                         }
                    });
 
-                   this.events.subscribe('atualiza-numero-subscricoes', (data, email) => {
+                   this.events.subscribe('atualiza-numero-notificacoes', (data, email) => {
                         this.numeroNotificacoes = data;
                    });
 

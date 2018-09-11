@@ -51,3 +51,19 @@ exports.lerNotificacao = (req, res, next) => {
             return res.status(200).json({notificacao: result});
       });
 }
+exports.lerTodas = (req, res, next) => {
+      console.log('ler Todas do usuario ' + req.body.usuario);
+      Notificacao.updateMany({usuario: req.body.usuario}, {
+            $set: {lida: 'S'}
+      }, (err,result) => {
+            if (err) {
+                  return res.status(500).json({error: err});
+            }
+            Notificacao.find({usuario: req.body.usuario}, (err,result) => {
+                  if (err) {
+                        return res.status(500).json({error: err});
+                  }
+                  return res.status(200).json({notificacoes: result});
+            }).sort({createdAt: 'desc'});
+      });
+}

@@ -8,7 +8,7 @@
     <ion-buttons end>
       <button ion-button >
         <ion-icon name="ios-notifications-outline"></ion-icon>
-        <ion-badge color="color1">{{numeroNotificacoes}}</ion-badge>
+        <ion-badge color="color1" *ngIf="numeroNotificacoes > 0">{{numeroNotificacoes}}</ion-badge>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -27,7 +27,7 @@
       </ion-list>
 
       <ion-fab right bottom>
-            <button ion-fab>
+            <button ion-fab (click)="lerTodas()">
                   <ion-icon name="md-checkmark-circle"></ion-icon>
             </button>
       </ion-fab>

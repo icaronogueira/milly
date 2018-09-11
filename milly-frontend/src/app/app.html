@@ -16,7 +16,7 @@
                   <ion-item menuClose  *ngFor="let p of pages" (click)="openPage(p.component)">
                   <ion-icon name="{{p.icon}}" item-left></ion-icon>
                   {{p.title}}
-                  <ion-badge color="color1" item-right *ngIf="p.component=='Notification'">{{numeroNotificacoes}}</ion-badge>
+                  <ion-badge color="color1" item-right *ngIf="p.component=='Notification' && numeroNotificacoes>0">{{numeroNotificacoes}}</ion-badge>
                   </ion-item>
             </ion-list>
             </ion-content>

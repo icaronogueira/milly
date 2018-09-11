@@ -23,7 +23,20 @@ export class Home {
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
                   private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController,
                   private events: Events, private notificacaoProvider: NotificacaoProvider) {
-            
+
+            this.events.subscribe('atualiza-notificacoes',(idUsuario) => {
+                  this.mostraSpinner();
+                  this.notificacaoProvider.getNotificacoes(idUsuario).subscribe(res => {
+                        this.escondeSpinner();
+                        if (!res.error) {
+                              this.notificacoes=res.notificacoes;
+                              this.storage.set('usuario.notificacoes', this.notificacoes);
+                              this.notificacoesNaoLidas=this.notificacoes.filter(event => event.lida==="N").length;
+                              this.events.publish('atualiza-numero-notificacoes', this.notificacoesNaoLidas, '');
+                        }
+                  });
+            });
+                        
                         
       }
 
@@ -128,23 +141,12 @@ export class Home {
                         }
 
                         //ACESSO PERMITIDO ******** Fazer inicializações aqui ************
-                       
+                       this.storage.set('usuario.id', this.usuario._id);
                         //Atualiza imagem de perfil no menu lateral
                         this.events.publish('atualiza-perfil', this.usuario);
 
                         //Pega Notificações
-                        this.mostraSpinner();
-                        console.log('Enviando this.usuario._id ao provider ' + this.usuario._id);
-                        this.notificacaoProvider.getNotificacoes(this.usuario._id).subscribe(res => {
-                              this.escondeSpinner();
-                              console.log(res);
-                              if (!res.error) {
-                                    this.notificacoes=res.notificacoes;
-                                    this.storage.set('usuario.notificacoes', this.notificacoes);
-                                    this.notificacoesNaoLidas=this.notificacoes.filter(event => event.lida==="N").length;
-                                    this.events.publish('atualiza-numero-subscricoes', this.notificacoesNaoLidas, '');
-                              }
-                        });
+                        this.events.publish('atualiza-notificacoes', this.usuario._id);
 
 
 
