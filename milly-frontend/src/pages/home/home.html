@@ -7,7 +7,7 @@
     </button>
     <ion-title>MILLY - {{nomeIgreja}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="goTo('Notification')" >
+      <button ion-button (click)="irParaNotificacoes()" >
         <ion-icon name="ios-notifications-outline"></ion-icon>
         <ion-badge *ngIf="notificacoesNaoLidas > 0" color="color1">{{notificacoesNaoLidas}}</ion-badge>
       </button>

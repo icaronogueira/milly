@@ -17,12 +17,15 @@ export class NotificacaoProvider {
       }
 
 
-      criaNotificacao(usuario, mensagem, componente):Observable<any> {
+      criaNotificacao(usuario, mensagem, componente, autor, idImagem?, versaoImagem?):Observable<any> {
             console.log(`Provider cria notificacao: ${usuario} - ${mensagem} - ${componente}`);
             return this.http.post(this.url+'/notificacoes/novo', {
                mensagem: mensagem,
                usuario:usuario,
-               componente: componente
+               componente: componente,
+               autor: autor,
+               idImagem: idImagem ? idImagem : undefined,
+               versaoImagem: versaoImagem ? versaoImagem : undefined
             });
       }
 

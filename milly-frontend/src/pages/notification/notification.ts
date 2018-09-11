@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -8,27 +9,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Notification {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-  comments=[ 
-    {name:'Matt Doman',img:'assets/img/006.png',text:'more'},
-    {name:'Mical Matta',img:'assets/img/007.png',text:'more'},
-    {name:'Matt Doman',img:'assets/img/006.png',text:'more'},
-    {name:'Mical Matta',img:'assets/img/007.png',text:'more'},
-    {name:'Matt Doman',img:'assets/img/006.png',text:'more'},
-    {name:'Mical Matta',img:'assets/img/007.png',text:'more'},
-    {name:'Matt Doman',img:'assets/img/006.png',text:'more'},
-    {name:'Mical Matta',img:'assets/img/007.png',text:'more'},
-    {name:'Matt Doman',img:'assets/img/006.png',text:'more'},
-    {name:'Mical Matta',img:'assets/img/007.png',text:'more'},
-    {name:'Matt Doman',img:'assets/img/006.png',text:'more'},
-    {name:'Mical Matta',img:'assets/img/007.png',text:'more'},
-    {name:'Matt Doman',img:'assets/img/006.png',text:'more'},
-    {name:'Mical Matta',img:'assets/img/007.png',text:'more'},
-  ]
-  // go to another page
-goTo(page){
-  this.navCtrl.push(page);
-  } 
+      notificacoes: any;
+      numeroNotificacoes: number;
+
+      constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+      }
+
+      // go to another page
+      ionViewDidLoad(){
+            this.storage.get('usuario.notificacoes').then(data => {
+                  this.notificacoes=data;
+                  console.log(this.notificacoes);
+                  this.numeroNotificacoes = this.notificacoes.filter(element => element.lida==='N').length;
+            });
+            
+      }
+
+      goTo(page){
+            this.navCtrl.push(page);
+      } 
+
+      classLido(lida) {
+            if (lida==='S') {
+                  return 'item-lido';
+            }
+            return '';
+      }
 
 }

@@ -14,10 +14,19 @@ exports.criaNotificacao = (req, res, next) => {
       notificacao.mensagem  = req.body.mensagem;
       notificacao.usuario = req.body.usuario;
       notificacao.lida = 'N';
+      notificacao.autor= req.body.autor;
       notificacao.componente = req.body.componente;
-      notificacao.save((err) => {
+      if (req.body.idImagem) {
+            notificacao.idImagem = req.body.idImagem;
+      }
+      if (req.body.versaoImagem) {
+            notificacao.versaoImagem = req.body.versaoImagem;
+      }
+      notificacao.save((err, result) => {
             if (err) return res.status(500).json({error: err});
       });
+
+
       return res.status(200).json({message: 'Notificação criada.', notificacao: notificacao})
             
 }
@@ -29,5 +38,5 @@ exports.getNotificacoes = (req, res, next) => {
                   return res.status(500).json({error: err});
             }
             return res.status(200).json({notificacoes: result});
-      });
+      }).sort({createdAt: 'desc'});
 }

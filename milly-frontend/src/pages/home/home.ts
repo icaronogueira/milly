@@ -140,6 +140,7 @@ export class Home {
                               console.log(res);
                               if (!res.error) {
                                     this.notificacoes=res.notificacoes;
+                                    this.storage.set('usuario.notificacoes', this.notificacoes);
                                     this.notificacoesNaoLidas=this.notificacoes.filter(event => event.lida==="N").length;
                                     this.events.publish('atualiza-numero-subscricoes', this.notificacoesNaoLidas, '');
                               }
@@ -170,8 +171,9 @@ export class Home {
       ]
 
       // go to another page
-      goTo(page){
-       this.navCtrl.push(page);
+      irParaNotificacoes(){
+
+       this.navCtrl.push('Notification');
       }
 
       mostraSpinner(){

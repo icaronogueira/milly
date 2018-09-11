@@ -6,7 +6,12 @@ page-notification {
         }
         .item-ios{
             background-color: color($colors,color1);
-            margin-bottom:1px;
+            margin-bottom:1px !important;
+            padding:0px $mainMarg;
+        }
+        .item-lido {
+            background-color: #ecbd65 !important;
+            margin-bottom:1px !important;
             padding:0px $mainMarg;
         }
     }
