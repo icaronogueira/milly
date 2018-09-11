@@ -52,3 +52,21 @@ exports.removeDepartamento = async ((req,res) => {
       }));
       return res.status(200).json({message: 'Departamento removido.'});
 });
+
+exports.segueDepartamento = async ((req,res) => {
+      const result = await(Usuario.findOneAndUpdate({'_id': req.body.usuario._id}, {
+            $addToSet: {segue: {departamento: req.body.departamento._id}}
+      }, (err) => {
+            if (err) return res.status(500).json({error: err});
+      }));
+      return res.status(200).json({message: req.body.usuario.nome + ' está seguindo o departamento '+ req.body.departamento.nome});
+});
+
+exports.deixaDepartamento = async ((req,res) => {
+      const result = await(Usuario.findOneAndUpdate({'_id': req.body.usuario._id}, {
+            $pull: {segue: {departamento: req.body.departamento._id}}
+      }, (err) => {
+            if (err) return res.status(500).json({error: err});
+      }));
+      return res.status(200).json({message: req.body.usuario.nome + ' deixou o departamento '+ req.body.departamento.nome});
+});

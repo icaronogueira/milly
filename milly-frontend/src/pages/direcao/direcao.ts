@@ -22,8 +22,11 @@ export class DirecaoPage {
       numeroNotificacoes: number;
 
       departamentos: any;
+      departamentosQueSegue:any = [];
+      usuario: any;
 
       spinner: any;
+
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController) {
@@ -37,7 +40,9 @@ export class DirecaoPage {
             this.storage.get('usuario').then(data => {
                   this.nomeIgreja=data.igreja.nome;
                   this.idIgreja=data.igreja._id;
-
+                  this.usuario=data;
+                  this.departamentosQueSegue=this.usuario.segue;
+                  console.log(this.departamentosQueSegue);
                   //pega departamentos
                   this.mostraSpinner();
                   this.departamentoProvider.getDepartamentos(this.idIgreja).subscribe(res => {
@@ -46,7 +51,35 @@ export class DirecaoPage {
                   });
             });
 
+            this.storage.get('segue.departamentos').then(data => {
+                  if (data) {
+                        this.departamentosQueSegue = data;
+                  }
+            });
+
             
+      }
+
+      ionViewWillAppear(){
+            console.log("will appear");
+      }
+
+      seguirDepartamento(departamento) {
+            this.departamentoProvider.seguirDepartamento(this.usuario, departamento).subscribe(res => {
+                  this.departamentosQueSegue.push({
+                        departamento: departamento._id
+                  });
+                  this.storage.set('segue.departamentos', this.departamentosQueSegue);
+                  console.log(this.departamentosQueSegue);
+            });
+      }
+
+      deixarSeguirDepartamento(departamento) {
+            this.departamentoProvider.deixarSeguirDepartamento(this.usuario, departamento).subscribe(res => {
+                  this.departamentosQueSegue = this.departamentosQueSegue.filter(e => e.departamento !== departamento._id);
+                  this.storage.set('segue.departamentos', this.departamentosQueSegue);
+                  console.log(this.departamentosQueSegue);
+            });
       }
 
 
@@ -66,6 +99,23 @@ export class DirecaoPage {
             this.departamentos[i].open = !this.departamentos[i].open;
       }
 
+      irParaNotificacoes(){
+            this.navCtrl.push('Notification');
+      }
+
+      paginaDepartamento(departamento) {
+            this.navCtrl.push("DepartamentoPage", {departamento: departamento});
+      }
+
+      segueDepartamento(departamento){
+            let segue=false;
+            this.departamentosQueSegue.forEach(element => {
+                  if (element.departamento === departamento._id) {
+                        segue=true;
+                  }
+            });
+            return segue;
+      }
       
 
 }

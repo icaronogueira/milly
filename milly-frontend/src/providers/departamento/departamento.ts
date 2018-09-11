@@ -32,5 +32,19 @@ export class DepartamentoProvider {
             });
       }
 
+      seguirDepartamento(usuario, departamento): Observable<any> {
+            return this.http.post(this.url+'/departamentos/segue',{
+                  usuario: usuario,
+                  departamento: departamento
+            });
+      }
+
+      deixarSeguirDepartamento(usuario, departamento): Observable<any> {
+            return this.http.post(this.url+'/departamentos/deixa',{
+                  usuario: usuario,
+                  departamento: departamento
+            });
+      }
+
 
 }

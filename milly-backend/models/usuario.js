@@ -17,6 +17,10 @@ const usuarioSchema = mongoose.Schema({
 
       tipo:         {type: String, required: true, default: 'membro'},
 
+      segue: [{
+            departamento: {type: mongoose.Schema.Types.ObjectId, ref: 'Departamento', unique: true}
+      }],
+
       resetPasswordToken: String,
       resetPasswordExpires: Date,
 });

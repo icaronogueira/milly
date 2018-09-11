@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>Direção - {{nomeIgreja}}</ion-title>
     <ion-buttons end>
-      <button ion-button >
+      <button ion-button (click)="irParaNotificacoes()">
         <ion-icon name="ios-notifications-outline"></ion-icon>
         <ion-badge color="color1" *ngIf="numeroNotificacoes > 0">{{numeroNotificacoes}}</ion-badge>
       </button>
@@ -23,18 +23,41 @@
 
       <ion-list class="accordion-list">
 
+            
+
             <!-- Primeiro nível -->
             <ion-list-header *ngFor="let departamento of departamentos; let i=index" no-lines no-padding>
                   <!-- Toogle button -->
-                  <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': departamento.open, 'section': !departamento.open}">
-                        <ion-icon item-left name="arrow-forward" *ngIf="!departamento.open"></ion-icon>
-                        <ion-icon item-left name="arrow-down" *ngIf="departamento.open"></ion-icon> 
-                        {{departamento.nome}}
-                  </button>
-
+                  <ion-item-sliding>
+                        <ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': departamento.open, 'section': !departamento.open}">
+                              <ion-icon item-left name="arrow-forward" *ngIf="!departamento.open"></ion-icon>
+                              <ion-icon item-left name="arrow-down" *ngIf="departamento.open"></ion-icon> 
+                              {{departamento.nome}}
+                        </ion-item>
+                        <ion-item-options side="right">
+                              <button ion-button color="primary" (click)="paginaDepartamento(departamento)">
+                                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                                    Página
+                              </button>
+                              <button ion-button *ngIf="!segueDepartamento(departamento)" color="danger"
+                                                 (click)="seguirDepartamento(departamento)">
+                                    <ion-icon name="ios-heart-outline"></ion-icon>
+                                    Seguir
+                              </button>
+                              <button ion-button *ngIf="segueDepartamento(departamento)" color="color3"
+                                                 (click)="deixarSeguirDepartamento(departamento)">
+                                    <ion-icon name="ios-heart-outline"></ion-icon>
+                                    Deixar de Seguir
+                              </button>
+                        </ion-item-options>
+                  </ion-item-sliding>
                   <!-- Diretor -->
                   <ion-item *ngIf="departamento.open" ion-item detail-none class="child-item" text-wrap>
+                        <ion-avatar item-start>
+                                    <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{departamento.diretor.versaoImagem}}/{{departamento.diretor.idImagem}}">
+                        </ion-avatar>
                         <h2>{{departamento.diretor.nome}}</h2>
+                        <p>Diretor(a)</p>
                         <!-- <p text-lowercase>{{ child.information }}</p>
                         <button ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</button> -->
                   </ion-item>

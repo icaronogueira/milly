@@ -15,11 +15,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DepartamentoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+      departamento: any;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DepartamentoPage');
-  }
+      constructor(public navCtrl: NavController, public navParams: NavParams) {
+      }
+
+      ionViewDidLoad() {
+            this.departamento=this.navParams.get('departamento');
+            if (this.departamento) {console.log(this.departamento)}
+      }
 
 }
