@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
+import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 
 /**
  * Generated class for the DirecaoPage page.
@@ -29,7 +30,8 @@ export class DirecaoPage {
 
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-                  private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController) {
+                  private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
+                  private notificacaoProvider: NotificacaoProvider) {
       }
 
       ionViewDidLoad() {
@@ -70,6 +72,12 @@ export class DirecaoPage {
                         departamento: departamento._id
                   });
                   this.storage.set('segue.departamentos', this.departamentosQueSegue);
+
+                  this.notificacaoProvider.criaNotificacao(departamento.diretor._id,
+                        `Começou a seguir ${departamento.nome}`,
+                        "Home", this.usuario.nome).subscribe(res => console.log(res));
+
+
                   console.log(this.departamentosQueSegue);
             });
       }

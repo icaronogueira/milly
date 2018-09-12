@@ -52,15 +52,23 @@
                         </ion-item-options>
                   </ion-item-sliding>
                   <!-- Diretor -->
-                  <ion-item *ngIf="departamento.open" ion-item detail-none class="child-item" text-wrap>
-                        <ion-avatar item-start>
-                                    <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{departamento.diretor.versaoImagem}}/{{departamento.diretor.idImagem}}">
-                        </ion-avatar>
-                        <h2>{{departamento.diretor.nome}}</h2>
-                        <p>Diretor(a)</p>
-                        <!-- <p text-lowercase>{{ child.information }}</p>
-                        <button ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</button> -->
-                  </ion-item>
+                  <ion-item-sliding>
+                        <ion-item *ngIf="departamento.open" ion-item detail-none class="child-item" text-wrap>
+                              <ion-avatar item-start>
+                                          <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{departamento.diretor.versaoImagem}}/{{departamento.diretor.idImagem}}">
+                              </ion-avatar>
+                              <h2>{{departamento.diretor.nome}}</h2>
+                              <p>Diretor(a)</p>
+                              <!-- <p text-lowercase>{{ child.information }}</p>
+                              <button ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</button> -->
+                        </ion-item>
+                        <ion-item-options side="right">
+                              <button ion-button color="color1" (click)="enviarMensagem(departamento)">
+                                    <ion-icon name="ios-mail-outline"></ion-icon>
+                                    Mensagem
+                              </button>
+                        </ion-item-options>
+                  </ion-item-sliding>
 
                   <!-- Lista Diretoria -->
                   <!-- <ion-list *ngIf="departamento.children && departamento.open" no-lines>
