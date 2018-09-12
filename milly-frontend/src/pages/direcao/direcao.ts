@@ -75,7 +75,9 @@ export class DirecaoPage {
 
                   this.notificacaoProvider.criaNotificacao(departamento.diretor._id,
                         `Começou a seguir ${departamento.nome}`,
-                        "Home", this.usuario.nome).subscribe(res => console.log(res));
+                        "DepartamentoPage", this.usuario.nome, this.usuario.idImagem,
+                        this.usuario.versaoImagem, departamento._id)
+                        .subscribe(res => console.log(res));
 
 
                   console.log(this.departamentosQueSegue);
@@ -90,6 +92,13 @@ export class DirecaoPage {
             });
       }
 
+
+      enviarMensagem(id, nome) {
+            this.navCtrl.push('EnviarMensagemPage', {
+                  id: id,
+                  nome: nome
+            });
+      }
 
       mostraSpinner(){
             this.spinner = this.loadingCtrl.create({

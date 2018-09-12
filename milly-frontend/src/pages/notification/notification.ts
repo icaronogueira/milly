@@ -12,7 +12,7 @@ export class Notification {
 
       notificacoes: any;
       numeroNotificacoes: number;
-
+      idUsuario: string;
       spinner: any;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
@@ -22,6 +22,7 @@ export class Notification {
 
       // go to another page
       ionViewDidLoad(){
+            this.storage.get('usuario.id').then(data => this.idUsuario=data);
             this.storage.get('usuario.notificacoes').then(data => {
                   this.notificacoes=data;
                   console.log(this.notificacoes);
@@ -36,21 +37,31 @@ export class Notification {
             //atualizar badges
             //ir para a página componente
             this.mostraSpinner();
-            this.notificacaoProvider.leNotificacao(notificacao._id).subscribe(res => {
+            this.notificacaoProvider.leNotificacao(this.idUsuario,notificacao._id).subscribe(res => {
                   this.escondeSpinner();
                   console.log(res);
-                  this.navCtrl.push(notificacao.componente);
+                  this.notificacoes=res.notificacoes;
+                  this.numeroNotificacoes = this.notificacoes.filter(element => element.lida==='N').length;
+                  this.events.publish('atualiza-numero-notificacoes', this.numeroNotificacoes, '');
+                  this.events.publish('atualiza-notificacoes', this.idUsuario);
+                  
+                  this.navCtrl.push(notificacao.componente, {
+                        dataAdicional: notificacao.dataAdicional ? notificacao.dataAdicional : undefined
+                  });
             });
 
       }
 
       lerTodas(){
+            this.mostraSpinner();
             this.storage.get('usuario.id').then(data => {
                   this.notificacaoProvider.leTodas(data).subscribe(res => {
+                        this.escondeSpinner();
                         console.log(res.notificacoes);
                         this.notificacoes=res.notificacoes;
                         this.numeroNotificacoes = this.notificacoes.filter(element => element.lida==='N').length;
                         this.events.publish('atualiza-numero-notificacoes', this.numeroNotificacoes, '');
+                        this.events.publish('atualiza-notificacoes', this.idUsuario);
                   });
             });
       }

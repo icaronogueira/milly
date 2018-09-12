@@ -17,12 +17,17 @@ export class DepartamentoPage {
 
       departamento: any;
 
+      dataAdicional: any;
+
       constructor(public navCtrl: NavController, public navParams: NavParams) {
       }
 
       ionViewDidLoad() {
             this.departamento=this.navParams.get('departamento');
             if (this.departamento) {console.log(this.departamento)}
+
+            this.dataAdicional=this.navParams.get('dataAdicional');
+            if (this.dataAdicional) {console.log(this.dataAdicional)}
       }
 
 }

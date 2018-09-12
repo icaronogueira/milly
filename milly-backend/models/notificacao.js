@@ -5,6 +5,7 @@ const notificacaoSchema = mongoose.Schema({
       usuario: {type: mongoose.Schema.Types.ObjectId, ref: 'Usuario'},
       lida: {type: String, default: 'N'},
       componente: {type: String},
+      dataAdicional: {type: String},
       autor: {type: String},
       idImagem:     {type: String},
       versaoImagem: {type: String},

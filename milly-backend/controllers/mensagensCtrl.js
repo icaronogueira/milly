@@ -62,3 +62,19 @@ exports.enviaMensagem = (req, res, next) => {
       
             
 }
+
+exports.enviaMensagemParaUsuario = (req, res, next) => {   
+      console.log(req.body);
+      let mensagem = new Mensagem();
+      mensagem.texto = req.body.texto;
+      mensagem.assunto = req.body.assunto;
+      mensagem.infoUsuario=[{
+            usuario: req.body.usuario,
+            lido: 'N',
+            removido: 'N'
+      }];
+      mensagem.save((err) => {
+            if (err) return res.status(500).json({error: err});
+      });
+      return res.status(200).json({message: 'Mensagem enviada.', mensagem: mensagem});
+}

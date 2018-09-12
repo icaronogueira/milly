@@ -25,6 +25,7 @@ export class Home {
                   private events: Events, private notificacaoProvider: NotificacaoProvider) {
 
             this.events.subscribe('atualiza-notificacoes',(idUsuario) => {
+                  console.log('Atualizando notificacoes');
                   this.mostraSpinner();
                   this.notificacaoProvider.getNotificacoes(idUsuario).subscribe(res => {
                         this.escondeSpinner();
@@ -41,7 +42,12 @@ export class Home {
       }
 
       ionViewDidLoad(){
+
+            
+            //atualiza Menu Laterall
             this.events.publish('atualizaMenu', '','');
+            
+            
             this.storage.get('usuario.email').then(data => {
                         
                   this.mostraSpinner();
@@ -50,6 +56,8 @@ export class Home {
                         this.escondeSpinner();
                         this.usuario = res.usuario;
                         this.nomeIgreja = this.usuario.igreja.nome;
+                        
+                        
 
                         console.log("Dados usuario -> " + JSON.stringify(this.usuario));
                         
@@ -150,7 +158,6 @@ export class Home {
 
                         //Pega Notificações
                         this.events.publish('atualiza-notificacoes', this.usuario._id);
-
                         
 
                   });
@@ -175,8 +182,7 @@ export class Home {
 
       // go to another page
       irParaNotificacoes(){
-
-       this.navCtrl.push('Notification');
+            this.navCtrl.push('Notification');
       }
 
       mostraSpinner(){

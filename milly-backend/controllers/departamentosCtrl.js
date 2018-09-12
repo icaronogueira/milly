@@ -31,7 +31,7 @@ exports.criaDepartamento = (req, res, next) => {
                         }));
                   });
                   savedData().then(result3 => {
-                        return res.status(200).json({message: 'Departamento salvo.', departamento: result3});
+                        return res.status(200).json({message: 'Departamento salvo.', departamento: result});
                   });
             });
         });

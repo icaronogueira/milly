@@ -16,6 +16,9 @@ exports.criaNotificacao = (req, res, next) => {
       notificacao.lida = 'N';
       notificacao.autor= req.body.autor;
       notificacao.componente = req.body.componente;
+      if (req.body.dataAdicional){
+            notificacao.dataAdicional = req.body.dataAdicional;
+      }
       if (req.body.idImagem) {
             notificacao.idImagem = req.body.idImagem;
       }
@@ -48,7 +51,12 @@ exports.lerNotificacao = (req, res, next) => {
             if (err) {
                   return res.status(500).json({error: err});
             }
-            return res.status(200).json({notificacao: result});
+            Notificacao.find({usuario: req.body.usuario}, (err,result) => {
+                  if (err) {
+                        return res.status(500).json({error: err});
+                  }
+                  return res.status(200).json({notificacoes: result});
+            }).sort({createdAt: 'desc'});
       });
 }
 exports.lerTodas = (req, res, next) => {

@@ -31,7 +31,10 @@
                   <ion-item-sliding>
                         <ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': departamento.open, 'section': !departamento.open}">
                               <ion-icon item-left name="arrow-forward" *ngIf="!departamento.open"></ion-icon>
-                              <ion-icon item-left name="arrow-down" *ngIf="departamento.open"></ion-icon> 
+                              <ion-icon item-left name="arrow-down" *ngIf="departamento.open"></ion-icon>
+                              <ion-avatar item-start>
+                                    <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{departamento.versaoLogo}}/{{departamento.idLogo}}">
+                              </ion-avatar>
                               {{departamento.nome}}
                         </ion-item>
                         <ion-item-options side="right">
@@ -63,7 +66,7 @@
                               <button ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</button> -->
                         </ion-item>
                         <ion-item-options side="right">
-                              <button ion-button color="color1" (click)="enviarMensagem(departamento)">
+                              <button ion-button color="color1" (click)="enviarMensagem(departamento.diretor._id, departamento.diretor.nome)">
                                     <ion-icon name="ios-mail-outline"></ion-icon>
                                     Mensagem
                               </button>

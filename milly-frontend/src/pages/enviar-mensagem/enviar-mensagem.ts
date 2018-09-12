@@ -23,6 +23,8 @@ export class EnviarMensagemPage {
       igrejaId: string;
       assunto: string;
 
+      destinatarioDefId: string; 
+      destinatarioDefNome: string;
       disableSelectDepartamentos: boolean = true;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
@@ -34,13 +36,21 @@ export class EnviarMensagemPage {
       ionViewDidLoad(){
             this.mostraSpinner();
             this.storage.get('usuario.igreja.id').then(data => {
-                  this.igrejaId=data;
-                  this.departamentoProvider.getDepartamentos(data).subscribe(res => {
+                  if (data) {
+                        this.igrejaId=data;
+                        this.departamentoProvider.getDepartamentos(data).subscribe(res => {
+                              this.escondeSpinner();
+                              this.departamentos = res.departamentos;
+                              console.log(res);
+                        });
+                  } else {
                         this.escondeSpinner();
-                        this.departamentos = res.departamentos;
-                        console.log(res);
-                  });
+                  }
             });
+
+            this.destinatarioDefId = this.navParams.get('id');
+            this.destinatarioDefNome = this.navParams.get('nome');
+            if (this.destinatarioDefId) console.log('Destinatario Definido: ' + this.destinatarioDefId + ',' + this.destinatarioDefNome);
       }
 
       selecionaDestinatario(value) {
@@ -58,24 +68,37 @@ export class EnviarMensagemPage {
                         buttons: [{text: 'Não'},{
                               text: 'Sim',
                               handler: () => {
-                                    let tipoDestinatario;
-                                    switch (this.destinatarios) {
-                                          case 'todos': tipoDestinatario=1; break;
-                                          case 'diretores': tipoDestinatario=2; break;
-                                          case 'seguidores': tipoDestinatario=3; break;
-                                    }
-                                    this.mostraSpinner();
-                                    this.mensagemProvider.enviaMensagem(this.texto, this.assunto, tipoDestinatario, this.paraDepartamento, this.igrejaId)
-                                          .subscribe(res => {
-                                                this.escondeSpinner();
-                                                this.alertCtrl.create({
-                                                      title: res.message ? res.message : res.error,
-                                                      buttons: ['OK']
-                                                }).present();
-                                                this.navCtrl.pop();
+                                    if (this.destinatarioDefId) {
+                                          this.mensagemProvider.enviaMensagemParaUsuario(this.texto, this.assunto, this.destinatarioDefId)
+                                                .subscribe(res => {
+                                                      this.escondeSpinner();
+                                                      this.alertCtrl.create({
+                                                            title: res.message ? res.message : res.error,
+                                                            buttons: ['OK']
+                                                      }).present();
+                                                      this.navCtrl.pop();
+                                                });
+                                    } else {
+                                          let tipoDestinatario;
+                                          switch (this.destinatarios) {
+                                                case 'todos': tipoDestinatario=1; break;
+                                                case 'diretores': tipoDestinatario=2; break;
+                                                case 'seguidores': tipoDestinatario=3; break;
+                                          }
+                                          this.mostraSpinner();
+                                          this.mensagemProvider.enviaMensagem(this.texto, this.assunto, tipoDestinatario, this.paraDepartamento, this.igrejaId)
+                                                .subscribe(res => {
+                                                      this.escondeSpinner();
+                                                      this.alertCtrl.create({
+                                                            title: res.message ? res.message : res.error,
+                                                            buttons: ['OK']
+                                                      }).present();
+                                                      this.navCtrl.pop();
 
-                                                
-                                          });
+                                                      
+                                                });
+                                    }
+                                    
                               }
                         }]
                   }).present();
@@ -96,12 +119,15 @@ export class EnviarMensagemPage {
 
       temErros() {
             let temErro=false;
-            if (this.destinatarios==undefined) {
-                  temErro=true;
+            if (!this.destinatarioDefId) {
+                  if (this.destinatarios==undefined) {
+                        temErro=true;
+                  }
+                  if (!this.disableSelectDepartamentos && this.paraDepartamento==undefined) {
+                        temErro=true;
+                  }
             }
-            if (!this.disableSelectDepartamentos && this.paraDepartamento==undefined) {
-                  temErro=true;
-            }
+           
             if (this.texto==="" || this.assunto==="") {
                   temErro=true;
             }

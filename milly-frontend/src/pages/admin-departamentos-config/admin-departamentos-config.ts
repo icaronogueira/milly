@@ -94,20 +94,27 @@ export class AdminDepartamentosConfigPage {
 
 
                                     //NOTIFICACOES UTÉIS
-                                    if (this.acao==='adicionar' || this.diretor._id!==this.diretorOriginal._id) {
-                                          this.notificacaoProvider.criaNotificacao(this.diretor._id,
-                                                `Você foi designado como diretor(a) do Departamento: ${this.nome}`,
-                                                "Home", "Administrativo").subscribe(res => console.log(res));
-                                    } else {
-                                          this.notificacaoProvider.criaNotificacao(this.diretor._id,
-                                                `A administração da igreja fez algumas modificações na estrutura do departamento: ${this.nome}`,
-                                                "Home", "Administrativo").subscribe(res => console.log(res));
+                                    if (this.acao==='adicionar' || (this.diretor._id!==this.diretorOriginal._id)) {
+                                                this.notificacaoProvider.criaNotificacao(this.diretor._id,
+                                                      `Você foi designado como diretor(a) do Departamento: ${this.nome}`,
+                                                      "DepartamentoPage", "Administrativo", undefined, undefined, res.departamento._id)
+                                                            .subscribe(res2 => console.log(res2));
+                                    } 
+                                    if (this.acao!=='adicionar') {
+                                          if (this.diretor._id==this.diretorOriginal._id) {
+                                                this.notificacaoProvider.criaNotificacao(this.diretor._id,
+                                                      `A administração da igreja fez algumas modificações na estrutura do departamento: ${this.nome}`,
+                                                      "DepartamentoPage", "Administrativo", undefined, undefined, res.departamento._id)
+                                                      .subscribe(res2 => console.log(res2));
+                                          }
                                     }
                                     if (this.acao!=='adicionar') {
                                           if (this.diretor._id!==this.diretorOriginal._id) {
                                                 this.notificacaoProvider.criaNotificacao(this.diretorOriginal._id,
                                                       `Você não é mais diretor(a) do Departamento: ${this.nome}`,
-                                                      "Home", "Administrativo").subscribe(res => console.log(res));
+                                                      "DepartamentoPage", "Administrativo", undefined, undefined, res.departamento._id)
+                                                      .subscribe(res2 => console.log(res2));
+                                                
                                           }
                                     }
                                     //enviar notificacoes para membros que seguem o departamento tambem

@@ -17,7 +17,7 @@ export class NotificacaoProvider {
       }
 
 
-      criaNotificacao(usuario, mensagem, componente, autor, idImagem?, versaoImagem?):Observable<any> {
+      criaNotificacao(usuario, mensagem, componente, autor, idImagem?, versaoImagem?, dataAdicional?):Observable<any> {
             console.log(`Provider cria notificacao: ${usuario} - ${mensagem} - ${componente}`);
             return this.http.post(this.url+'/notificacoes/novo', {
                mensagem: mensagem,
@@ -25,7 +25,8 @@ export class NotificacaoProvider {
                componente: componente,
                autor: autor,
                idImagem: idImagem ? idImagem : undefined,
-               versaoImagem: versaoImagem ? versaoImagem : undefined
+               versaoImagem: versaoImagem ? versaoImagem : undefined,
+               dataAdicional: dataAdicional ? dataAdicional : undefined
             });
       }
 
@@ -35,8 +36,9 @@ export class NotificacaoProvider {
             });
       }
 
-      leNotificacao(notificacao):Observable<any> {
+      leNotificacao(usuario,notificacao):Observable<any> {
             return this.http.post(this.url+'/notificacoes/lida', {
+                  usuario: usuario,
                   notificacao: notificacao
             });
       }

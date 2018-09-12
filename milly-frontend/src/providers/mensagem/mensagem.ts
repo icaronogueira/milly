@@ -22,4 +22,12 @@ export class MensagemProvider {
             });
       }
 
+      enviaMensagemParaUsuario(texto, assunto, usuario): Observable<any> {
+            return this.http.post(`${this.url}/mensagens/enviaUsuario`, {
+                  texto: texto,
+                  assunto: assunto,
+                  usuario: usuario
+            });
+      }
+
 }
