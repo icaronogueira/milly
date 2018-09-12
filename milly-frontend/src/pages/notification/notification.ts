@@ -14,6 +14,7 @@ export class Notification {
       numeroNotificacoes: number;
       idUsuario: string;
       spinner: any;
+      spinnerIsPresenting=false;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private notificacaoProvider: NotificacaoProvider, private loadingCtrl: LoadingController,
@@ -79,11 +80,15 @@ export class Notification {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 
 }

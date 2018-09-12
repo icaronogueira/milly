@@ -14,6 +14,7 @@ import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 export class EnviarMensagemPage {
 
       spinner: any;
+      spinnerIsPresenting=false;
 
       departamentos: any;
 
@@ -25,11 +26,13 @@ export class EnviarMensagemPage {
 
       destinatarioDefId: string; 
       destinatarioDefNome: string;
+      remetenteDef: any;
       disableSelectDepartamentos: boolean = true;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
-                  private mensagemProvider: MensagemProvider, private alertCtrl: AlertController) {
+                  private mensagemProvider: MensagemProvider, private alertCtrl: AlertController,
+                  private notificacaoProvider: NotificacaoProvider) {
       }
 
       
@@ -50,6 +53,7 @@ export class EnviarMensagemPage {
 
             this.destinatarioDefId = this.navParams.get('id');
             this.destinatarioDefNome = this.navParams.get('nome');
+            this.remetenteDef = this.navParams.get('remetente');
             if (this.destinatarioDefId) console.log('Destinatario Definido: ' + this.destinatarioDefId + ',' + this.destinatarioDefNome);
       }
 
@@ -69,9 +73,18 @@ export class EnviarMensagemPage {
                               text: 'Sim',
                               handler: () => {
                                     if (this.destinatarioDefId) {
-                                          this.mensagemProvider.enviaMensagemParaUsuario(this.texto, this.assunto, this.destinatarioDefId)
+                                          this.mensagemProvider.enviaMensagemParaUsuario(this.texto, this.assunto, this.destinatarioDefId, this.destinatarioDefNome)
                                                 .subscribe(res => {
+                                                      console.log(res.mensagem);
                                                       this.escondeSpinner();
+
+                                                      //notifica o destinatario que recebeu a mensagem
+                                                      this.notificacaoProvider.criaNotificacao(res.mensagem.infoUsuario[0].usuario,
+                                                            `Você recebeu uma mensagem de : ${this.remetenteDef.nome}`,
+                                                            "MensagensPage", this.remetenteDef.nome, this.remetenteDef.idImagem,
+                                                            this.remetenteDef.versaoImagem)
+                                                                  .subscribe(res2 => console.log(res2));
+
                                                       this.alertCtrl.create({
                                                             title: res.message ? res.message : res.error,
                                                             buttons: ['OK']
@@ -88,11 +101,24 @@ export class EnviarMensagemPage {
                                           this.mostraSpinner();
                                           this.mensagemProvider.enviaMensagem(this.texto, this.assunto, tipoDestinatario, this.paraDepartamento, this.igrejaId)
                                                 .subscribe(res => {
+                                                      console.log(res.mensagem);
                                                       this.escondeSpinner();
+
+                                                      //aviso que enviou a mensagem
                                                       this.alertCtrl.create({
                                                             title: res.message ? res.message : res.error,
                                                             buttons: ['OK']
                                                       }).present();
+
+                                                      res.mensagem.infoUsuario.forEach(element => {
+                                                            //notifica os destinatarios
+                                                            this.notificacaoProvider.criaNotificacao(element.usuario,
+                                                                  `Você recebeu uma mensagem da Administração da sua igreja.`,
+                                                                  "MensagensPage", "Administração")
+                                                                        .subscribe(res2 => console.log(res2));
+                                                      });
+                                                      
+
                                                       this.navCtrl.pop();
 
                                                       
@@ -110,11 +136,15 @@ export class EnviarMensagemPage {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 
       temErros() {

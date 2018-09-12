@@ -20,6 +20,7 @@ export class DetalhesUsuarioComponent {
       permissao: string;
       ativo: string;
       spinner: any;
+      spinnerIsPresenting = false;
 
       constructor(params: NavParams, public viewCtrl: ViewController, private alertCtrl: AlertController,
                   private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider) {
@@ -122,11 +123,15 @@ export class DetalhesUsuarioComponent {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 
       getTimeAgo(data) {

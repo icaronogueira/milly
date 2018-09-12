@@ -15,6 +15,7 @@ exports.enviaMensagem = (req, res, next) => {
       console.log(req.body);
       let mensagem = new Mensagem();
       mensagem.texto = req.body.texto;
+      mensagem.remetente = req.body.remetente;
       mensagem.assunto = req.body.assunto;
       mensagem.tipoDestinatario = req.body.tipoDestinatario;
       if (req.body.paraDepartamento)  {
@@ -67,6 +68,7 @@ exports.enviaMensagemParaUsuario = (req, res, next) => {
       console.log(req.body);
       let mensagem = new Mensagem();
       mensagem.texto = req.body.texto;
+      mensagem.remetente = req.body.remetente;
       mensagem.assunto = req.body.assunto;
       mensagem.infoUsuario=[{
             usuario: req.body.usuario,

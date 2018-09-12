@@ -24,7 +24,7 @@ export class SignUp {
       confirmPasswordIcon: string = "eye";
 
       spinner: any;
-      
+      spinnerIsPresenting=false;
 
       constructor(public navCtrl: NavController,
                   public navParams: NavParams,
@@ -144,11 +144,15 @@ export class SignUp {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 }
   

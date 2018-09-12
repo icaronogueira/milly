@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DepartamentoProvider } from '../../providers/departamento/departamento';
 
 /**
  * Generated class for the DepartamentoPage page.
@@ -17,17 +18,29 @@ export class DepartamentoPage {
 
       departamento: any;
 
-      dataAdicional: any;
 
-      constructor(public navCtrl: NavController, public navParams: NavParams) {
+      constructor(public navCtrl: NavController, public navParams: NavParams, private departamentoProvider: DepartamentoProvider) {
       }
 
       ionViewDidLoad() {
-            this.departamento=this.navParams.get('departamento');
-            if (this.departamento) {console.log(this.departamento)}
 
-            this.dataAdicional=this.navParams.get('dataAdicional');
-            if (this.dataAdicional) {console.log(this.dataAdicional)}
+            //Pegar Departamento
+            this.departamento=this.navParams.get('departamento');
+            if (!this.departamento) {
+                  let dataAdicional=this.navParams.get('dataAdicional');
+                  if (dataAdicional) {
+                        this.departamentoProvider.getDepartamento(dataAdicional).subscribe(res => {
+                              console.log(res.departamento);
+                              this.departamento=res.departamento;
+                        });
+                  } else {
+                        console.log('Erro no acesso à página de departamento.')
+                  }
+            }
+            
+            console.log(this.departamento);
+            
+            
       }
 
 }

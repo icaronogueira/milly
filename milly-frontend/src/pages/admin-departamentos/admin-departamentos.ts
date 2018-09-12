@@ -22,7 +22,7 @@ export class AdminDepartamentosPage {
       departamentos: any;
 
       spinner:any;
-
+      spinnerIsPresenting=false;
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
                   private events: Events, private alertCtrl: AlertController) {
@@ -92,11 +92,15 @@ export class AdminDepartamentosPage {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 
 }

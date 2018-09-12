@@ -19,7 +19,7 @@ export class HomeAdministradorPage {
       nomeIgreja: string;
 
       spinner: any;
-      
+      spinnerIsPresenting=false;      
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
             private events: Events, private igrejaProvider: IgrejaProvider, private loadingCtrl: LoadingController) {
@@ -49,11 +49,15 @@ export class HomeAdministradorPage {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 
 }

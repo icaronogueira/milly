@@ -17,16 +17,18 @@ export class MensagemProvider {
                   texto: texto,
                   assunto: assunto,
                   tipoDestinatario: tipoDestinatario,
+                  remetente: 'Administração',
                   paraDepartamento: paraDepartamento ? paraDepartamento: null,
                   igreja: igreja
             });
       }
 
-      enviaMensagemParaUsuario(texto, assunto, usuario): Observable<any> {
+      enviaMensagemParaUsuario(texto, assunto, usuario, remetente): Observable<any> {
             return this.http.post(`${this.url}/mensagens/enviaUsuario`, {
                   texto: texto,
                   assunto: assunto,
-                  usuario: usuario
+                  usuario: usuario,
+                  remetente: remetente
             });
       }
 

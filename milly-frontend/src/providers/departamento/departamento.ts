@@ -46,5 +46,9 @@ export class DepartamentoProvider {
             });
       }
 
+      getDepartamento(idDepartamento):Observable<any> {
+            return this.http.get(`${this.url}/departamento/${idDepartamento}`);
+      }
+
 
 }

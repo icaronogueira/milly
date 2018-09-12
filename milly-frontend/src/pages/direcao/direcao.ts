@@ -27,7 +27,7 @@ export class DirecaoPage {
       usuario: any;
 
       spinner: any;
-
+      spinnerIsPresenting=false;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
@@ -96,7 +96,8 @@ export class DirecaoPage {
       enviarMensagem(id, nome) {
             this.navCtrl.push('EnviarMensagemPage', {
                   id: id,
-                  nome: nome
+                  nome: nome,
+                  remetente: this.usuario
             });
       }
 
@@ -104,11 +105,15 @@ export class DirecaoPage {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 
 

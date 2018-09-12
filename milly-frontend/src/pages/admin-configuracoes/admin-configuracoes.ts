@@ -32,7 +32,7 @@ export class AdminConfiguracoesPage {
       passwordIcon: string = "eye";
       
       spinner:any;
-
+      spinnerIsPresenting=false;
       constructor(public _myApp:MyApp,public navCtrl: NavController, public navParams: NavParams,
                   private storage: Storage, private igrejaProvider: IgrejaProvider,
                   private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
@@ -105,10 +105,14 @@ export class AdminConfiguracoesPage {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 }

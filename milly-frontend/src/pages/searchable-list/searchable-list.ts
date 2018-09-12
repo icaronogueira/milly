@@ -15,6 +15,8 @@ export class SearchableListPage {
       items: any;
 
       spinner: any;
+      spinnerIsPresenting=false;
+      
       constructor(public navCtrl: NavController, public navParams: NavParams, private igrejaProvider: IgrejaProvider,
                   private storage: Storage, private events: Events, private alertCtrl: AlertController,
                   private loadingCtrl: LoadingController) {
@@ -87,11 +89,15 @@ export class SearchableListPage {
             this.spinner = this.loadingCtrl.create({
                   spinner: 'crescent'
             });
-            this.spinner.present();
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
       }
 
       escondeSpinner(){
             this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
       }
 }
 

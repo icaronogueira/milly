@@ -46,6 +46,15 @@ exports.getDepartamentos =  async ((req,res) => {
       return res.status(200).json({departamentos: result});
 });
 
+exports.getDepartamento =  async ((req,res) => {
+      console.log("id do departamento : " + req.params.departamento);
+      const result = await(Departamento.findOne({'_id': req.params.departamento}, (err) => {
+            if (err) return res.status(500).json({error: err});
+      }).populate("diretor"));
+      console.log("resultado a busca pelo departamento: " + result);
+      return res.status(200).json({departamento: result});
+});
+
 exports.removeDepartamento = async ((req,res) => {
       const result = await(Departamento.findOneAndRemove({'_id': req.body.departamento}, (err) => {
             if (err) return res.status(500).json({error: err});
