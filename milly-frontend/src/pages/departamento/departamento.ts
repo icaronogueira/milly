@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController, Events, Navbar } from 'ionic-angular';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the DepartamentoPage page.
@@ -14,33 +15,79 @@ import { DepartamentoProvider } from '../../providers/departamento/departamento'
   selector: 'page-departamento',
   templateUrl: 'departamento.html',
 })
+
 export class DepartamentoPage {
+      
+      @ViewChild(Navbar) navBar: Navbar;
 
       departamento: any;
+      usuario:any;
+      nomeDepartamento: string;
 
+      numeroNotificacoes: number;
 
-      constructor(public navCtrl: NavController, public navParams: NavParams, private departamentoProvider: DepartamentoProvider) {
+      spinner: any;
+      spinnerIsPresenting=false;
+
+      constructor(public navCtrl: NavController, public navParams: NavParams, private departamentoProvider: DepartamentoProvider,
+                  private storage: Storage, private loadingCtrl: LoadingController, private events: Events) {
       }
 
       ionViewDidLoad() {
-
-            //Pegar Departamento
-            this.departamento=this.navParams.get('departamento');
-            if (!this.departamento) {
-                  let dataAdicional=this.navParams.get('dataAdicional');
-                  if (dataAdicional) {
-                        this.departamentoProvider.getDepartamento(dataAdicional).subscribe(res => {
-                              console.log(res.departamento);
-                              this.departamento=res.departamento;
-                        });
-                  } else {
-                        console.log('Erro no acesso à página de departamento.')
-                  }
+            this.mostraSpinner();
+            
+            //Ação do back button
+            this.navBar.backButtonClick = () => {
+                  this.mostraSpinner();
+                  this.events.publish('atualiza-numero-notificacoes', this.numeroNotificacoes, '');
+                  this.events.publish('atualiza-notificacoes', this.usuario._id);
+                  this.escondeSpinner();
+                  this.navCtrl.pop();
             }
+
+            //inicializa usuario
+            this.storage.get('usuario').then(data => this.usuario = data);
             
-            console.log(this.departamento);
-            
-            
+            //inicializa número de notificações
+            this.storage.get('usuario.notificacoes').then(data => 
+                  this.numeroNotificacoes=data.filter(n => n.lida==='N').length);
+
+            //Inicializa nome do departamento
+            this.departamento = this.navParams.get('departamento');
+            let dataAdicional = this.navParams.get('dataAdicional');
+            if (dataAdicional == undefined) {
+                  this.departamento = this.navParams.get('departamento');
+                  this.nomeDepartamento = this.departamento.nome;
+                  this.escondeSpinner();
+            } else {
+                  this.departamentoProvider.getDepartamento(dataAdicional).subscribe(res => {
+                        this.departamento=res.departamento;
+                        this.nomeDepartamento = this.departamento.nome;
+                        this.escondeSpinner();
+                  });
+            }
       }
+
+
+      irParaNotificacoes(){
+            this.navCtrl.push('Notification');
+      }
+
+
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
+      }
+
 
 }

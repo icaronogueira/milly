@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController, Navbar, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
 import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
@@ -18,6 +18,8 @@ import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
 })
 export class DirecaoPage {
 
+      @ViewChild(Navbar) navBar: Navbar;
+
       nomeIgreja: string;
       idIgreja: string;
       numeroNotificacoes: number;
@@ -31,10 +33,20 @@ export class DirecaoPage {
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
-                  private notificacaoProvider: NotificacaoProvider) {
+                  private notificacaoProvider: NotificacaoProvider, private events: Events) {
       }
 
       ionViewDidLoad() {
+
+            //Ação do back button
+            this.navBar.backButtonClick = () => {
+                  this.mostraSpinner();
+                  this.events.publish('atualiza-numero-notificacoes', this.numeroNotificacoes, '');
+                  this.events.publish('atualiza-notificacoes', this.usuario._id);
+                  this.escondeSpinner();
+                  this.navCtrl.pop();
+            }
+
             this.storage.get('usuario.notificacoes').then(data => 
                   this.numeroNotificacoes=data.filter(n => n.lida==='N').length);
             

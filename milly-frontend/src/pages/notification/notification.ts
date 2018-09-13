@@ -43,9 +43,10 @@ export class Notification {
                   console.log(res);
                   this.notificacoes=res.notificacoes;
                   this.numeroNotificacoes = this.notificacoes.filter(element => element.lida==='N').length;
+                  this.mostraSpinner();
                   this.events.publish('atualiza-numero-notificacoes', this.numeroNotificacoes, '');
                   this.events.publish('atualiza-notificacoes', this.idUsuario);
-                  
+                  this.escondeSpinner();
                   this.navCtrl.push(notificacao.componente, {
                         dataAdicional: notificacao.dataAdicional ? notificacao.dataAdicional : undefined
                   });

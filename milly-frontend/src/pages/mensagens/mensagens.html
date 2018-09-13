@@ -8,6 +8,12 @@
 
   <ion-navbar>
     <ion-title>mensagens</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="irParaNotificacoes()">
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+        <ion-badge color="color1" *ngIf="numeroNotificacoes > 0">{{numeroNotificacoes}}</ion-badge>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
