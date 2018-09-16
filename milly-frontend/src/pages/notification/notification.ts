@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
+import moment from 'moment-timezone';
 
 @IonicPage()
 @Component({
@@ -19,6 +20,8 @@ export class Notification {
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private notificacaoProvider: NotificacaoProvider, private loadingCtrl: LoadingController,
                   private events: Events) {
+                  moment.locale('pt-BR');
+                  moment.tz.setDefault('America/Manaus');
       }
 
       // go to another page
@@ -90,6 +93,10 @@ export class Notification {
       escondeSpinner(){
             this.spinner.dismiss();
             this.spinnerIsPresenting=false;
+      }
+
+      getTimeAgo(data) {
+            return moment(data).fromNow();
       }
 
 }

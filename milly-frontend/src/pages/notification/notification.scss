@@ -3,6 +3,7 @@ page-notification {
         p{
             @include whiteNormal(24px,2);
             color:color($colors,light);
+            margin-top: 7px !important;
         }
         .item-ios{
             background-color: color($colors,color1);
@@ -16,5 +17,9 @@ page-notification {
         }
     }
      
+    .timeago {
+          color: rgb(107, 105, 105) !important;
+          font-weight: bold !important;
+    }
       
 }

@@ -11,7 +11,7 @@
             <div class="imgBg"  [ngStyle]="{ 'background-image': 'url(' + logo + ')'}">
                   <ion-icon name="ios-folder-open" (click)="abrirLogo()"></ion-icon>
             </div>
-            <div class="appForm" >
+            <div class="appForm" *ngIf="eAdministrador" >
                   <ion-list>
                         <ion-item>
                               <ion-label>Nome</ion-label>
@@ -24,6 +24,40 @@
                   </ion-list>
             </div>
             <button ion-button  color="color1" (click)="salvarDepartamento()" [disabled]="btnDisabled">{{buttonText}}</button>
+            <div class="appForm" *ngIf="!eAdministrador" >
+                        <h4>Diretoria</h4>
+                        <ion-list>
+                              <ion-item *ngFor="let membroDiretoria of diretoria" ion-item detail-none class="child-item" text-wrap>
+                                    <ion-avatar item-start>
+                                                <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membroDiretoria.usuario.versaoImagem}}/{{membroDiretoria.usuario.idImagem}}">
+                                    </ion-avatar>
+                                    <h2>{{membroDiretoria.usuario.nome}}</h2>
+                                    <p>{{membroDiretoria.funcao}}</p>
+                                    <button class="botaoremover" icon-only item-end (click)="removeDiretoria(membroDiretoria)">
+                                                <ion-icon name="md-remove" color="danger"></ion-icon>
+                                    </button>
+                              </ion-item>
+                        </ion-list>
+                        <ion-grid>
+                              <ion-row>
+                                    <ion-col>
+                                          <ion-row>
+                                                <ion-label>Função</ion-label>
+                                                <ion-input [(ngModel)]="funcaoDiretoria"  type="text" (keyup)="mudou()"></ion-input>
+                                          </ion-row>
+                                          <ion-row>
+                                                <ion-label>Membro</ion-label> 
+                                                <ion-input [(ngModel)]="membroDiretoriaNome" [readonly]="true" type="text" (focus)="abrirModalDiretor()">{{membroDiretoriaNome}}</ion-input>
+                                          </ion-row>
+                                          <ion-row>
+                                                <button ion-button  color="color1" (click)="adicionarDiretoria()">Adicionar</button>
+                                          </ion-row>
+                                    </ion-col>
+                              </ion-row>
+                        </ion-grid>
+
+            </div>
+            
       </div>
 </ion-content>
          

@@ -16,6 +16,9 @@ export class SearchableListPage {
 
       spinner: any;
       spinnerIsPresenting=false;
+
+      requisicao: any;
+      idDiretor: string;
       
       constructor(public navCtrl: NavController, public navParams: NavParams, private igrejaProvider: IgrejaProvider,
                   private storage: Storage, private events: Events, private alertCtrl: AlertController,
@@ -25,12 +28,16 @@ export class SearchableListPage {
       ionViewDidLoad() {
             //pegar membros ativos
             this.mostraSpinner();
+
+            this.requisicao = this.navParams.get('requisicao');
+            this.idDiretor  = this.navParams.get('diretor');
+
             this.storage.get('usuario.igreja.id').then(data => {
                   this.igrejaProvider.getMembros(data).subscribe(res => {
                         this.escondeSpinner();
                         if (res.error) {console.log(res.error);}
                         else {
-                              this.membros=res.membros.filter((event:any) => (event.permissao==="S" && event.ativo==='S')).sort(this.porNome.bind(this));
+                              this.membros=res.membros.filter((event:any) => (event.permissao==="S" && event.ativo==='S' && event._id!==this.idDiretor)).sort(this.porNome.bind(this));
                               this.items=this.membros;
                               console.log(this.items);
                         }
@@ -60,18 +67,24 @@ export class SearchableListPage {
       }
 
       escolheDiretor(membro) {
-            this.alertCtrl.create({
-                  title: `Confirmar ${membro.nome} como diretor deste departamento?`,
-                  buttons: [{
-                        text: 'Não'
-                  }, {
-                        text: 'Sim',
-                        handler: () => {
-                              this.events.publish('designaDiretor', membro, '');
-                              this.navCtrl.pop();
-                        }
-                  }]
-            }).present();
+            if (this.requisicao) {
+                  this.events.publish('designaDiretoria', membro, '');
+                  this.navCtrl.pop();
+            } else {
+                  this.alertCtrl.create({
+                        title: `Confirmar ${membro.nome} como diretor deste departamento?`,
+                        buttons: [{
+                              text: 'Não'
+                        }, {
+                              text: 'Sim',
+                              handler: () => {
+                                    this.events.publish('designaDiretor', membro, '');
+                                    this.navCtrl.pop();
+                              }
+                        }]
+                  }).present();
+            }
+
       }
 
       porNome(a,b) {

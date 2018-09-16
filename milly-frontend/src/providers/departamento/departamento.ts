@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class DepartamentoProvider {
 
-      url: string = "http://localhost:3000";
+      url: string = "http://192.168.0.6:3000";
 
       constructor(public http: HttpClient) {
              console.log('Hello DepartamentoProvider Provider');
@@ -51,4 +51,19 @@ export class DepartamentoProvider {
       }
 
 
+      adicionaDiretoria (departamento, funcao, usuario): Observable<any> {
+            return this.http.post(this.url+'/departamentos/adicionaDiretoria', {
+                  departamento,
+                  usuario,
+                  funcao
+            });
+      }
+
+      removeDiretoria (departamento, funcao, usuario): Observable<any> {
+            return this.http.post(this.url+'/departamentos/removerDiretoria', {
+                  departamento,
+                  usuario,
+                  funcao
+            });
+      }
 }

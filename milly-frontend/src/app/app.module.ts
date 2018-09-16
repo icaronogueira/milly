@@ -17,7 +17,6 @@ import { DepartamentoProvider } from '../providers/departamento/departamento';
 import { MensagemProvider } from '../providers/mensagem/mensagem';
 
 
-
 var config = {
       backButtonText: '',
       iconMode: 'ios',
@@ -32,13 +31,13 @@ var config = {
     MyApp
   ],
   imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp,config),
-    IonicImageViewerModule,
-    HttpClientModule,
-    IonicStorageModule.forRoot(),
-    ComponentsModule,
-    FormsModule
+      BrowserModule,
+      IonicModule.forRoot(MyApp,config),
+      IonicImageViewerModule,
+      HttpClientModule,
+      IonicStorageModule.forRoot(),
+      ComponentsModule,
+      FormsModule
 ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -20,6 +20,7 @@
                   </ion-avatar>
                   <h4>{{notificacao.autor}}</h4>
                   <p>{{notificacao.mensagem}}</p>
+                  <p class="timeago">{{getTimeAgo(notificacao.createdAt)}}</p>
             </ion-item>
       </ion-list>
 

@@ -60,6 +60,7 @@ export class Home {
                         this.nomeIgreja = this.usuario.igreja.nome;
                         
                         
+                        
 
                         console.log("Dados usuario -> " + JSON.stringify(this.usuario));
                         
@@ -154,6 +155,7 @@ export class Home {
                         this.storage.set('usuario.id', this.usuario._id);
                         this.storage.set('igreja.nome', this.nomeIgreja);
                         this.storage.set('usuario', this.usuario);
+                        this.storage.set('usuario.igreja.id', this.usuario.igreja._id);
                        
                         //Atualiza imagem de perfil no menu lateral
                         this.events.publish('atualiza-perfil', this.usuario);

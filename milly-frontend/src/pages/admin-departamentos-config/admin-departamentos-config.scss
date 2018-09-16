@@ -1,5 +1,18 @@
 page-admin-departamentos-config {
       .content-ios{
+            .botaoremover {
+                  background-color: transparent !important;
+            }
+            .child-item {
+                  background: #f3f2f1;
+                  padding: 10px;
+                  border: 0 !important;
+              }
+            h4 {
+                  margin-top: 3rem !important;
+                  margin-bottom: 0px !important;
+                  padding: 0 !important;
+            }
             text-align:center;
             .label-ios {
                   margin-right: 5px !important;
@@ -40,6 +53,7 @@ page-admin-departamentos-config {
                 }
                 .appForm{
                     padding:$mainMarg/2 0px;
+                    text-align: left;
                 }
             }
             .setting{
@@ -83,4 +97,6 @@ page-admin-departamentos-config {
                 margin:auto;
             }
         }
+
+        
 }

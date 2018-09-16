@@ -23,7 +23,8 @@ export class DepartamentoPage {
       departamento: any;
       usuario:any;
       nomeDepartamento: string;
-
+      idDiretor: string;
+      idUsuario: string;
       numeroNotificacoes: number;
 
       spinner: any;
@@ -46,11 +47,12 @@ export class DepartamentoPage {
             }
 
             //inicializa usuario
-            this.storage.get('usuario').then(data => this.usuario = data);
+            this.storage.get('usuario').then(data => {
+                  this.usuario = data;
+                  this.idUsuario=this.usuario._id;
+            });
             
-            //inicializa número de notificações
-            this.storage.get('usuario.notificacoes').then(data => 
-                  this.numeroNotificacoes=data.filter(n => n.lida==='N').length);
+            
 
             //Inicializa nome do departamento
             this.departamento = this.navParams.get('departamento');
@@ -58,14 +60,29 @@ export class DepartamentoPage {
             if (dataAdicional == undefined) {
                   this.departamento = this.navParams.get('departamento');
                   this.nomeDepartamento = this.departamento.nome;
+                  this.idDiretor=this.departamento.diretor._id;
                   this.escondeSpinner();
             } else {
                   this.departamentoProvider.getDepartamento(dataAdicional).subscribe(res => {
                         this.departamento=res.departamento;
                         this.nomeDepartamento = this.departamento.nome;
+                        this.idDiretor=this.departamento.diretor._id;
                         this.escondeSpinner();
                   });
             }
+      }
+
+      configurarDepartamento() {
+            this.navCtrl.push('AdminDepartamentosConfigPage', {
+                  departamento: this.departamento
+            })
+      }
+
+
+      ionViewWillEnter(){
+            //inicializa número de notificações
+            this.storage.get('usuario.notificacoes').then(data => 
+                  this.numeroNotificacoes=data.filter(n => n.lida==='N').length);
       }
 
 

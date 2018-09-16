@@ -20,5 +20,9 @@
 
 
 <ion-content padding>
-
+      <ion-fab right bottom *ngIf="idDiretor===idUsuario">
+            <button ion-fab color="primary" (click)="configurarDepartamento()">
+                  <ion-icon name="settings"></ion-icon>
+            </button>
+      </ion-fab>
 </ion-content>

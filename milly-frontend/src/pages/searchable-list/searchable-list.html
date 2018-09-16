@@ -17,7 +17,7 @@
 
             <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
             <ion-list>
-                  <ion-item  *ngFor="let membro of items" (click)="escolheDiretor(membro)">
+                  <ion-item  *ngFor="let membro of items"  (click)="escolheDiretor(membro)">
                         <ion-avatar  item-start>
                               <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{membro.versaoImagem}}/{{membro.idImagem}}.jpg">
                         </ion-avatar>
