@@ -62,8 +62,6 @@
                               </ion-avatar>
                               <h2>{{departamento.diretor.nome}}</h2>
                               <p>Diretor(a)</p>
-                              <!-- <p text-lowercase>{{ child.information }}</p>
-                              <button ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</button> -->
                         </ion-item>
                         <ion-item-options side="right">
                               <button ion-button color="color1" (click)="enviarMensagem(departamento.diretor._id, departamento.diretor.nome)">
@@ -72,18 +70,23 @@
                               </button>
                         </ion-item-options>
                   </ion-item-sliding>
-
-                  <!-- Lista Diretoria -->
-                  <!-- <ion-list *ngIf="departamento.children && departamento.open" no-lines>
-                        Segundo nível
-                        <ion-list-header *ngFor="let child of departamento.children">
-                              <ion-item *ngIf="!child.children" ion-item detail-none class="child-item" text-wrap>
-                                    <h2>child</h2>
-                                    <p text-lowercase>{{ child.information }}</p>
-                                    <button ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</button>
-                              </ion-item>
-                        </ion-list-header>
-                  </ion-list> -->
+                  <ng-container *ngIf="departamento.open">
+                  <ion-item-sliding *ngFor="let diretor of departamento.diretoria">
+                        <ion-item   ion-item detail-none class="child-item" text-wrap>
+                                    <ion-avatar item-start>
+                                          <img src="http://res.cloudinary.com/nogcloud/image/upload/v{{diretor.usuario.versaoImagem}}/{{diretor.usuario.idImagem}}">
+                                    </ion-avatar>
+                                    <h2>{{diretor.usuario.nome}}</h2>
+                                    <p>{{diretor.funcao}}</p>
+                        </ion-item>
+                        <ion-item-options side="right">
+                              <button ion-button color="color1" (click)="enviarMensagem(diretor.usuario._id, diretor.usuario.nome)">
+                                    <ion-icon name="ios-mail-outline"></ion-icon>
+                                    Mensagem
+                              </button>
+                        </ion-item-options>
+                  </ion-item-sliding>
+                   </ng-container>
 
 
             </ion-list-header>
