@@ -1,17 +1,31 @@
 page-admin-departamentos-config {
       .content-ios{
+            .input-wrapper {
+                  text-align: left !important;
+            }
+            .col {
+                  text-align: center;
+            }
+            .accordion-list {
+                  background: color($colors, light);
+                  height: 100%;
+              }
             .botaoremover {
                   background-color: transparent !important;
             }
             .child-item {
                   background: #f3f2f1;
+                  margin-bottom: 3pt !important;
+                  border-width: 1px !important;
                   padding: 10px;
                   border: 0 !important;
+                  border-radius: 0 !important;
               }
             h4 {
-                  margin-top: 3rem !important;
-                  margin-bottom: 0px !important;
-                  padding: 0 !important;
+                  margin-top: 1rem !important;
+                  // margin-bottom: 1rem !important;
+                  padding: 1rem !important;
+                  background: rgb(228, 225, 225) !important;
             }
             text-align:center;
             .label-ios {
@@ -27,6 +41,7 @@ page-admin-departamentos-config {
                 border-radius:50%;
                 margin:auto;
                 position:relative;
+                padding-top: 0 !important;
                 .icon{
                     @include position(auto,0px,0px,auto);
                     font-size:2rem;
@@ -46,14 +61,18 @@ page-admin-departamentos-config {
                 }
             }
             .profileInfo{
+                  text-align: left;
+                  div {
+                        text-align: center;
+                  }
                 .button-ios{
                     height: 30px;
                     width: 200px;
-                    margin: 0px;
+                    margin: 5px;
                 }
                 .appForm{
                     padding:$mainMarg/2 0px;
-                    text-align: left;
+                    text-align: left !important;
                 }
             }
             .setting{
@@ -77,6 +96,7 @@ page-admin-departamentos-config {
             margin:0px!important;
         }
         .label-ios{
+            text-align: left !important;
             direction:ltr;
             font-size:$mainFont - .1;
             @include whiteNormal(32px,2);

@@ -109,8 +109,8 @@ export class AdminDepartamentosConfigPage {
 
 
       abrirModalDiretor() {
-            this.btnDisabled=false;
             if (this.eAdministrador) {
+                  this.btnDisabled=false;
                   this.storage.set('diretor.original',this.diretor);
                   this.navCtrl.push("SearchableListPage");
             } else {
