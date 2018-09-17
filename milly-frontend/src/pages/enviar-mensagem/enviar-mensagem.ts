@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
 import { MensagemProvider } from '../../providers/mensagem/mensagem';
@@ -32,7 +32,7 @@ export class EnviarMensagemPage {
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
                   private mensagemProvider: MensagemProvider, private alertCtrl: AlertController,
-                  private notificacaoProvider: NotificacaoProvider) {
+                  private notificacaoProvider: NotificacaoProvider, private toastCtrl: ToastController) {
       }
 
       
@@ -85,9 +85,9 @@ export class EnviarMensagemPage {
                                                             this.remetenteDef.versaoImagem)
                                                                   .subscribe(res2 => console.log(res2));
 
-                                                      this.alertCtrl.create({
-                                                            title: res.message ? res.message : res.error,
-                                                            buttons: ['OK']
+                                                      this.toastCtrl.create({
+                                                            message: res.message ? res.message : res.error,
+                                                            duration: 3000
                                                       }).present();
                                                       this.navCtrl.pop();
                                                 });
@@ -105,9 +105,9 @@ export class EnviarMensagemPage {
                                                       this.escondeSpinner();
 
                                                       //aviso que enviou a mensagem
-                                                      this.alertCtrl.create({
-                                                            title: res.message ? res.message : res.error,
-                                                            buttons: ['OK']
+                                                      this.toastCtrl.create({
+                                                            message: res.message ? res.message : res.error,
+                                                            duration: 3000
                                                       }).present();
 
                                                       res.mensagem.infoUsuario.forEach(element => {

@@ -132,9 +132,9 @@ export class AdminDepartamentosConfigPage {
                               console.log(res);
                               if (!res.error) {
 
-                                    this.alertCtrl.create({
-                                          title: res.message,
-                                          buttons: ['OK']
+                                    this.toastCtrl.create({
+                                          message: res.message,
+                                          duration: 3000
                                     }).present();
 
 

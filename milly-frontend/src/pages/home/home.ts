@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Events, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage'
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { NotificacaoProvider } from '../../providers/notificacao/notificacao';
@@ -23,7 +23,7 @@ export class Home {
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
                   private storage: Storage, private usuarioProvider: UsuarioProvider, private loadingCtrl: LoadingController,
-                  private events: Events, private notificacaoProvider: NotificacaoProvider) {
+                  private events: Events, private notificacaoProvider: NotificacaoProvider, private toastCtrl: ToastController) {
 
             this.events.subscribe('atualiza-notificacoes',(idUsuario) => {
                   console.log('Atualizando notificacoes');
@@ -89,9 +89,9 @@ export class Home {
                                                                   this.usuarioProvider.deletaUsuario(this.usuario)
                                                                         .subscribe(res => {
                                                                               if (res.message) {
-                                                                                    this.alertCtrl.create({
-                                                                                          title: res.message,
-                                                                                          buttons: ['OK']
+                                                                                    this.toastCtrl.create({
+                                                                                          message: res.message,
+                                                                                          duration: 3000
                                                                                     }).present();
                                                                               }
                                                                         });

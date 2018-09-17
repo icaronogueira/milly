@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Events, AlertController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
 
@@ -25,7 +25,7 @@ export class AdminDepartamentosPage {
       spinnerIsPresenting=false;
       constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
                   private departamentoProvider: DepartamentoProvider, private loadingCtrl: LoadingController,
-                  private events: Events, private alertCtrl: AlertController) {
+                  private events: Events, private alertCtrl: AlertController, private toastCtrl: ToastController) {
                   
                   this.events.subscribe('atualiza-departamentos', (param1, parm2) => {
                         this.mostraSpinner();
@@ -70,9 +70,9 @@ export class AdminDepartamentosPage {
                                     this.escondeSpinner();
                                     let text = res.error ? res.error : res.message;
                                     this.events.publish('atualiza-departamentos','','');
-                                    this.alertCtrl.create({
-                                          title: text,
-                                          buttons: ['OK']
+                                    this.toastCtrl.create({
+                                          message: text,
+                                          duration: 3000
                                     }).present();
                               });
                         }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { IgrejaProvider } from '../../providers/igreja/igreja';
 import { Storage } from '@ionic/storage';
 import { DetalhesUsuarioComponent } from '../../components/detalhes-usuario/detalhes-usuario';
@@ -29,7 +29,7 @@ export class AdminMembrosPage {
       constructor(public navCtrl: NavController, public navParams: NavParams, 
                   private igrejaProvider: IgrejaProvider, private loadingCtrl: LoadingController,
                   private storage: Storage, private modalCtrl: ModalController, private alertCtrl: AlertController,
-                  private usuarioProvider: UsuarioProvider) {
+                  private usuarioProvider: UsuarioProvider, private toastCtrl: ToastController) {
                   moment.locale('pt-BR');
                   moment.tz.setDefault('America/Manaus');
       }
@@ -89,9 +89,9 @@ export class AdminMembrosPage {
                                                 this.escondeSpinner();
                                                 //alerta de confirmação
                                                 let text = res.error ? res.error : res.message;
-                                                this.alertCtrl.create({
-                                                      title: text,
-                                                      buttons: ['OK']
+                                                this.toastCtrl.create({
+                                                      message: text,
+                                                      duration: 3000
                                                 }).present();
                                                 
                                                 //dá um refresh nas listas

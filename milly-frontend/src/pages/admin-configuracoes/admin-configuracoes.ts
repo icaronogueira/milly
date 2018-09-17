@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, Events, ToastController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { Storage } from '@ionic/storage';
 import { IgrejaProvider } from '../../providers/igreja/igreja';
@@ -34,7 +34,7 @@ export class AdminConfiguracoesPage {
       spinner:any;
       spinnerIsPresenting=false;
       constructor(public _myApp:MyApp,public navCtrl: NavController, public navParams: NavParams,
-                  private storage: Storage, private igrejaProvider: IgrejaProvider,
+                  private storage: Storage, private igrejaProvider: IgrejaProvider, private toastCtrl: ToastController,
                   private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
             
       }
@@ -83,9 +83,9 @@ export class AdminConfiguracoesPage {
                               this.igrejaProvider.atualizaConfiguracoes(this.nomeIgrejaOriginal, this.nomeIgreja, this.senhaAdministrador)
                                     .subscribe(res => {
                                           let text = (res.error) ? res.error : res.message;
-                                          this.alertCtrl.create({
-                                                title: text,
-                                                buttons: ['OK']
+                                          this.toastCtrl.create({
+                                                message: text,
+                                                duration: 3000
                                           }).present();
                                           this.nomeIgrejaOriginal=this.nomeIgreja;
                                           this.storage.set('usuario.igreja', this.nomeIgreja);

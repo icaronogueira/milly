@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import * as EmailValidator from 'email-validator';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { Storage } from '@ionic/storage';
@@ -29,7 +29,7 @@ export class SignIn {
       constructor(public navCtrl: NavController, public navParams: NavParams,
                   private alertCtrl: AlertController, private loadingCtrl: LoadingController,
                   private usuarioProvider: UsuarioProvider, private storage: Storage,
-                  private igrejaProvider:IgrejaProvider ) {
+                  private igrejaProvider:IgrejaProvider, private toastCtrl: ToastController) {
             
       }
 
@@ -129,9 +129,9 @@ export class SignIn {
                               .subscribe(res => {
                                     this.escondeSpinner();
                                     let text = (res.error) ? res.error : res.message;
-                                    this.alertCtrl.create({
-                                          title: text,
-                                          buttons: ['OK']
+                                    this.toastCtrl.create({
+                                          message: text,
+                                          duration: 3000
                                     }).present();
                               });
                   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import moment from 'moment';
@@ -23,7 +23,8 @@ export class DetalhesUsuarioComponent {
       spinnerIsPresenting = false;
 
       constructor(params: NavParams, public viewCtrl: ViewController, private alertCtrl: AlertController,
-                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider) {
+                  private loadingCtrl: LoadingController, private usuarioProvider: UsuarioProvider,
+                  private toastCtrl: ToastController) {
             this.membro=params.get('membro');
             this.permissao=this.membro.permissao;
             this.ativo=this.membro.ativo;
@@ -48,9 +49,9 @@ export class DetalhesUsuarioComponent {
                                                 this.escondeSpinner();
                                                 //alerta de confirmação
                                                 let text = res.error ? res.error : res.message;
-                                                this.alertCtrl.create({
-                                                      title: text,
-                                                      buttons: ['OK']
+                                                this.toastCtrl.create({
+                                                      message: text,
+                                                      duration: 3000
                                                 }).present();
                                                 this.viewCtrl.dismiss();
                                                 //dá um refresh nas listas
@@ -73,9 +74,9 @@ export class DetalhesUsuarioComponent {
                               this.usuarioProvider.setAtivo(this.membro, ativo).subscribe(res => {
                                     this.escondeSpinner();
                                     let text = (res.error) ? res.error : res.message;
-                                    this.alertCtrl.create({
-                                          title: text,
-                                          buttons: ['OK']
+                                    this.toastCtrl.create({
+                                          message: text,
+                                          duration: 3000
                                     }).present();
                                     this.viewCtrl.dismiss();
                               });
@@ -103,9 +104,9 @@ export class DetalhesUsuarioComponent {
                                                 this.escondeSpinner();
                                                 //alerta de confirmação
                                                 let text = res.error ? res.error : `O usuário ${this.membro.nome} foi removido do sistema`;
-                                                this.alertCtrl.create({
-                                                      title: text,
-                                                      buttons: ['OK']
+                                                this.toastCtrl.create({
+                                                      message: text,
+                                                      duration: 3000
                                                 }).present();
                                                 this.viewCtrl.dismiss();
                                           });
