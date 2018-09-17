@@ -22,7 +22,7 @@ export class MyApp {
 
       rootPage: any = 'SignIn';
 
-      pages: Array<{title: string, component: any,icon:any}>;
+      pages: Array<{title: string, component: any,icon:any,departamento:any}>;
 
       eAdministrador: boolean;
 
@@ -37,6 +37,14 @@ export class MyApp {
                         console.log(this.pages);
                    });
 
+                   this.events.subscribe('removeDoMenu', (dep) => {
+                         console.log('dep');
+                         console.log(dep);
+                         console.log('pages');
+                         console.log(this.pages);
+                        this.pages = this.pages.filter(page => !(page.departamento._id==dep.departamento._id));
+                   });
+
                    this.events.subscribe('atualizaMenu', (data, email) => {
                         if (data==='administrador') {
                               this.eAdministrador=true;
@@ -44,15 +52,15 @@ export class MyApp {
                                     this.nome=igreja;
                               });
                               this.pages = [
-                                    { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline' },
-                                    {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
+                                    { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline', departamento: '' },
+                                    {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings', departamento: ''}];
                         }
                         else {
                               this.eAdministrador=false;
                               this.pages = [
-                                    { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
-                                    { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' },
-                                    { title: 'Direção', component: 'DirecaoPage',icon:'ios-people-outline' }
+                                    { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline', departamento: '' },
+                                    { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline', departamento: '' },
+                                    { title: 'Direção', component: 'DirecaoPage',icon:'ios-people-outline', departamento: '' }
                               ];
                         }
                    });
@@ -88,16 +96,16 @@ export class MyApp {
                               this.nome=igreja;
                         });
                         this.pages = [
-                              { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline' },
-                              {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings'}];
+                              { title: 'Página Inicial', component: 'HomeAdministradorPage',icon:'ios-home-outline' , departamento:''},
+                              {title: 'Configurações', component: 'AdminConfiguracoesPage', icon: 'settings', departamento: ''}];
                   }
                   else {
                         this.nome="Usuário qualquer";
                         this.eAdministrador=false;
-                        this.pages = [
-                              { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline' },
-                              { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline' },
-                              { title: 'Direção', component: 'DirecaoPage',icon:'ios-people-outline' }
+                        this.pages = [ 
+                              { title: 'Página Inicial', component: 'Home',icon:'ios-home-outline', departamento: '' },
+                              { title: 'Notificações', component: 'Notification',icon:'ios-notifications-outline', departamento: '' },
+                              { title: 'Direção', component: 'DirecaoPage',icon:'ios-people-outline', departamento: '' }
                         ];
                   }
             });

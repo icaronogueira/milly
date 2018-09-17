@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Events, Navbar } from 'ionic-angular';
 import { DepartamentoProvider } from '../../providers/departamento/departamento';
 import { Storage } from '@ionic/storage';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 /**
  * Generated class for the DepartamentoPage page.
@@ -31,10 +32,11 @@ export class DepartamentoPage {
       spinnerIsPresenting=false;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private departamentoProvider: DepartamentoProvider,
-                  private storage: Storage, private loadingCtrl: LoadingController, private events: Events) {
+                  private storage: Storage, private loadingCtrl: LoadingController, private events: Events,
+                  private usuarioProvider: UsuarioProvider) {
       }
 
-      ionViewDidLoad() {
+      ionViewCanEnter() {
             this.mostraSpinner();
             
             //Ação do back button
@@ -54,7 +56,7 @@ export class DepartamentoPage {
             
             
 
-            //Inicializa nome do departamento
+            //Inicializa departamento
             this.departamento = this.navParams.get('departamento');
             let dataAdicional = this.navParams.get('dataAdicional');
             if (dataAdicional == undefined) {
@@ -70,6 +72,8 @@ export class DepartamentoPage {
                         this.escondeSpinner();
                   });
             }
+            console.log("departamento");
+            console.log(this.departamento);
       }
 
       configurarDepartamento() {

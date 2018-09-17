@@ -13,14 +13,29 @@
             </ion-header>
             <ion-content>
             <ion-list *ngIf="pages">
-                  <ion-item menuClose  *ngFor="let p of pages" (click)="openPage(p)">
-                  <ion-icon *ngIf="p.component!=='DepartamentoPage'" name="{{p.icon}}" item-left></ion-icon>
-                  <ion-avatar *ngIf="p.component==='DepartamentoPage'" item-start>
-                        <img src="{{p.icon}}">
-                  </ion-avatar>
-                  {{p.title}}
-                  <ion-badge color="color1" item-right *ngIf="p.component=='Notification' && numeroNotificacoes>0">{{numeroNotificacoes}}</ion-badge>
-                  </ion-item>
+                  <ion-grid>
+                        <ion-item menuClose  *ngFor="let p of pages" (click)="openPage(p)">
+                              <ion-row>
+                                    <ion-col col-2 *ngIf="p.component!=='DepartamentoPage'">
+                                          <ion-icon  name="{{p.icon}}" item-left></ion-icon>
+                                    </ion-col>
+                                    <ion-col col-2 *ngIf="p.component==='DepartamentoPage'">
+                                          <ion-avatar  item-start>
+                                                <img class="logomenu" src="{{p.icon}}">
+                                          </ion-avatar>
+                                    </ion-col>
+                                    <ion-col>
+                                          <span  [ngClass]="{'maiuscula':p.component==='DepartamentoPage'}">
+                                                {{(p.component==='DepartamentoPage') ?
+                                                (p.title | slice:0:15) + (p.title.length > 15 ? '...' : '') :
+                                                (p.title | slice:0:20) + (p.title.length > 20 ? '...' : '')
+                                                }}
+                                          </span>
+                                          <ion-badge color="color1" item-right *ngIf="p.component=='Notification' && numeroNotificacoes>0">{{numeroNotificacoes}}</ion-badge>
+                                    </ion-col>      
+                              </ion-row>
+                        </ion-item>
+                  </ion-grid>
             </ion-list>
             </ion-content>
             <ion-footer>

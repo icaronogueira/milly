@@ -85,6 +85,13 @@ export class DirecaoPage {
                   });
                   this.storage.set('segue.departamentos', this.departamentosQueSegue);
 
+                  this.events.publish('adicionaNoMenu', {
+                        title: departamento.nome,
+                        component: 'DepartamentoPage',
+                        icon: `http://res.cloudinary.com/nogcloud/image/upload/v${departamento.versaoLogo}/${departamento.idLogo}`,
+                        departamento: departamento
+                  });
+
                   this.notificacaoProvider.criaNotificacao(departamento.diretor._id,
                         `Começou a seguir ${departamento.nome}`,
                         "DepartamentoPage", this.usuario.nome, this.usuario.idImagem,
@@ -100,6 +107,11 @@ export class DirecaoPage {
             this.departamentoProvider.deixarSeguirDepartamento(this.usuario, departamento).subscribe(res => {
                   this.departamentosQueSegue = this.departamentosQueSegue.filter(e => e.departamento !== departamento._id);
                   this.storage.set('segue.departamentos', this.departamentosQueSegue);
+
+                  this.events.publish('removeDoMenu', {
+                        departamento: departamento
+                  });
+
                   console.log(this.departamentosQueSegue);
             });
       }

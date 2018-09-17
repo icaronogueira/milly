@@ -162,8 +162,6 @@ export class Home {
                         //iniciamenu
 
                         this.usuario.segue.forEach(dep => {
-                              console.log("dep que segue");
-                              console.log(dep);
                               this.events.publish('adicionaNoMenu', {
                                     title: dep.departamento.nome,
                                     component: 'DepartamentoPage',

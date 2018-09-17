@@ -42,6 +42,10 @@ export class UsuarioProvider {
             return this.http.get(`${this.url}/usuario/${email}`);
       }
 
+      getDadosUsuarioPorId(id): Observable<any>{
+            return this.http.get(`${this.url}/usuario/${id}`);
+      }
+
       recuperaSenha(email): Observable<any> {
             return this.http.post(this.url+'/esqueceusenha', {
                   email: email
