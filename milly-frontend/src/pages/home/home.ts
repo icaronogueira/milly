@@ -62,7 +62,9 @@ export class Home {
                         
                         
 
-                        console.log("Dados usuario -> " + JSON.stringify(this.usuario));
+                        console.log("Dados usuario");
+                        console.log(this.usuario);
+
                         
                         //CASO = A PERMISSAO AINDA ESTÁ PENDENTE
                         if (this.usuario.permissao === "N") {
@@ -156,6 +158,19 @@ export class Home {
                         this.storage.set('igreja.nome', this.nomeIgreja);
                         this.storage.set('usuario', this.usuario);
                         this.storage.set('usuario.igreja.id', this.usuario.igreja._id);
+
+                        //iniciamenu
+
+                        this.usuario.segue.forEach(dep => {
+                              console.log("dep que segue");
+                              console.log(dep);
+                              this.events.publish('adicionaNoMenu', {
+                                    title: dep.departamento.nome,
+                                    component: 'DepartamentoPage',
+                                    icon: `http://res.cloudinary.com/nogcloud/image/upload/v${dep.departamento.versaoLogo}/${dep.departamento.idLogo}`,
+                                    departamento: dep.departamento
+                              });
+                        });
                        
                         //Atualiza imagem de perfil no menu lateral
                         this.events.publish('atualiza-perfil', this.usuario);

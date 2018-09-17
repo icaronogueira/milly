@@ -13,8 +13,11 @@
             </ion-header>
             <ion-content>
             <ion-list *ngIf="pages">
-                  <ion-item menuClose  *ngFor="let p of pages" (click)="openPage(p.component)">
-                  <ion-icon name="{{p.icon}}" item-left></ion-icon>
+                  <ion-item menuClose  *ngFor="let p of pages" (click)="openPage(p)">
+                  <ion-icon *ngIf="p.component!=='DepartamentoPage'" name="{{p.icon}}" item-left></ion-icon>
+                  <ion-avatar *ngIf="p.component==='DepartamentoPage'" item-start>
+                        <img src="{{p.icon}}">
+                  </ion-avatar>
                   {{p.title}}
                   <ion-badge color="color1" item-right *ngIf="p.component=='Notification' && numeroNotificacoes>0">{{numeroNotificacoes}}</ion-badge>
                   </ion-item>

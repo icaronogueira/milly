@@ -30,6 +30,13 @@ export class MyApp {
                   private storage: Storage, private alertCtrl: AlertController, private events: Events) {
             
                    this.initializeApp();
+
+                   this.events.subscribe('adicionaNoMenu', (obj) => {
+                        this.pages.push(obj);
+                        console.log('adicionou no pages -> ');
+                        console.log(this.pages);
+                   });
+
                    this.events.subscribe('atualizaMenu', (data, email) => {
                         if (data==='administrador') {
                               this.eAdministrador=true;
@@ -101,10 +108,16 @@ export class MyApp {
       openPage(page) {
             // Reset the content nav to have just this page
             // we wouldn't want the back button to show in this scenario
-            if (page==='Home' || page==='HomeAdministradorPage') {
-                  this.nav.setRoot(page);
+            if (page.component==='Home' || page.component==='HomeAdministradorPage') {
+                  this.nav.setRoot(page.component);
             } else {
-                  this.nav.push(page);
+                  if (page.component==='DepartamentoPage') {
+                        this.nav.push(page.component, {
+                              departamento: page.departamento
+                        });
+                  } else {
+                        this.nav.push(page.component);
+                  }
             }
             
       }
