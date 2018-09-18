@@ -46,13 +46,14 @@ exports.loginUsuario = (req, res, next) => {
 
 exports.getUsuario = async( (req, res) => {
       const result = await( Usuario.findOne({'email': req.params.email}, {'senha': 0}).populate('igreja')
-            .populate('segue.departamento'));
+      .populate({path: 'segue.departamento', populate: {path: 'diretor'}})
+      .populate({path: 'segue.departamento', populate: {path: 'diretoria.usuario'}}));
        return res.status(200).json({usuario: result});
  });
 
  exports.getUsuarioPorId = async( (req, res) => {
       const result = await( Usuario.findOne({'_id': req.params.id}, {'senha': 0}).populate('igreja')
-            .populate('segue.departamento'));
+            .populate({path: 'segue.departamento', populate: {path: 'diretor'}, populate: {path: 'diretoria.usuario'}}));
        return res.status(200).json({usuario: result});
  });
 

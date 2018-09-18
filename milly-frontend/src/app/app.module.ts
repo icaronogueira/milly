@@ -15,6 +15,7 @@ import { NotificacaoProvider } from '../providers/notificacao/notificacao';
 import { FormsModule } from '@angular/forms';
 import { DepartamentoProvider } from '../providers/departamento/departamento';
 import { MensagemProvider } from '../providers/mensagem/mensagem';
+import { DatePicker } from '@ionic-native/date-picker';
 
 
 var config = {
@@ -52,7 +53,8 @@ var config = {
     Camera,
     NotificacaoProvider,
     DepartamentoProvider,
-    MensagemProvider
+    MensagemProvider,
+    DatePicker
   ]
 })
 export class AppModule {}

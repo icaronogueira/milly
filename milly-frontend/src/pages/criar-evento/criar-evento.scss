@@ -1,0 +1,82 @@
+page-criar-evento {
+      ion-list-header{
+            .input-wrapper {
+                  height: 35px !important;
+            }
+      }
+      .card{
+            margin:0 !important;
+            margin-bottom: 2px !important;
+            width: 100% !important;
+            background-color: #e8e7e6;
+      }
+      .radio-item {
+            .item-inner {
+                  background-color: #e8e7e6;
+            }
+      }
+      .item-inner {
+            padding-right: 0 !important;
+      }
+      .text-input {
+            margin-right: 0;
+      }
+      .card-content {
+            padding: 2px !important;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+      }
+      .radio-list {
+            width: 100% !important;
+            font-size: 4pt !important;
+      }
+      .radio-item {
+            height: 20px !important;
+            font-size: 10pt !important;
+      }
+      .item-left {
+            padding-left: 0 !important;
+      }
+      .data-font{
+            font-size: 13px !important;
+            width: 100% !important;
+      }
+      img {
+            height: 250px;
+      }
+      .imgBg{
+            height: 100% !important;
+            border-width: 1pt;
+            .icon{
+                @include position(auto,0px,0px,auto);
+                font-size:2rem;
+                color:color($colors,color2);
+                background:color($colors,color1);
+                @include borderRadius(30px);
+            }
+        }
+      textarea{
+            height: 100%;
+            margin-left: 0;
+            margin-bottom: 0;
+      }
+      .col-botoes{
+            .row {
+                  text-align: center !important;
+                  justify-content: center !important;
+            }
+      }
+      .btn-pequeno{
+            width: 150px;
+            height: 25px;
+            background-color: #e8e7e6;
+            .button-inner {
+                  color: black;
+            }
+            margin-top: 3px;
+            margin-bottom: 3px;
+      }
+      .botao-grande {
+            border-radius: 0 !important;
+      }
+}

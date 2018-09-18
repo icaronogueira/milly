@@ -54,8 +54,6 @@ export class DepartamentoPage {
                   this.idUsuario=this.usuario._id;
             });
             
-            
-
             //Inicializa departamento
             this.departamento = this.navParams.get('departamento');
             let dataAdicional = this.navParams.get('dataAdicional');
@@ -108,6 +106,23 @@ export class DepartamentoPage {
       escondeSpinner(){
             this.spinner.dismiss();
             this.spinnerIsPresenting=false;
+      }
+
+      paginaCriarEvento() {
+            this.navCtrl.push('CriarEventoPage');
+      }
+
+      eDiretoria() {
+            let edir = false;
+            if (this.idUsuario === this.idDiretor) {
+                  edir=true;
+            }
+            this.departamento.diretoria.forEach(element => {
+                  if (element.usuario._id === this.idUsuario) {
+                        edir=true;
+                  }
+            });
+            return edir;
       }
 
 

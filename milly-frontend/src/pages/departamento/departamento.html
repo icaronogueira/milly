@@ -20,6 +20,10 @@
 
 
 <ion-content padding>
+
+      <!-- Botão de adicionar evento -->
+      <button *ngIf="eDiretoria()" ion-button block (click)="paginaCriarEvento()">Criar Evento</button>
+
       <ion-fab right bottom *ngIf="idDiretor===idUsuario">
             <button ion-fab color="primary" (click)="configurarDepartamento()">
                   <ion-icon name="settings"></ion-icon>
