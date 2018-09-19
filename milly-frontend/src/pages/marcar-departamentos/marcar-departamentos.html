@@ -1,0 +1,25 @@
+<!--
+  Generated template for the MarcarDepartamentosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Departamentos Participantes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+      <ion-list>
+            <ion-item *ngFor="let departamento of departamentos">
+                  <ion-label>{{departamento.nome}}</ion-label>
+                  <ion-checkbox [checked]="estaNaLista(departamento)" (ionChange)="adiciona(departamento)"></ion-checkbox>
+            </ion-item>
+      </ion-list>
+
+</ion-content>

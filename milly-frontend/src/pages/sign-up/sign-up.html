@@ -16,12 +16,12 @@
             <ion-input type="email" [(ngModel)]="email" placeholder="Email"></ion-input>
             </ion-item>
             <ion-item>
-            <ion-label>Igreja</ion-label>
-            <ion-icon name="ios-pin" item-left></ion-icon>
-            <ion-select *ngIf="igrejas" placeholder="Selecione sua igreja" [(ngModel)]="igreja" >
-                  <ion-option *ngFor="let igreja of igrejas" [value]="igreja.nome" >
-                        {{igreja.nome}}</ion-option>
-            </ion-select>
+                  <ion-label>Igreja</ion-label>
+                  <ion-icon name="ios-pin" item-left></ion-icon>
+                  <ion-select *ngIf="igrejas" placeholder="Selecione sua igreja" [(ngModel)]="igreja" >
+                        <ion-option *ngFor="let igreja of igrejas" [value]="igreja.nome" >
+                              {{igreja.nome}}</ion-option>
+                  </ion-select>
 
             </ion-item>
             <ion-item>

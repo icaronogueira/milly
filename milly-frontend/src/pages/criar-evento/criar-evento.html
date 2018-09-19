@@ -68,29 +68,26 @@
             <ion-row style="margin-top: 10px">
                   <ion-col class="col-botoes">
                         <ion-row>
-                              <button class="btn-pequeno" ion-button round (click)="adicionarImagens()">Adicionar Imagens</button>
+                              <button class="btn-pequeno" ion-button round (click)="adicionarImagens()">Adicionar Imagens <span class="contador" *ngIf="imagens.length>0">({{imagens.length}})</span></button>
                         </ion-row>
                         <ion-row>
-                              <button class="btn-pequeno" ion-button round (click)="adicionarVideos()">Adicionar Vídeos</button>
+                              <button class="btn-pequeno" ion-button round (click)="adicionarVideos()">Adicionar Vídeos <span class="contador" *ngIf="videos.length>0">({{videos.length}})</span></button>
                         </ion-row>
                         <ion-row>
-                              <button class="btn-pequeno" ion-button round (click)="adicionarPagamento()">Pagamento</button>
+                              <button class="btn-pequeno" ion-button round (click)="adicionarPagamento()">Transferências <span class="contador" *ngIf="contas.length>0">({{contas.length}})</span> </button>
                         </ion-row>
                   </ion-col>
                   <ion-col>
                         <ion-row>
-                              <button class="btn-pequeno" ion-button round (click)="adicionarLocalizacao()">Localização</button>
+                              <button class="btn-pequeno" ion-button round (click)="adicionarLocalizacao()">Localização </button>
                         </ion-row>
                         <ion-row>
-                              <button class="btn-pequeno" ion-button round (click)="marcarDepartamentos()">Marcar Departamentos</button>
+                              <button class="btn-pequeno" ion-button round (click)="marcarDepartamentos()">Departamentos<span class="contador" *ngIf="departamentos.length>0">({{departamentos.length}})</span></button>
                         </ion-row>
                         <ion-row>
-                              <button class="btn-pequeno" ion-button round (click)="pedirDoacoes()">Pedir Doações</button>
+                              <button class="btn-pequeno" ion-button round (click)="pedirDoacoes()">Pedir Doações <span class="contador" *ngIf="doacoes.length>0">({{doacoes.length}})</span> </button>
                         </ion-row>
                   </ion-col>
-            </ion-row>
-            <ion-row>
-
             </ion-row>
       </ion-grid>
 

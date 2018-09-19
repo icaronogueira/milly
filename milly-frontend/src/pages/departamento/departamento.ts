@@ -109,7 +109,7 @@ export class DepartamentoPage {
       }
 
       paginaCriarEvento() {
-            this.navCtrl.push('CriarEventoPage');
+            this.navCtrl.push('CriarEventoPage', {departamento: this.departamento});
       }
 
       eDiretoria() {

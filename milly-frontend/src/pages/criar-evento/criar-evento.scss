@@ -1,8 +1,14 @@
 page-criar-evento {
+      .item-card-inferior {
+            background: transparent;
+      }
       ion-list-header{
             .input-wrapper {
                   height: 35px !important;
             }
+      }
+      .contador {
+            color: red !important;
       }
       .card{
             margin:0 !important;

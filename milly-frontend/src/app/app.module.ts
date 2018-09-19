@@ -17,7 +17,6 @@ import { DepartamentoProvider } from '../providers/departamento/departamento';
 import { MensagemProvider } from '../providers/mensagem/mensagem';
 import { DatePicker } from '@ionic-native/date-picker';
 
-
 var config = {
       backButtonText: '',
       iconMode: 'ios',

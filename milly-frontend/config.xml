@@ -90,4 +90,9 @@
     <plugin name="cordova-plugin-telerik-imagepicker" spec="^2.2.2">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="your usage message" />
     </plugin>
+    <plugin name="cordova-plugin-googlemaps" spec="^2.4.4">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAIcmBjvlyYPYBN3VzJaOZNBEvgbNI_hKw" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
 </widget>
