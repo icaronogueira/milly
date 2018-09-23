@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { DepartamentoProvider } from '../providers/departamento/departamento';
 import { MensagemProvider } from '../providers/mensagem/mensagem';
 import { DatePicker } from '@ionic-native/date-picker';
-
+import { VideoPlayer } from '@ionic-native/video-player';
+import { StreamingMedia } from '@ionic-native/streaming-media';
 var config = {
       backButtonText: '',
       iconMode: 'ios',
@@ -53,7 +54,10 @@ var config = {
     NotificacaoProvider,
     DepartamentoProvider,
     MensagemProvider,
-    DatePicker
+    DatePicker,
+    VideoPlayer,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    StreamingMedia
   ]
 })
 export class AppModule {}

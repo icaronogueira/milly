@@ -95,4 +95,7 @@
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
+    <plugin name="com.moust.cordova.videoplayer" spec="https://github.com/moust/cordova-plugin-videoplayer.git" />
+    <plugin name="cordova-plugin-streaming" spec="^1.4.0" />
+    <plugin name="cordova-plugin-streaming-media" spec="https://github.com/nchutchind/cordova-plugin-streaming-media" />
 </widget>

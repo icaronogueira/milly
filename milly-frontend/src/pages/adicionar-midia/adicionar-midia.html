@@ -1,0 +1,36 @@
+<!--
+  Generated template for the AdicionarMidiaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Adicionar Mídia</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+      <button ion-button block (click)="carregarImagem()">Adicionar Imagem</button>
+      <!-- <button ion-button block (click)="carregarVideo()">Adicionar Vídeo</button> -->
+      <!-- mostra imagens -->
+      <ion-list>
+            <ion-item *ngFor="let item of lista; let i=index" class="foto">
+                        <div class="imgBg"  [ngStyle]="{ 'background-image': 'url(' + item + ')'}">
+                                    <ion-icon item-right large name="md-close-circle" (click)="remover(item)"></ion-icon>
+                  </div>
+            </ion-item>
+      </ion-list>
+      <!-- mostra videos -->
+      <!-- <ion-list>
+            <ion-item *ngFor="let item of listaVideo; let i=index">
+                  <button ion-button (click)="play(item)">
+                        <ion-icon item-start name="play"></ion-icon>
+                        {{item}}}</button>
+            </ion-item>
+      </ion-list> -->
+
+</ion-content>

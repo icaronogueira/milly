@@ -6,6 +6,13 @@ page-criar-evento {
             .input-wrapper {
                   height: 35px !important;
             }
+            height: 30px;
+            .item-inner{
+                  height: 30px;
+                  .input-wrapper {
+                        height: 30px;
+                  }
+            }
       }
       .contador {
             color: red !important;
@@ -73,14 +80,15 @@ page-criar-evento {
             }
       }
       .btn-pequeno{
-            width: 150px;
+            width: 130px;
+            border-radius: 10px;
             height: 25px;
             background-color: #e8e7e6;
             .button-inner {
                   color: black;
             }
-            margin-top: 3px;
-            margin-bottom: 3px;
+            margin-top: 5px;
+            margin-bottom: 5px;
       }
       .botao-grande {
             border-radius: 0 !important;

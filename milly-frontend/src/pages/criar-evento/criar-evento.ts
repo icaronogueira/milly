@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { CameraOptions, Camera } from '@ionic-native/camera';
 import {GoogleMaps,GoogleMap,GoogleMapsEvent,GoogleMapOptions,CameraPosition,
       MarkerOptions,Marker} from '@ionic-native/google-maps';
 import { Storage } from '@ionic/storage';
+import { TemplateParseError } from '@angular/compiler';
 
 /**
  * Generated class for the CriarEventoPage page.
@@ -29,9 +30,8 @@ export class CriarEventoPage {
       titulo: string;
       descricao: string;
       cartaz: string;
-      imagens=[];
-      videos=[];
       contas=[];
+      midias=[];
       doacoes=[];
       departamentos=[];
       banco: string;
@@ -41,7 +41,7 @@ export class CriarEventoPage {
       valor: number;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private datePicker: DatePicker,
-                  private camera: Camera, private events: Events, private storage: Storage) {
+                  private camera: Camera, private events: Events, private storage: Storage, private alertCtrl: AlertController) {
                   
                   this.events.subscribe('contas-transferencia', (contas) => {
                         this.contas=contas;
@@ -58,49 +58,26 @@ export class CriarEventoPage {
                         console.log("departamentos participantes");
                         console.log(this.departamentos);
                   });
+                  this.events.subscribe('adicionar-midia', (midias) => {
+                        this.midias=midias;
+                        console.log("Midias");
+                        console.log(this.midias);
+                  });
       }
 
       ionViewCanEnter() {
       }
 
-      adicionarImagens(){
-            const options: CameraOptions = {
-                  quality: 80,
-                  destinationType: this.camera.DestinationType.DATA_URL,
-                  encodingType: this.camera.EncodingType.JPEG,
-                  mediaType: this.camera.MediaType.PICTURE,
-                  sourceType:  this.camera.PictureSourceType.PHOTOLIBRARY,
-                  targetWidth: 300,
-                  allowEdit: true,
-                  cameraDirection: this.camera.Direction.BACK,
-                  targetHeight: 300
+      criarEvento () {
+            if (!this.temErro()) {
+
             }
-            
-            this.camera.getPicture(options).then((imageData) => {
-                  let base64Image = 'data:image/jpeg;base64,' + imageData;
-                  console.log(base64Image);
-                  this.imagens.push(base64Image);
-            }, (err) => {
-                  console.log(err);
-            });
       }
 
-      adicionarVideos() {
-            const options: CameraOptions = {
-                  quality: 80,
-                  destinationType: this.camera.DestinationType.DATA_URL,
-                  mediaType: this.camera.MediaType.VIDEO,
-                  sourceType:  this.camera.PictureSourceType.PHOTOLIBRARY,
-            }
-            
-            this.camera.getPicture(options).then((imageData) => {
-                  // let base64Image = 'data:image/jpeg;base64,' + imageData;
-                  // console.log(base64Image);
-                  // this.cartaz = base64Image;
-                  console.log(imageData);
-                  this.videos.push(imageData);
-            }, (err) => {
-                  console.log(err);
+
+      adicionarImagens(){
+            this.navCtrl.push("AdicionarMidiaPage", {
+                  lista: this.midias
             });
       }
 
@@ -146,7 +123,7 @@ export class CriarEventoPage {
 
       selecionaData() {
             this.datePicker.show({
-                  date: new Date(),
+                  date: new Date().getTimezoneOffset(),
                   mode: 'date'
             }).then(
                   date => {
@@ -159,7 +136,7 @@ export class CriarEventoPage {
 
       selecionaHora() {
             this.datePicker.show({
-                  date: new Date(),
+                  date: new Date().getTimezoneOffset(),
                   mode: 'time'
             }).then(
                   date => {
@@ -196,6 +173,46 @@ export class CriarEventoPage {
             }, (err) => {
                   console.log(err);
             });
+      }
+
+      temErro() {
+            let erro=false;
+            let mensagem = '';
+            let today = new Date().getTimezoneOffset();
+            console.log('today');
+            console.log(today);
+            console.log("data");
+            console.log(this.data);
+            console.log("horario");
+            console.log(this.hora);
+            // if (! (this.data >= today)) {
+            //       console.log('this.data');
+            //       console.log(this.data);
+            //       erro=true;
+            //       mensagem='Data anterior à de hoje.';
+            // }
+            if (this.data==='' || this.data==undefined) {
+                  erro=true;
+                  mensagem='Data não preenchida.';
+            }
+            
+            if (this.hora==='' || this.hora==undefined) {
+                  erro=true;
+                  mensagem='Horário não preenchido.';
+            }
+            if (this.titulo==='' || this.titulo==undefined) {
+                  erro=true;
+                  mensagem='Preencha o título do evento.';
+            }
+
+
+            if (erro) {
+                  this.alertCtrl.create({
+                        title: mensagem,
+                        buttons: ['OK']
+                  }).present();
+            }
+            return erro;
       }
 
 }
