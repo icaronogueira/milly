@@ -66,6 +66,7 @@ page-criar-evento {
                 color:color($colors,color2);
                 background:color($colors,color1);
                 @include borderRadius(30px);
+                margin-right: 4px;
             }
         }
       textarea{

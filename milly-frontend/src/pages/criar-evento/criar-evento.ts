@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController, LoadingController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { CameraOptions, Camera } from '@ionic-native/camera';
 import {GoogleMaps,GoogleMap,GoogleMapsEvent,GoogleMapOptions,CameraPosition,
       MarkerOptions,Marker} from '@ionic-native/google-maps';
 import { Storage } from '@ionic/storage';
-import { TemplateParseError } from '@angular/compiler';
+import moment from 'moment-timezone';
+import { EventoProvider } from '../../providers/evento/evento';
+
 
 /**
  * Generated class for the CriarEventoPage page.
@@ -20,13 +22,16 @@ import { TemplateParseError } from '@angular/compiler';
   templateUrl: 'criar-evento.html',
 })
 export class CriarEventoPage {
+      spinner:any;
+      spinnerIsPresenting=false;
+
       departamento: any;
       map: GoogleMap;
       data: any;
       dataMostra: string="";
       hora: any;
       horaMostra: string ="";
-      eventoPara: string;
+      eventoPara: string='todos';
       titulo: string;
       descricao: string;
       cartaz: string;
@@ -36,41 +41,57 @@ export class CriarEventoPage {
       departamentos=[];
       banco: string;
       agencia: string;
-      conta: string;
       titular: string;
       valor: number;
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private datePicker: DatePicker,
-                  private camera: Camera, private events: Events, private storage: Storage, private alertCtrl: AlertController) {
+                  private camera: Camera, private events: Events, private storage: Storage, private alertCtrl: AlertController,
+                  private eventoProvider: EventoProvider, private loadingCtrl: LoadingController) {
+                  moment.locale('pt-BR');
+                  moment.tz.setDefault('America/Manaus');
                   
                   this.events.subscribe('contas-transferencia', (contas) => {
                         this.contas=contas;
-                        console.log("contas para transferencia");
-                        console.log(this.contas);
                   });
                   this.events.subscribe('pedidos-doacoes', (doacoes) => {
                         this.doacoes=doacoes;
-                        console.log("pedidoa doacoes");
-                        console.log(this.doacoes);
                   });
                   this.events.subscribe('departamentos-participantes', (departamentos) => {
                         this.departamentos=departamentos;
-                        console.log("departamentos participantes");
-                        console.log(this.departamentos);
                   });
                   this.events.subscribe('adicionar-midia', (midias) => {
                         this.midias=midias;
-                        console.log("Midias");
-                        console.log(this.midias);
                   });
       }
 
       ionViewCanEnter() {
+            this.cartaz='../../assets/img/adicionarcartaz.png';
+            this.departamento=this.navParams.get('departamento');
       }
 
       criarEvento () {
-            if (!this.temErro()) {
 
+            
+
+            if (!this.temErro()) {
+                  this.mostraSpinner();
+                  this.eventoProvider.criaEvento(this.departamento._id, this.eventoPara, this.cartaz, this.titulo,
+                        this.data, this.hora, this.descricao, this.contas, this.departamentos, this.doacoes)
+                        .subscribe(res => {
+                              console.log("resposta ao criar evento");
+                              console.log(res);
+
+                              if (this.midias.length>0) {
+                                    this.midias.forEach(midia => {
+                                          this.eventoProvider.adicionaImagem(res.evento._id, midia)
+                                                .subscribe(res => {
+                                                      console.log(res);
+                                                });
+                                    });
+                              }
+                              this.escondeSpinner();
+                        
+                        });
             }
       }
 
@@ -104,7 +125,7 @@ export class CriarEventoPage {
       }
 
       marcarDepartamentos(){
-            this.departamento=this.navParams.get('departamento');
+           
             this.storage.get('usuario.igreja.id').then(res => {
                   this.navCtrl.push("MarcarDepartamentosPage",{
                         departamento: this.departamento,
@@ -123,7 +144,7 @@ export class CriarEventoPage {
 
       selecionaData() {
             this.datePicker.show({
-                  date: new Date().getTimezoneOffset(),
+                  date: new Date(),
                   mode: 'date'
             }).then(
                   date => {
@@ -136,11 +157,11 @@ export class CriarEventoPage {
 
       selecionaHora() {
             this.datePicker.show({
-                  date: new Date().getTimezoneOffset(),
+                  date: new Date(),
                   mode: 'time'
             }).then(
                   date => {
-                        this.hora = date;
+                        this.hora = moment(date).local().format("HH:mm");
                         this.horaMostra=date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', hour12:false});
                   },
                   err => console.log(err)
@@ -155,15 +176,13 @@ export class CriarEventoPage {
       abrirCartaz(){
             
             const options: CameraOptions = {
-                  quality: 80,
+                  quality: 50,
                   destinationType: this.camera.DestinationType.DATA_URL,
                   encodingType: this.camera.EncodingType.JPEG,
                   mediaType: this.camera.MediaType.PICTURE,
                   sourceType:  this.camera.PictureSourceType.PHOTOLIBRARY,
-                  targetWidth: 300,
                   allowEdit: true,
                   cameraDirection: this.camera.Direction.BACK,
-                  targetHeight: 300
             }
             
             this.camera.getPicture(options).then((imageData) => {
@@ -178,19 +197,6 @@ export class CriarEventoPage {
       temErro() {
             let erro=false;
             let mensagem = '';
-            let today = new Date().getTimezoneOffset();
-            console.log('today');
-            console.log(today);
-            console.log("data");
-            console.log(this.data);
-            console.log("horario");
-            console.log(this.hora);
-            // if (! (this.data >= today)) {
-            //       console.log('this.data');
-            //       console.log(this.data);
-            //       erro=true;
-            //       mensagem='Data anterior à de hoje.';
-            // }
             if (this.data==='' || this.data==undefined) {
                   erro=true;
                   mensagem='Data não preenchida.';
@@ -215,4 +221,18 @@ export class CriarEventoPage {
             return erro;
       }
 
+      mostraSpinner(){
+            this.spinner = this.loadingCtrl.create({
+                  spinner: 'crescent'
+            });
+            if (!this.spinnerIsPresenting) {
+                  this.spinnerIsPresenting=true;
+                  this.spinner.present();
+            }    
+      }
+
+      escondeSpinner(){
+            this.spinner.dismiss();
+            this.spinnerIsPresenting=false;
+      }
 }

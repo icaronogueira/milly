@@ -53,6 +53,7 @@ const usuarios   = require("./routes/usuariosRoute");
 const departamentos   = require("./routes/departamentosRoute");
 const notificacoes = require("./routes/notificacoesRoute");
 const mensagens = require("./routes/mensagensRoute");
+const eventos = require("./routes/eventosRoute");
 
 
 app.use('', igrejas);
@@ -60,6 +61,7 @@ app.use('', usuarios);
 app.use('', departamentos);
 app.use('', notificacoes);
 app.use('', mensagens);
+app.use('', eventos);
 
 
 

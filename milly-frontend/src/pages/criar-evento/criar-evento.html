@@ -34,18 +34,16 @@
                   <ion-col style="height: 250px; padding:0">
                         <div class="imgBg"  [ngStyle]="{ 'background-image': 'url(' + cartaz + ')'}">
                                     <ion-icon name="ios-folder-open" (click)="abrirCartaz()"></ion-icon>
-                                    <p>Adicionar Cartaz...</p>
                         </div>
                   </ion-col>
-                  <ion-col style="height: 250px">
-                        <!-- Colocar formulario aqui -->
-                        <ion-row style="height: 50px">
-                              <!-- Título -->
-                              <ion-item class=item-left>
-                                    <ion-input [(ngModel)]="titulo" placeholder="Título" type="text"></ion-input>
-                              </ion-item>
-                        </ion-row>
-                        <ion-row style="height: 50px">
+            </ion-row>
+            <ion-row>
+                  <!-- Título -->
+                  <ion-item class=item-left>
+                        <ion-input [(ngModel)]="titulo" placeholder="Título" type="text"></ion-input>
+                  </ion-item>
+            </ion-row>
+            <ion-row style="height: 50px">
                               <ion-col col-7 style="padding-left:0">
                                     <ion-item class=item-left>
                                           <ion-input [(ngModel)]="dataMostra" placeholder="Data" class="data-font" readonly="true" type="text" (focus)="selecionaData()"></ion-input>
@@ -56,14 +54,12 @@
                                           <ion-input [(ngModel)]="horaMostra" class="data-font" placeholder="Horário" readonly="true" type="text" (focus)="selecionaHora()"></ion-input>
                                     </ion-item>
                               </ion-col>
-                        </ion-row>
-                        <ion-row style="height: 150px">
-                              <!-- Descricao -->
-                              <ion-item class=item-left>
-                                    <ion-textarea [(ngModel)]="descricao" placeholder="Descrição..." class="data-font"></ion-textarea>
-                              </ion-item>
-                        </ion-row>
-                  </ion-col>
+            </ion-row>
+            <ion-row style="height: 150px">
+                  <!-- Descricao -->
+                  <ion-item class=item-left>
+                        <ion-textarea [(ngModel)]="descricao" placeholder="Descrição..." class="data-font"></ion-textarea>
+                  </ion-item>
             </ion-row>
             <ion-row style="margin-top: 10px">
                   <ion-col class="col-botoes">

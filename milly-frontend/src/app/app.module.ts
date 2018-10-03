@@ -18,6 +18,7 @@ import { MensagemProvider } from '../providers/mensagem/mensagem';
 import { DatePicker } from '@ionic-native/date-picker';
 import { VideoPlayer } from '@ionic-native/video-player';
 import { StreamingMedia } from '@ionic-native/streaming-media';
+import { EventoProvider } from '../providers/evento/evento';
 var config = {
       backButtonText: '',
       iconMode: 'ios',
@@ -57,7 +58,8 @@ var config = {
     DatePicker,
     VideoPlayer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    StreamingMedia
+    StreamingMedia,
+    EventoProvider
   ]
 })
 export class AppModule {}

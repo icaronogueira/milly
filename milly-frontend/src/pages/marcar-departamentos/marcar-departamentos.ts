@@ -37,14 +37,18 @@ export class MarcarDepartamentosPage {
             this.idIgreja = this.navParams.get('idIgreja');
             this.lista = this.navParams.get('lista');
 
-            this.departamentoProvider.getDepartamentos(this.idIgreja).subscribe(res => this.departamentos=res.departamentos);
+            this.departamentoProvider.getDepartamentos(this.idIgreja).subscribe(res => {
+                  this.departamentos=res.departamentos;
+                  this.departamentos = this.departamentos.filter(element => element._id != this.departamento._id);
+            });
+            //filtrar departamentosl
       }
 
       adiciona(departamento) {
-            if (this.lista.some(l => l._id===departamento._id)) {
-                  this.lista = this.lista.filter(item => item._id!==departamento._id);
+            if (this.lista.some(l => l===departamento._id)) {
+                  this.lista = this.lista.filter(item => item!==departamento._id);
             } else {
-                  this.lista.push(departamento);
+                  this.lista.push(departamento._id);
             }
             console.log(this.lista);
       }
@@ -52,7 +56,7 @@ export class MarcarDepartamentosPage {
       estaNaLista(departamento) {
             let esta=false;
             this.lista.forEach(element => {
-                  if (element._id===departamento._id) {
+                  if (element===departamento._id) {
                         esta=true;
                   }
             });

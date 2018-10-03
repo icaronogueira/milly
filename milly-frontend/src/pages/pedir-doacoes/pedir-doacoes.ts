@@ -38,7 +38,7 @@ export class PedirDoacoesPage {
                   quantidade: this.quantidade
             });
             this.item="";
-            this.quantidade=undefined;
+            this.quantidade=null;
       }
 
       remover(i){

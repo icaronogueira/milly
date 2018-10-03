@@ -33,19 +33,18 @@ export class AdicionarMidiaPage {
 
       carregarImagem(){
             const options: CameraOptions = {
-                  quality: 80,
+                  quality: 40,
                   destinationType: this.camera.DestinationType.DATA_URL,
                   encodingType: this.camera.EncodingType.JPEG,
                   mediaType: this.camera.MediaType.PICTURE,
                   sourceType:  this.camera.PictureSourceType.PHOTOLIBRARY,
-                  // targetWidth: 300,
-                  cameraDirection: this.camera.Direction.BACK
-                  // targetHeight: 300
+                  // targetWidth: 640,
+                  cameraDirection: this.camera.Direction.BACK,
+                  // targetHeight: 480
             }
             
             this.camera.getPicture(options).then((imageData) => {
                   let base64Image = 'data:image/jpeg;base64,' + imageData;
-                  console.log(base64Image);
                   this.lista.push(base64Image);
             }, (err) => {
                   console.log(err);
