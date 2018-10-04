@@ -7,7 +7,7 @@ const eventosSchema = mongoose.Schema({
       versaoCartaz: {type: String, required: true, default: '1537879211'},
       titulo: {type: String, required: true},
       data: {type: Date},
-      horario: {type: Date},
+      horario: {type: String},
       descricao: {type: String},
       imagens: [{
             idImagem:     {type: String},

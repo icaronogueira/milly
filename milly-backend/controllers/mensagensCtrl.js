@@ -1,14 +1,6 @@
-const passport  = require('passport');
 const Usuario   = require('../models/usuario');
 const Mensagem = require('../models/mensagem');
 const Departamento = require('../models/departamentos');
-const Igreja = require('../models/igreja');
-const async = require('asyncawait/async');
-const waterfall = require('async-waterfall');
-const await = require('asyncawait/await');
-const cloudinary    = require("cloudinary");
-const nodemailer   = require("nodemailer");
-const crypto       = require("crypto");
 
 //enivar texto, tipoDestinatario, paraDepartamento, igreja (id)
 exports.enviaMensagem = (req, res, next) => {   

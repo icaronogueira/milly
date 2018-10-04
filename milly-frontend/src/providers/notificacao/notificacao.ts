@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class NotificacaoProvider {
 
-      url: string = "http://192.168.43.194:3000";
+      url: string = "http://192.168.0.7:3000";
 
       constructor(public http: HttpClient) {
       }

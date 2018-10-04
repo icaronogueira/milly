@@ -1,50 +1,61 @@
 const passport  = require('passport');
-const Usuario   = require('../models/usuario');
-const Departamento = require('../models/departamentos');
 const Evento = require('../models/evento');
 const mongoose = require('mongoose');
 const async = require('asyncawait/async');
-const waterfall = require('async-waterfall');
 const await = require('asyncawait/await');
 const cloudinary    = require("cloudinary");
-const nodemailer   = require("nodemailer");
-const crypto       = require("crypto");
+const waterfall = require('async-waterfall');
 
-exports.cadastraEvento = (req, res, next) => { 
-      console.log(req.body);
-      const evento = new Evento();
-      evento.departamento = req.body.departamento;
-      evento.para = req.body.para;
-      evento.titulo = req.body.titulo;
-      evento.data = req.body.data;
-      evento.horario = req.body.horario;
-      evento.descricao = req.body.descricao;
-      evento.conta = req.body.contas;
-      req.body.departamentosParticipantes.forEach(element => {
-            evento.departamentosParticipantes.push({
-                  departamento: element
-            });
-      });
-      // evento.departamentosParticipantes = req.body.departamentosParticipantes;
-      evento.doacoes = req.body.doacoes;
+exports.cadastraEvento = (req, res, next) => {
+      console.log('entrou no cadastra evento');
+      waterfall([
+            (done) => {
+                  console.log("primeiro metodo waterfall");
+                  const evento = new Evento();
+                  evento.departamento = req.body.departamento;
+                  evento.para = req.body.para;
+                  evento.titulo = req.body.titulo;
+                  evento.data = req.body.data;
+                  evento.horario = req.body.horario;
+                  evento.descricao = req.body.descricao ? req.body.descricao : '';
+                  evento.conta = req.body.contas ? req.body.contas : null;
+                  if (req.body.departamentosParticipantes) {
+                        req.body.departamentosParticipantes.forEach(element => {
+                              evento.departamentosParticipantes.push({
+                                    departamento: element
+                              });
+                        });      
+                  }
+                  
+                  // evento.departamentosParticipantes = req.body.departamentosParticipantes;
+                  evento.doacoes = req.body.doacoes ? req.body.doacoes : null;
+                  evento.save((err, result) => {
+                        let idevento = result._id;
+                        done(err, idevento);
+                  });              
+            },
+            (idevento, done) => {
+                  console.log("segundo metodo waterfall");
+                  console.log("evento");
+                  console.log(idevento);
+                  cloudinary.uploader.upload(req.body.cartaz, (resultImagem) => {
+                        const savedData = async(()=>{
+                              await (Evento.update({
+                                    '_id': idevento
+                              }, {
+                                    "idCartaz": resultImagem.public_id,
+                                    "versaoCartaz": resultImagem.version
+                              }));
+                        });
+                        savedData().then(result3 => {
+                              return res.status(200).json({message: 'Evento criado.', evento: idevento});
+                        });
+                  });
+            }
+      ], (err) => {
+            if (err) {return res.status(500).json({error: err});} 
+      })
       
-      evento.save((err, result) => {
-            if (err) return res.status(500).json({error: err});
-            cloudinary.uploader.upload(req.body.cartaz, (resultImagem) => {
-                  const savedData = async(()=>{
-                        await (Evento.update({
-                              '_id': result._id
-                        }, {
-                              "idCartaz": resultImagem.public_id,
-                              "versaoCartaz": resultImagem.version
-                        }));
-                  });
-                  savedData().then(result3 => {
-                        return res.status(200).json({message: 'Evento criado.', evento: result});
-                  });
-            });
-      });
-      // return res.status(200).json({message: 'Notificação criada.', notificacao: notificacao})           
 }
 
 exports.adicionaImagem = (req, res, next) => { 

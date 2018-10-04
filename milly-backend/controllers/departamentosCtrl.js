@@ -1,13 +1,9 @@
-const passport  = require('passport');
 const Usuario   = require('../models/usuario');
 const Departamento = require('../models/departamentos');
 const mongoose = require('mongoose');
 const async = require('asyncawait/async');
-const waterfall = require('async-waterfall');
 const await = require('asyncawait/await');
 const cloudinary    = require("cloudinary");
-const nodemailer   = require("nodemailer");
-const crypto       = require("crypto");
 
 exports.criaDepartamento = (req, res, next) => { 
       const departamento =  {

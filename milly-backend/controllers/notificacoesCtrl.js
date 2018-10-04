@@ -1,12 +1,4 @@
-const passport  = require('passport');
-const Usuario   = require('../models/usuario');
 const Notificacao = require('../models/notificacao');
-const async = require('asyncawait/async');
-const waterfall = require('async-waterfall');
-const await = require('asyncawait/await');
-const cloudinary    = require("cloudinary");
-const nodemailer   = require("nodemailer");
-const crypto       = require("crypto");
 
 exports.criaNotificacao = (req, res, next) => {   
       console.log(req.body);

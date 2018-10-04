@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { CameraOptions, Camera } from '@ionic-native/camera';
 import {GoogleMaps,GoogleMap,GoogleMapsEvent,GoogleMapOptions,CameraPosition,
@@ -46,7 +46,7 @@ export class CriarEventoPage {
 
       constructor(public navCtrl: NavController, public navParams: NavParams, private datePicker: DatePicker,
                   private camera: Camera, private events: Events, private storage: Storage, private alertCtrl: AlertController,
-                  private eventoProvider: EventoProvider, private loadingCtrl: LoadingController) {
+                  private eventoProvider: EventoProvider, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
                   moment.locale('pt-BR');
                   moment.tz.setDefault('America/Manaus');
                   
@@ -65,31 +65,54 @@ export class CriarEventoPage {
       }
 
       ionViewCanEnter() {
-            this.cartaz='../../assets/img/adicionarcartaz.png';
+            if (!this.cartaz) {
+                  this.cartaz='../../assets/img/adicionarcartaz.png';
+            }
             this.departamento=this.navParams.get('departamento');
       }
 
       criarEvento () {
 
-            
-
             if (!this.temErro()) {
                   this.mostraSpinner();
                   this.eventoProvider.criaEvento(this.departamento._id, this.eventoPara, this.cartaz, this.titulo,
-                        this.data, this.hora, this.descricao, this.contas, this.departamentos, this.doacoes)
+                        this.data, this.horaMostra, this.descricao, this.contas, this.departamentos, this.doacoes)
                         .subscribe(res => {
-                              console.log("resposta ao criar evento");
-                              console.log(res);
-
-                              if (this.midias.length>0) {
-                                    this.midias.forEach(midia => {
-                                          this.eventoProvider.adicionaImagem(res.evento._id, midia)
-                                                .subscribe(res => {
-                                                      console.log(res);
-                                                });
-                                    });
+                              if (res.error) {
+                                    this.toastCtrl.create({
+                                          message: "Erro ao adicionar evento",
+                                          duration: 3000,
+                                    }).present();
+                              } else {
+                                    let midiasAdicionadas=0;
+                                    if (this.midias.length>0) {
+                                          this.midias.forEach(midia => {
+                                                this.eventoProvider.adicionaImagem(res.evento, midia)
+                                                      .subscribe(res2 => {
+                                                            if (!res.error) {
+                                                                  midiasAdicionadas=midiasAdicionadas+1;
+                                                                  if (midiasAdicionadas==this.midias.length) {
+                                                                        this.escondeSpinner();
+                                                                        this.toastCtrl.create({
+                                                                              message: "Evento Adicionado",
+                                                                              duration: 3000,
+                                                                        }).present();
+                                                                        //retorna a tela do evento
+                                                                        this.navCtrl.pop();
+                                                                  }
+                                                            }
+                                                      });
+                                          });
+                                          if (midiasAdicionadas<this.midias.length) {
+                                                this.toastCtrl.create({
+                                                      message: "Erro ao adicionar evento",
+                                                      duration: 3000,
+                                                }).present();
+                                          }
+                                    }
+                              
                               }
-                              this.escondeSpinner();
+                              
                         
                         });
             }
@@ -161,7 +184,7 @@ export class CriarEventoPage {
                   mode: 'time'
             }).then(
                   date => {
-                        this.hora = moment(date).local().format("HH:mm");
+                        this.hora = moment(date).local();
                         this.horaMostra=date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', hour12:false});
                   },
                   err => console.log(err)
@@ -182,12 +205,12 @@ export class CriarEventoPage {
                   mediaType: this.camera.MediaType.PICTURE,
                   sourceType:  this.camera.PictureSourceType.PHOTOLIBRARY,
                   allowEdit: true,
+                  targetWidth: 300,
                   cameraDirection: this.camera.Direction.BACK,
             }
             
             this.camera.getPicture(options).then((imageData) => {
                   let base64Image = 'data:image/jpeg;base64,' + imageData;
-                  console.log(base64Image);
                   this.cartaz = base64Image;
             }, (err) => {
                   console.log(err);
